@@ -10,7 +10,7 @@ python = "^3.10"
 pandas = "^2.0.1"
 numpy = "^1.24.3"
 sqlalchemy = "^2.0.15"
-openai-tools = "^0.0.0.1"
+openai-tools = "0.0.0.1.dev3"
 
 
 [build-system]

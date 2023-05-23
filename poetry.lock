@@ -671,14 +671,14 @@ wandb = ["numpy", "openpyxl (>=3.0.7)", "pandas (>=1.2.3)", "pandas-stubs (>=1.1
 
 [[package]]
 name = "openai-tools"
-version = "0.0.0.1"
+version = "0.0.0.1.dev3"
 description = "A Python wrapper for managing OpenAI API."
 category = "main"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "openai-tools-0.0.0.1.tar.gz", hash = "sha256:40a8b6d7474da8fbc89113fe7d8a9ada4b4397c3e5fb1200a89553e289d0326b"},
-    {file = "openai_tools-0.0.0.1-py3-none-any.whl", hash = "sha256:68d0cf1a18acdc2080b6f020c277defd71e813ca450c11a2eb8091e87e40c61c"},
+    {file = "openai-tools-0.0.0.1.dev3.tar.gz", hash = "sha256:bae67658c4ca4dc889be7ddff38105f019db85a6f40a083bdee9699cb49037c4"},
+    {file = "openai_tools-0.0.0.1.dev3-py3-none-any.whl", hash = "sha256:f4d74b78cedaa469048500fdd5be806daeb85db1fe979b217d9ffdc0f29c4056"},
 ]
 
 [package.dependencies]
@@ -1049,4 +1049,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5b92221a153c34bff9302b27d81e158af8aecafdafa94d35d80250ca6adc642f"
+content-hash = "70e41f15ce710a42296451c7f53e1161189d6d63bc0228d97e59ebe139391895"
