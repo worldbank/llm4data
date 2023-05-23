@@ -11,7 +11,9 @@ pandas = "^2.0.1"
 numpy = "^1.24.3"
 sqlalchemy = "^2.0.15"
 openai-tools = "0.0.0.1.dev3"
+tomli = "^2.0.1"
 
+[tool.poetry_bumpversion.file."llm4data/__init__.py"]
 
 [build-system]
 requires = ["poetry-core"]

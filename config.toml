@@ -1,0 +1,10 @@
+[ dirs ]
+OPENAI_PAYLOAD_DIR = "data/openai/payloads"
+
+[ database ]
+WDI_DB_URL = "sqlite:///data/sqldb/wdi.db"
+
+[ task_labels ]
+# Specify the label in the payload directory
+# for this prompt set.
+wdi_sql = "prompt2wdiSQL"
