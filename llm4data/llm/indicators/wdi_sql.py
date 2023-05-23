@@ -118,7 +118,7 @@ class WDISQL(WDI):
         return dict(data=data, sample=sample.to_dict(orient="records"))
 
 
-class WDIIndicator(WDI):
+class WDIIndicatorSQL(WDISQL):
     def __init__(self, indicator_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
