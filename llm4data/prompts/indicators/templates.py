@@ -33,14 +33,22 @@ class IndicatorPromptTemplate:
         self.prompt = prompt
         self.context_data = context_data
 
-    def format_prompt(self, user: bool = False):
+    def format_prompt(self, user: bool = False, prompt: str = None):
         if user:
-            return self.user.format_prompt(prompt=self.prompt)
-        else:
-            return self.system.format_prompt(indicator_name=self.indicator_name, context_data=self.context_data)
+            if not (self.prompt or prompt):
+                raise ValueError("prompt must be specified for user")
 
-    def build_message(self):
+            # Use the prompt passed in if it is not None, otherwise use the prompt specified in the constructor.
+            prompt = prompt or self.prompt
+            return self.user.format_prompt(prompt=prompt)
+        else:
+            return self.system.format_prompt(
+                indicator_name=self.indicator_name,
+                context_data=self.context_data,
+            )
+
+    def build_message(self, prompt: str = None):
         return [
             dict(role="system", content=self.format_prompt(user=False).text),
-            dict(role="user", content=self.format_prompt(user=True).text)
+            dict(role="user", content=self.format_prompt(user=True, prompt=prompt).text)
         ]
