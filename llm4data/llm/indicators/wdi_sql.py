@@ -1,6 +1,5 @@
 """Create an sqlite database from the World Bank WDI database.
 """
-import os
 import json
 from pathlib import Path
 from datetime import datetime
@@ -22,17 +21,11 @@ from llm4data.sources.indicators.wdi import Base, WDI
 
 # Create the prompt manager for this task.
 prompt_manager = get_prompt_manager(
-    task_label=configs["task_labels"]["wdi_sql"],
+    task_label=configs.task_labels.wdi_sql,
     type="zeros",
 )
 
-
-WDI_DB_URL = os.getenv("WDI_DB_URL")
-
-if WDI_DB_URL is None:
-    raise ValueError("WDI_DB_URL environment variable is not set. Consider adding it to your config.toml file.")
-
-engine = create_engine(WDI_DB_URL, echo=False)
+engine = create_engine(configs.wdidb.url, echo=False)
 session = sessionmaker(bind=engine)()
 
 
