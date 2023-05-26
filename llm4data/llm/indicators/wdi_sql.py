@@ -17,6 +17,7 @@ from llm4data import configs
 from llm4data.prompts.utils import get_prompt_manager
 
 from llm4data.sources.indicators.wdi import Base, WDI
+from llm4data.prompts.indicators.wdi import WDISQLPromptTemplate
 
 
 # Create the prompt manager for this task.
@@ -117,20 +118,25 @@ class WDIIndicatorSQL(WDISQL):
         table = self.__tablename__
         fields = ", ".join(self.__llm_fields__)
 
-        template = f"""Current date: {now}
+#         template = f"""Current date: {now}
 
-I have a database containing data from the WDI indicators. Write an SQL query for the prompt: ```{{{{user_content}}}}```
+# I have a database containing data from the WDI indicators. Write an SQL query for the prompt: ```{{{{user_content}}}}```
 
-table: {table}
-fields: {fields}
+# table: {table}
+# fields: {fields}
 
-Only the indicator can parameterized and you must fill the rest. Use the convention :indicator and not `?`. Use country_iso3 when querying, use country in the result.
+# Only the indicator can parameterized and you must fill the rest. Use the convention :indicator and not `?`. Use country_iso3 when querying, use country in the result.
 
-Use the last 10 years if no year is specified. Drop rows with no value.
+# Use the last 10 years if no year is specified. Drop rows with no value.
 
-Return the entire row if useful for the prompt. If it will help in the analysis and if it makes sense, always add the year in the `SELECT` clause if it is not already there.
+# Return the entire row if useful for the prompt. If it will help in the analysis and if it makes sense, always add the year in the `SELECT` clause if it is not already there.
 
-Return the output as JSON for json.loads: {{"query_string": <SQL>}}"""
+# Return the output as JSON for json.loads: {{"query_string": <SQL>}}"""
+        template = WDISQLPromptTemplate().format(
+            now=now,
+            table=table,
+            fields=fields,
+        )
 
         response = prompt_manager.send_prompt(
             user_content=prompt,
