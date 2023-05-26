@@ -12,25 +12,20 @@ from tqdm.auto import tqdm
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from openai_tools.prompt import PromptZeros
 from openai_tools.parser import parse_misparsed
 
 from llm4data import configs
+from llm4data.prompts.utils import get_prompt_manager
 
-from llm4data.indicators.wdi import Base, WDI
+from llm4data.sources.indicators.wdi import Base, WDI
 
 
-openai_payload = os.getenv(configs["dirs"]["OPENAI_PAYLOAD_DIR"])
-if openai_payload is None:
-    raise ValueError("`OPENAI_PAYLOAD_DIR` environment variable is not set. Consider adding it to your config.toml file.")
-
-openai_payload = Path(openai_payload)
-task_label = configs["task_labels"]["wdi_sql"]
-
-prompt_manager = PromptZeros(
-    payloads_dir=openai_payload,
-    task_label=task_label,
+# Create the prompt manager for this task.
+prompt_manager = get_prompt_manager(
+    task_label=configs["task_labels"]["wdi_sql"],
+    type="zeros",
 )
+
 
 WDI_DB_URL = os.getenv("WDI_DB_URL")
 
