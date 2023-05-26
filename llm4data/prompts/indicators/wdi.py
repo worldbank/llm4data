@@ -11,24 +11,25 @@ class WDISQLPrompt(DatedPrompt):
     def __init__(self, input_variables=None, template=None):
         if template is None and input_variables is None:
             input_variables = ["now", "table", "fields"]
-            template = ("Current date: {now}\n\n"
-                        "I have a database containing data from the WDI indicators."
-                        " Write an SQL query for the prompt: ```{{{{user_content}}}}```\n\n"
-                        "table: {table}\n"
-                        "fields: {fields}\n\n"
-                        "Only the indicator can parameterized and you must fill the rest."
-                        " Use the convention :indicator and not `?`."
-                        " Use country_iso3 when querying, use country in the result.\n\n"
-                        "Use the last 10 years if no year is specified."
-                        " Drop rows with no value.\n\n"
-                        "Return the entire row if useful for the prompt."
-                        " If it will help in the analysis and if it makes sense, always add the year in the `SELECT` clause if it is not already there.\n\n"
-                        """Return the output as JSON for json.loads: {{"query_string": <SQL>}}""")
+            template = (
+                "Current date: {now}\n\n"
+                "I have a database containing data from the WDI indicators."
+                " Write an SQL query for the prompt: ```{{{{user_content}}}}```\n\n"
+                "table: {table}\n"
+                "fields: {fields}\n\n"
+                "Only the indicator can parameterized and you must fill the rest."
+                " Use the convention :indicator and not `?`."
+                " Use country_iso3 when querying, use country in the result.\n\n"
+                "Use the last 10 years if no year is specified."
+                " Drop rows with no value.\n\n"
+                "Return the entire row if useful for the prompt."
+                " If it will help in the analysis and if it makes sense, always add the year in the `SELECT` clause if it is not already there.\n\n"
+                """Return the output as JSON for json.loads: {{"query_string": <SQL>}}"""
+            )
 
         super().__init__(input_variables=input_variables, template=template)
 
     def parse_response(self, response: dict) -> Any:
-
         try:
             content = parse_misparsed(
                 response["content"].strip(),
@@ -50,6 +51,7 @@ class WDIAPIPrompt(DatedPrompt):
     Example API URL:
         - https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&format=json&source=2
     """
+
     task_label = "WDIAPIPrompt"
 
     def __init__(self, input_variables=None, template=None):

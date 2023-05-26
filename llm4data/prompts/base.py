@@ -16,7 +16,13 @@ class DatedPrompt(PromptTemplate):
 
         return super().format(**kwargs)
 
-    def send_prompt(self, prompt: str, api_kwargs: dict = None, send_prompt_kwargs: dict = None, **kwargs: Any):
+    def send_prompt(
+        self,
+        prompt: str,
+        api_kwargs: dict = None,
+        send_prompt_kwargs: dict = None,
+        **kwargs: Any
+    ):
         prompt_manager = get_prompt_manager(
             self.task_label,
             type=self.prompt_type,

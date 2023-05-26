@@ -31,7 +31,6 @@ session = sessionmaker(bind=engine)()
 
 
 class WDISQL(WDI):
-
     @classmethod
     def load_wdi_jsons(cls, wdi_jsons_dir: Path):
         """Load the WDI data stored in JSON
@@ -57,7 +56,16 @@ class WDISQL(WDI):
             session.commit()
 
     @classmethod
-    def run_sql(cls, sql, params=None, pandas=True, as_dict=False, to_markdown=False, drop_na=True, num_samples=20):
+    def run_sql(
+        cls,
+        sql,
+        params=None,
+        pandas=True,
+        as_dict=False,
+        to_markdown=False,
+        drop_na=True,
+        num_samples=20,
+    ):
         """Example:
         sql = "SELECT * FROM wdi WHERE indicator = :indicator"
         params = {"indicator": "NY.GDP.PCAP.CD"}
@@ -86,7 +94,9 @@ class WDISQL(WDI):
             data_df = data_df.dropna(axis=1, how="all")
 
         if "year" in data_df.columns and "country" in data_df.columns:
-            sample = data_df.sort_values(["year", "country"], ascending=False).head(num_samples)
+            sample = data_df.sort_values(["year", "country"], ascending=False).head(
+                num_samples
+            )
         elif "year" in data_df.columns:
             sample = data_df.sort_values(["year"], ascending=False).head(num_samples)
         else:
@@ -102,7 +112,9 @@ class WDISQL(WDI):
             # as_dict supercedes pandas flag
             data = data_df
         else:
-            raise ValueError("Invalid combination of flags. At least one of pandas, as_dict, to_markdown must be True.")
+            raise ValueError(
+                "Invalid combination of flags. At least one of pandas, as_dict, to_markdown must be True."
+            )
 
         return dict(data=data, sample=sample.to_dict(orient="records"))
 
@@ -140,7 +152,16 @@ class WDIIndicatorSQL(WDISQL):
 
         return query_string
 
-    def llm2sql_answer(self, prompt, params=None, pandas=True, as_dict=False, to_markdown=False, drop_na=True, num_samples=20):
+    def llm2sql_answer(
+        self,
+        prompt,
+        params=None,
+        pandas=True,
+        as_dict=False,
+        to_markdown=False,
+        drop_na=True,
+        num_samples=20,
+    ):
         sql = self.llm2sql(prompt)
 
         if params is None:
@@ -148,7 +169,15 @@ class WDIIndicatorSQL(WDISQL):
 
         params["indicator"] = self.indicator_id
 
-        data = self.run_sql(sql, params=params, pandas=pandas, as_dict=as_dict, to_markdown=to_markdown, drop_na=drop_na, num_samples=num_samples)
+        data = self.run_sql(
+            sql,
+            params=params,
+            pandas=pandas,
+            as_dict=as_dict,
+            to_markdown=to_markdown,
+            drop_na=drop_na,
+            num_samples=num_samples,
+        )
 
         payload = dict(
             sql=sql,

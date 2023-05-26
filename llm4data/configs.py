@@ -40,7 +40,9 @@ class DirsConfig:
 
     def __post_init__(self):
         if self.openai_payload_dir is None:
-            raise ValueError("`OPENAI_PAYLOAD_DIR` environment variable is not set. Consider adding it to your .env file.")
+            raise ValueError(
+                "`OPENAI_PAYLOAD_DIR` environment variable is not set. Consider adding it to your .env file."
+            )
 
         self.openai_payload_dir = Path(self.openai_payload_dir)
 

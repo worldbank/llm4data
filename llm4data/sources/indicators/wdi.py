@@ -32,7 +32,7 @@ class WDI(Base):
         "country",
         "country_iso3",
         "year",
-        "value"
+        "value",
     ]
 
     def __repr__(self):
