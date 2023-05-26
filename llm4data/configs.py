@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Union
+from typing import Union, Optional
 from dotenv import load_dotenv
 from dataclasses import dataclass
 
@@ -11,12 +11,12 @@ load_dotenv()
 # Define a data class for the database config
 @dataclass
 class WDIDBConfig:
-    table_name: str = os.getenv("WDI_DB_TABLE_NAME")
-    engine: str = os.getenv("WDI_DB_ENGINE")
-    host: str = os.getenv("WDI_DB_HOST")
-    port: int = int(os.getenv("WDI_DB_PORT")) if os.getenv("WDI_DB_PORT") else None
-    username: str = os.getenv("WDI_DB_USERNAME")
-    password: str = os.getenv("WDI_DB_PASSWORD")
+    table_name: Optional[str] = os.getenv("WDI_DB_TABLE_NAME")
+    engine: Optional[str] = os.getenv("WDI_DB_ENGINE")
+    host: Optional[str] = os.getenv("WDI_DB_HOST")
+    port: Optional[str] = os.getenv("WDI_DB_PORT")
+    username: Optional[str] = os.getenv("WDI_DB_USERNAME")
+    password: Optional[str] = os.getenv("WDI_DB_PASSWORD")
 
     @property
     def url(self):
@@ -36,7 +36,7 @@ class WDIDBConfig:
 
 @dataclass
 class DirsConfig:
-    openai_payload_dir: Union[str, Path] = os.getenv("OPENAI_PAYLOAD_DIR")
+    openai_payload_dir: Optional[Union[str, Path]] = os.getenv("OPENAI_PAYLOAD_DIR")
 
     def __post_init__(self):
         if self.openai_payload_dir is None:
@@ -49,7 +49,7 @@ class DirsConfig:
 
 @dataclass
 class TaskLabelsConfig:
-    wdi_sql: str = os.getenv("TASK_LABEL_WDI_SQL")
+    wdi_sql: Optional[str] = os.getenv("TASK_LABEL_WDI_SQL")
 
 
 # Instantiate the config objects
