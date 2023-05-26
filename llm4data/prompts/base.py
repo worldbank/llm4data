@@ -1,7 +1,7 @@
 from abc import abstractmethod
 
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 from langchain.prompts.prompt import PromptTemplate
 from llm4data.prompts.utils import get_prompt_manager
 
@@ -19,8 +19,8 @@ class DatedPrompt(PromptTemplate):
     def send_prompt(
         self,
         prompt: str,
-        api_kwargs: dict = None,
-        send_prompt_kwargs: dict = None,
+        api_kwargs: Optional[dict] = None,
+        send_prompt_kwargs: Optional[dict] = None,
         **kwargs: Any
     ):
         prompt_manager = get_prompt_manager(

@@ -1,3 +1,4 @@
+from typing import Optional
 from langchain.prompts.prompt import PromptTemplate
 from llm4data import indicator2name
 
@@ -25,10 +26,10 @@ class IndicatorPromptTemplate:
 
     def __init__(
         self,
-        prompt: str = None,
-        context_data: str = None,
-        indicator_code: str = None,
-        indicator_id: str = None,
+        prompt: Optional[str] = None,
+        context_data: Optional[str] = None,
+        indicator_code: Optional[str] = None,
+        indicator_id: Optional[str] = None,
     ):
         if indicator_id is None:
             indicator_name = ":"
@@ -46,7 +47,7 @@ class IndicatorPromptTemplate:
         self.prompt = prompt
         self.context_data = context_data
 
-    def format_prompt(self, user: bool = False, prompt: str = None):
+    def format_prompt(self, user: bool = False, prompt: Optional[str] = None):
         if user:
             if not (self.prompt or prompt):
                 raise ValueError("prompt must be specified for user")
@@ -60,7 +61,7 @@ class IndicatorPromptTemplate:
                 context_data=self.context_data,
             )
 
-    def build_message(self, prompt: str = None):
+    def build_message(self, prompt: Optional[str] = None):
         return [
             dict(role="system", content=self.format_prompt(user=False).text),
             dict(
