@@ -1,3 +1,7 @@
+import json
+from typing import Any
+from urllib.parse import urlparse
+from openai_tools.parser import parse_misparsed
 from llm4data.prompts.base import DatedPrompt
 
 
@@ -23,8 +27,29 @@ class WDISQLPrompt(DatedPrompt):
 
         super().__init__(input_variables=input_variables, template=template)
 
+    def parse_response(self, response: dict) -> Any:
+
+        try:
+            content = parse_misparsed(
+                response["content"].strip(),
+                open="{",
+                close="}",
+                normalize_newline=True,
+                to_json=True,
+            )
+            query_string = content["query_string"]
+        except json.JSONDecodeError:
+            query_string = response["content"].strip()
+
+        return query_string
+
 
 class WDIAPIPrompt(DatedPrompt):
+    """Context for generating a WDI API URL from a prompt.
+
+    Example API URL:
+        - https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&format=json&source=2
+    """
     task_label = "WDIAPIPrompt"
 
     def __init__(self, input_variables=None, template=None):
@@ -47,3 +72,26 @@ class WDIAPIPrompt(DatedPrompt):
             )
 
         super().__init__(input_variables=input_variables, template=template)
+
+    def get_indicator_code_from_url(url):
+        """
+        Get the indicator code from a WDI API URL.
+        """
+        parsed = urlparse(url)
+        path = parsed.path
+        path = path.split("/")
+
+        if "indicator" in path:
+            return path[path.index("indicator") + 1]
+        else:
+            return None
+
+    def parse_response(self, response: dict, per_page: int = 10000) -> Any:
+        endpoint = response["content"].strip()
+
+        if "None" in endpoint:
+            endpoint = None
+        else:
+            endpoint = endpoint + f"&per_page={per_page}"
+
+        return endpoint

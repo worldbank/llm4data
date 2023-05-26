@@ -1,3 +1,5 @@
+from abc import abstractmethod
+
 from datetime import datetime
 from typing import Any
 from langchain.prompts.prompt import PromptTemplate
@@ -32,3 +34,7 @@ class DatedPrompt(PromptTemplate):
             api_kwargs=api_kwargs,
             **send_prompt_kwargs,
         )
+
+    @abstractmethod
+    def parse_response(self, response: dict, **kwargs: Any) -> Any:
+        pass
