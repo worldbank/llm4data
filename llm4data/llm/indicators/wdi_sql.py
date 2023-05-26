@@ -118,20 +118,6 @@ class WDIIndicatorSQL(WDISQL):
         table = self.__tablename__
         fields = ", ".join(self.__llm_fields__)
 
-#         template = f"""Current date: {now}
-
-# I have a database containing data from the WDI indicators. Write an SQL query for the prompt: ```{{{{user_content}}}}```
-
-# table: {table}
-# fields: {fields}
-
-# Only the indicator can parameterized and you must fill the rest. Use the convention :indicator and not `?`. Use country_iso3 when querying, use country in the result.
-
-# Use the last 10 years if no year is specified. Drop rows with no value.
-
-# Return the entire row if useful for the prompt. If it will help in the analysis and if it makes sense, always add the year in the `SELECT` clause if it is not already there.
-
-# Return the output as JSON for json.loads: {{"query_string": <SQL>}}"""
         template = WDISQLPromptTemplate().format(
             now=now,
             table=table,
