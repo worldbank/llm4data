@@ -17,7 +17,7 @@ from llm4data import configs
 from llm4data.prompts.utils import get_prompt_manager
 
 from llm4data.sources.indicators.wdi import Base, WDI
-from llm4data.prompts.indicators.wdi import WDISQLPromptTemplate
+from llm4data.prompts.indicators.wdi import WDISQLPrompt
 
 
 # Create the prompt manager for this task.
@@ -114,20 +114,16 @@ class WDIIndicatorSQL(WDISQL):
         self.indicator_id = indicator_id
 
     def llm2sql(self, prompt):
-        now = datetime.now().date()
         table = self.__tablename__
         fields = ", ".join(self.__llm_fields__)
 
-        template = WDISQLPromptTemplate().format(
-            now=now,
+        response = WDISQLPrompt().send_prompt(
+            prompt=prompt,
             table=table,
             fields=fields,
-        )
-
-        response = prompt_manager.send_prompt(
-            user_content=prompt,
-            user_template=template,
-            return_data=True,
+            send_prompt_kwargs=dict(
+                return_data=True,
+            ),
         )
 
         try:

@@ -1,35 +1,7 @@
-from datetime import datetime
-from typing import Any
-from langchain.prompts.prompt import PromptTemplate
-from llm4data import indicator2name
-from llm4data.prompts.utils import get_prompt_manager
+from llm4data.prompts.base import DatedPrompt
 
 
-class DatedPromptTemplate(PromptTemplate):
-    task_label = "wdi"
-    prompt_type = "zeros"
-
-    def format(self, **kwargs: Any) -> str:
-        if "now" not in kwargs:
-            kwargs["now"] = datetime.now().date()
-
-        return super().format(**kwargs)
-
-    def send_prompt(self, prompt: str, api_kwargs: dict = None, **kwargs: Any):
-        prompt_manager = get_prompt_manager(
-            self.task_label,
-            type=self.prompt_type,
-        )
-
-        return prompt_manager.send_prompt(
-            user_content=prompt,
-            user_template=self.format(**kwargs),
-            return_data=True,
-            api_kwargs=api_kwargs,
-        )
-
-
-class WDISQLPromptTemplate(DatedPromptTemplate):
+class WDISQLPrompt(DatedPrompt):
     task_label = "WDISQLPrompt"
 
     def __init__(self, input_variables=None, template=None):
@@ -52,7 +24,7 @@ class WDISQLPromptTemplate(DatedPromptTemplate):
         super().__init__(input_variables=input_variables, template=template)
 
 
-class WDIAPIPromptTemplate(DatedPromptTemplate):
+class WDIAPIPrompt(DatedPrompt):
     task_label = "WDIAPIPrompt"
 
     def __init__(self, input_variables=None, template=None):
