@@ -7,9 +7,9 @@ Built around existing metadata standards and schemas, users and organizations ca
 Key Features and Roadmap:
 - Text generation: Utilize LLMs to generate coherent and contextually relevant text around development data, enabling the creation of chatbots and content generation systems.
 - Interactive experiences: Create engaging user experiences by integrating LLMs into applications, allowing users to interact with development data in a more intuitive and conversational manner.
+- Metadata augmentation: Enhance existing metadata with LLMs, enabling the creation of new metadata and the improvement of existing metadata.
 - AI-powered insights: Extract valuable insights from datasets using LLMs, empowering data exploration, trend analysis, and knowledge discovery.
 - Natural language processing: Leverage LLMs to analyze and process textual data, enabling tasks like sentiment analysis, text classification, and language translation.
-- Metadata augmentation: Enhance existing metadata with LLMs, enabling the creation of new metadata and the improvement of existing metadata.
 - Dynamic integration: Through the use of metadata standards and schemas, load and utilize your own Python scripts containing LLM functionality on-the-fly, seamlessly incorporating them into your project through plug-ins.
 
 ## Installation
