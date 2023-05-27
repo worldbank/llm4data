@@ -23,8 +23,25 @@ pip install llm4data
 ## Usage
 
 ```python
-import llm4data
+from llm4data.promps.indicators import wdi
+
+# Create a WDI API prompt object
+wdi_api = wdi.WDIAPIPrompt()
+
+# Send a prompt to the LLM to get a WDI API URL relevant to the prompt
+response = wdi_api.send_prompt("What is the gdp and the co2 emissions of the philippines and its neighbors in the last decade?")
+
+# Parse the response to get the WDI API URL
+wdi_api_url = wdi_api.parse_response(response)
+print(wdi_api_url)
 ```
+
+The output will look like the following:
+
+```
+https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&format=json&source=2
+```
+
 
 ## Contributing
 
