@@ -2,7 +2,8 @@
 
 all: help
 
-bump_version: poetry version patch
+bump_version:
+	poetry version patch
 
 coverage:
 	poetry run pytest --cov \
