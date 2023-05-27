@@ -88,7 +88,9 @@ class WDIAPIPrompt(DatedPrompt):
         else:
             return None
 
-    def parse_response(self, response: dict, per_page: int = 10000, **kwargs: Any) -> Any:
+    def parse_response(
+        self, response: dict, per_page: int = 10000, **kwargs: Any
+    ) -> Any:
         endpoint = response["content"].strip()
 
         if "None" in endpoint:
