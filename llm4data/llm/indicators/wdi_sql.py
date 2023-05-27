@@ -14,17 +14,10 @@ from sqlalchemy.orm import sessionmaker
 from openai_tools.parser import parse_misparsed
 
 from llm4data import configs
-from llm4data.prompts.utils import get_prompt_manager
 
 from llm4data.sources.indicators.wdi import Base, WDI
 from llm4data.prompts.indicators.wdi import WDISQLPrompt
 
-
-# Create the prompt manager for this task.
-prompt_manager = get_prompt_manager(
-    task_label=configs.task_labels.wdi_sql,
-    type="zeros",
-)
 
 engine = create_engine(configs.wdidb.url, echo=False)
 session = sessionmaker(bind=engine)()
