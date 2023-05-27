@@ -42,6 +42,64 @@ The output will look like the following:
 https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&format=json&source=2
 ```
 
+### Using Langchain for SQL queries
+
+Langchain has a wrapper for SQL databases that allows you to query them using natural language. The wrapper is called `SQLDatabaseChain` and can be used as follows:
+
+```python
+from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
+
+db = SQLDatabase.from_uri("sqlite:///../llm4dev/data/sqldb/wdi.db")
+llm = OpenAI(temperature=0, verbose=True)
+
+db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, return_intermediate_steps=True)
+out = db_chain("What is the GDP and army spending of the Philippines in 2020?")
+```
+
+```bash
+> Entering new SQLDatabaseChain chain...
+What is the GDP and army spending of the Philippines in 2020?
+SQLQuery:SELECT "value" FROM wdi WHERE "name" = 'GDP (current US$)' AND "country_iso3" = 'PHL' AND "year" = 2020
+UNION
+SELECT "value" FROM wdi WHERE "name" = 'Military expenditure (% of GDP)' AND "country_iso3" = 'PHL' AND "year" = 2020
+SQLResult: [(1.01242392260698,), (361751116292.541,)]
+Answer:The GDP of the Philippines in 2020 was 1.01242392260698 and the military expenditure (% of GDP) was 361751116292.541.
+> Finished chain.
+```
+
+Unfortunately, the answer `The GDP of the Philippines in 2020 was 1.01242392260698 and the military expenditure (% of GDP) was 361751116292.541.` is incorrect because the values have been swapped.
+
+`LLM4Data` can be used for addressing this issue:
+
+```python
+import json
+from llm4data.prompts.indicators import templates, wdi
+from llm4data.llm.indicators import wdi_sql
+
+prompt = "What is the GDP and army spending of the Philippines in 2020?"
+
+sql_data = wdi_sql.WDISQL().llm2sql_answer(prompt, as_dict=True)
+
+
+print(sql_data)
+# # {'sql': "SELECT country, value AS gdp, (SELECT value FROM wdi WHERE country_iso3 = 'PHL' AND indicator = 'MS.MIL.XPND.GD.ZS' AND year = 2020) AS army_spending FROM wdi WHERE country_iso3 = 'PHL' AND indicator = 'NY.GDP.MKTP.CD' AND year = 2020 AND value IS NOT NULL",
+# #  'params': {},
+# #  'data': {'data': [{'country': 'Philippines',
+# #     'gdp': 361751116292.541,
+# #     'army_spending': 1.01242392260698}],
+# #   'sample': [{'country': 'Philippines',
+# #     'gdp': 361751116292.541,
+# #     'army_spending': 1.01242392260698}]},
+# #  'num_samples': 20}
+
+
+# Send the prompt to the LLM for a narrative explanation of the response. This is optional and can be skipped. Note that we pass only a sample in the `context_data`. This could limit the quality of the response. This is a limitation of the current version of the LLM which is constrained by the context length and cost.
+
+description = e.send_prompt(prompt=prompt, context_data=json.dumps(sql_data["data"]["sample"]))
+
+print(description["content"])
+# # Based on the data provided, the GDP of the Philippines in 2020 was approximately 362 billion USD. Meanwhile, the country's army spending in the same year was around 1.01 billion USD. It is worth noting that while army spending is an important aspect of a country's budget, it is not the only factor that contributes to its economic growth and development. Other factors such as infrastructure, education, and healthcare also play a crucial role in shaping a country's economy.
+```
 
 ## Contributing
 
