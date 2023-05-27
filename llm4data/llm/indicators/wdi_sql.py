@@ -111,13 +111,6 @@ class WDISQL(WDI):
 
         return dict(data=data, sample=sample.to_dict(orient="records"))
 
-
-class WDIIndicatorSQL(WDISQL):
-    def __init__(self, indicator_id, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
-        self.indicator_id = indicator_id
-
     def llm2sql(self, prompt):
         table = self.__tablename__
         fields = ", ".join(self.__llm_fields__)
@@ -160,8 +153,6 @@ class WDIIndicatorSQL(WDISQL):
         if params is None:
             params = {}
 
-        params["indicator"] = self.indicator_id
-
         data = self.run_sql(
             sql,
             params=params,
@@ -180,6 +171,39 @@ class WDIIndicatorSQL(WDISQL):
         )
 
         return payload
+
+
+class WDIIndicatorSQL(WDISQL):
+    def __init__(self, indicator_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.indicator_id = indicator_id
+
+    def llm2sql_answer(
+        self,
+        prompt,
+        params=None,
+        pandas=True,
+        as_dict=False,
+        to_markdown=False,
+        drop_na=True,
+        num_samples=20,
+    ):
+
+        if params is None:
+            params = {}
+
+        params["indicator"] = self.indicator_id
+
+        return super().llm2sql_answer(
+            prompt,
+            params=params,
+            pandas=pandas,
+            as_dict=as_dict,
+            to_markdown=to_markdown,
+            drop_na=drop_na,
+            num_samples=num_samples,
+        )
 
 
 Base.metadata.create_all(engine)
