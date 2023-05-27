@@ -32,7 +32,9 @@ from llm4data.promps.indicators import wdi
 wdi_api = wdi.WDIAPIPrompt()
 
 # Send a prompt to the LLM to get a WDI API URL relevant to the prompt
-response = wdi_api.send_prompt("What is the gdp and the co2 emissions of the philippines and its neighbors in the last decade?")
+response = wdi_api.send_prompt(
+    "What is the gdp and the co2 emissions of the philippines and its neighbors in the last decade?"
+)
 
 # Parse the response to get the WDI API URL
 wdi_api_url = wdi_api.parse_response(response)
@@ -45,7 +47,17 @@ The output will look like the following:
 https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&format=json&source=2
 ```
 
+Notice that the URL generated already includes the country codes and indicators relevant to the prompt. It understands which countries are the neighbors of the Philippines. It also understands which indicator codes are likely to provide the relevant data for GDP and CO2 emissions.
+
+The URL also includes the date range, format, and source of the data. The user can then tweak the URL as needed, and use it to query the WDI API.
+
 ### Generate SQL queries on WDI data from a prompt
+
+While the WDI data can be loaded into a Pandas dataframe, it is not always practical to do so; for example, developing applications that can answer arbitrary data questions.
+
+The LLM4Data library includes an SQL interface to WDI data, allowing users to query the data using SQL.
+
+This interface will allow users to query the data using SQL, and return the results as a Pandas dataframe. The interface also allows users to query the data using SQL, and return the results as a JSON object.
 
 ```python
 import json
@@ -66,7 +78,6 @@ print(sql_data)
 # #     'gdp': 361751116292.541,
 # #     'army_spending': 1.01242392260698}]},
 # #  'num_samples': 20}
-
 ```
 
 ### Generate a narrative explanation of the SQL query response
