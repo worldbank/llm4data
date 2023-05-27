@@ -25,9 +25,9 @@ format:
 	poetry run black .
 	poetry run ruff --select I --fix .
 
-PYTHON_FILES=.
-lint: PYTHON_FILES=.
-lint_diff: PYTHON_FILES=$(shell git diff --name-only --diff-filter=d master | grep -E '\.py$$')
+PYTHON_FILES=$(shell find . -type f -name '*.py' -not -path "./ipython_logs/*")
+lint: PYTHON_FILES=$(shell find . -type f -name '*.py' -not -path "./ipython_logs/*")
+lint_diff: PYTHON_FILES=$(shell git diff --name-only --diff-filter=d master | grep -v 'ipython_logs/' | grep -E '\.py$$')
 
 lint lint_diff:
 	poetry run mypy $(PYTHON_FILES)

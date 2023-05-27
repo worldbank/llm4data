@@ -36,10 +36,10 @@ class WDIDBConfig:
 
 @dataclass
 class DirsConfig:
-    openai_payload_dir: Optional[Union[str, Path]] = os.getenv("OPENAI_PAYLOAD_DIR")
+    openai_payload_dir: Union[str, Path] = os.getenv("OPENAI_PAYLOAD_DIR", "")
 
     def __post_init__(self):
-        if self.openai_payload_dir is None:
+        if not self.openai_payload_dir:
             raise ValueError(
                 "`OPENAI_PAYLOAD_DIR` environment variable is not set. Consider adding it to your .env file."
             )
@@ -49,7 +49,13 @@ class DirsConfig:
 
 @dataclass
 class TaskLabelsConfig:
-    wdi_sql: Optional[str] = os.getenv("TASK_LABEL_WDI_SQL")
+    wdi_sql: str = os.getenv("TASK_LABEL_WDI_SQL", "")
+
+    def __post_init__(self):
+        if not self.wdi_sql:
+            raise ValueError(
+                "`TASK_LABEL_WDI_SQL` environment variable is not set. Consider adding it to your .env file."
+            )
 
 
 # Instantiate the config objects

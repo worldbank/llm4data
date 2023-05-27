@@ -29,7 +29,7 @@ class WDISQLPrompt(DatedPrompt):
 
         super().__init__(input_variables=input_variables, template=template)
 
-    def parse_response(self, response: dict) -> Any:
+    def parse_response(self, response: dict, **kwargs: Any) -> Any:
         try:
             content = parse_misparsed(
                 response["content"].strip(),
@@ -88,7 +88,7 @@ class WDIAPIPrompt(DatedPrompt):
         else:
             return None
 
-    def parse_response(self, response: dict, per_page: int = 10000) -> Any:
+    def parse_response(self, response: dict, per_page: int = 10000, **kwargs: Any) -> Any:
         endpoint = response["content"].strip()
 
         if "None" in endpoint:
