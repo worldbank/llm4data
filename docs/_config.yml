@@ -1,0 +1,36 @@
+# Book settings
+title: LLM4Data
+author: World Bank Development Data Group
+logo: docs/images/logo.png
+exclude_patterns: [_build, Thumbs.db, .DS_Store, "**.ipynb_checkpoints"]
+only_build_toc_files: true
+
+repository:
+  url: https://github.com/worldbank/llm4data
+  branch: main
+
+#######################################################################################
+# HTML-specific settings
+html:
+  home_page_in_navbar: false
+  extra_navbar: ""
+  use_edit_page_button: true
+  use_repository_button: true
+  use_issues_button: true
+  baseurl: https://worldbank.github.io/llm4data
+  extra_footer: |
+    <div>
+        <b>All content (unless otherwise specified) is subject to the <a href="https://raw.githubusercontent.com/worldbank/llm4data/main/LICENSE">World Bank Master Community License Agreement.</a></b>
+    </div>
+
+#######################################################################################
+# Execution settings
+execute:
+  execute_notebooks: "off"
+
+#######################################################################################
+# Sphinx settings
+sphinx:
+  config:
+    html_show_copyright: false
+    html_last_updated_fmt: "%b %d, %Y"
