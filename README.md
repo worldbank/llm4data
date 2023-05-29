@@ -18,7 +18,7 @@ pip install llm4data
 ### Generate WDI API URL from a prompt
 
 ```python
-from llm4data.promps.indicators import wdi
+from llm4data.prompts.indicators import wdi
 
 # Create a WDI API prompt object
 wdi_api = wdi.WDIAPIPrompt()
