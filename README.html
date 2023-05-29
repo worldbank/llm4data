@@ -1,0 +1,767 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>LLM4Data &#8212; LLM4Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'README';</script>
+    <link rel="canonical" href="https://worldbank.github.io/llm4data/README.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="docsearch:language" content="en">
+  </head>
+  
+  
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="180" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__primary" id="__primary">
+  <label class="overlay overlay-primary" for="__primary"></label>
+
+  
+  <input type="checkbox" class="sidebar-toggle" name="__secondary" id="__secondary">
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+      
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+  </div>
+
+  
+  <nav class="bd-header navbar navbar-expand-lg bd-navbar" id="navbar-main"><div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+      <span class="fa-solid fa-bars"></span>
+  </label>
+  <div id="navbar-start">
+    
+    
+  
+
+
+<a class="navbar-brand logo" href="#">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+    <p class="title logo__title">LLM4Data</p>
+  
+</a>
+    
+  </div>
+
+  
+  <div class="col-lg-9 navbar-header-items">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+    </ul>
+</nav>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+        <div class="navbar-end-item navbar-persistent--container">
+          
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+        </div>
+      
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+  
+    <div class="navbar-persistent--mobile">
+<button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-toggle="tooltip">
+  <i class="fa-solid fa-magnifying-glass"></i>
+</button>
+    </div>
+  
+
+  
+  <label class="sidebar-toggle secondary-toggle" for="__secondary">
+      <span class="fa-solid fa-outdent"></span>
+  </label>
+  
+
+</div>
+  </nav>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+      
+      <div class="navbar-center-item">
+        <nav class="navbar-nav">
+    <p class="sidebar-header-items__title" role="heading" aria-level="1" aria-label="Site Navigation">
+        Site Navigation
+    </p>
+    <ul id="navbar-main-elements" class="navbar-nav">
+        
+    </ul>
+</nav>
+      </div>
+      
+      </div>
+    
+
+    
+    
+    <div class="sidebar-header-items__end">
+      
+      <div class="navbar-end-item">
+        <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+</button>
+      </div>
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+    
+  </div>
+
+  
+  <div class="sidebar-start-items sidebar-primary__section">
+    <div class="sidebar-start-items__item">
+  
+
+
+<a class="navbar-brand logo" href="#">
+
+  
+  
+  
+  
+  
+  
+  
+
+  
+  
+    <p class="title logo__title">LLM4Data</p>
+  
+</a>
+    </div>
+    <div class="sidebar-start-items__item">
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+    </div>
+    <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+    </div>
+</nav>
+    </div>
+  </div>
+  
+
+  
+  <div class="sidebar-end-items sidebar-primary__section">
+    <div class="sidebar-end-items__item">
+    </div>
+  </div>
+
+  
+  <div id="rtd-footer-container"></div>
+
+      </div>
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+        <div class="bd-content">
+          <div class="bd-article-container">
+            
+            <div class="bd-header-article">
+                
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        <label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" data-toggle="tooltip" data-placement="right" title="Toggle primary sidebar">
+            <span class="fa-solid fa-bars"></span>
+        </label>
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<div class="dropdown dropdown-repository-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="https://github.com/worldbank/llm4data" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">repository</span>
+</a>
+</a>
+      
+      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2FREADME.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">open issue</span>
+</a>
+</a>
+      
+      <li><a href="https://github.com/worldbank/llm4data/edit/main/README.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Edit this page"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">suggest edit</span>
+</a>
+</a>
+      
+  </ul>
+</div>
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      <li><a href="_sources/README.md" target="_blank"
+   class="btn btn-sm dropdown-item"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</a>
+      
+      <li>
+<button onclick="printPdf(this)"
+  class="btn btn-sm dropdown-item"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</a>
+      
+  </ul>
+</div>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary" data-toggle="tooltip" data-placement="left" title="Toggle secondary sidebar">
+            <span class="fa-solid fa-list"></span>
+        </label>
+    </div>
+</div>
+            </div>
+            
+            
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>LLM4Data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#usage">
+   Usage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-wdi-api-url-from-a-prompt">
+     Generate WDI API URL from a prompt
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-sql-queries-on-wdi-data-from-a-prompt">
+     Generate SQL queries on WDI data from a prompt
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-a-narrative-explanation-of-the-sql-query-response">
+     Generate a narrative explanation of the SQL query response
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-not-use-langchain-for-sql-queries">
+     Why not use Langchain for SQL queries?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-features-and-roadmap">
+   Key Features and Roadmap:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing">
+   Contributing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+            <article class="bd-article" role="main">
+              
+  <section class="tex2jax_ignore mathjax_ignore" id="llm4data">
+<h1>LLM4Data<a class="headerlink" href="#llm4data" title="Permalink to this heading">#</a></h1>
+<p>LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.</p>
+<p>Built around existing metadata standards and schemas, users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
+<p>Use the package manager <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> to install LLM4Data.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>llm4data
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<section id="generate-wdi-api-url-from-a-prompt">
+<h3>Generate WDI API URL from a prompt<a class="headerlink" href="#generate-wdi-api-url-from-a-prompt" title="Permalink to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm4data.prompts.indicators</span> <span class="kn">import</span> <span class="n">wdi</span>
+
+<span class="c1"># Create a WDI API prompt object</span>
+<span class="n">wdi_api</span> <span class="o">=</span> <span class="n">wdi</span><span class="o">.</span><span class="n">WDIAPIPrompt</span><span class="p">()</span>
+
+<span class="c1"># Send a prompt to the LLM to get a WDI API URL relevant to the prompt</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">wdi_api</span><span class="o">.</span><span class="n">send_prompt</span><span class="p">(</span>
+    <span class="s2">&quot;What is the gdp and the co2 emissions of the philippines and its neighbors in the last decade?&quot;</span>
+<span class="p">)</span>
+
+<span class="c1"># Parse the response to get the WDI API URL</span>
+<span class="n">wdi_api_url</span> <span class="o">=</span> <span class="n">wdi_api</span><span class="o">.</span><span class="n">parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wdi_api_url</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output will look like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>https://api.worldbank.org/v2/country/PHL;IDN;MYS;SGP;THA;VNM/indicator/NY.GDP.MKTP.CD;EN.ATM.CO2E.KT?date=2013:2022&amp;format=json&amp;source=2
+</pre></div>
+</div>
+<p>Notice that the URL generated already includes the country codes and indicators relevant to the prompt. It understands which countries are the neighbors of the Philippines. It also understands which indicator codes are likely to provide the relevant data for GDP and CO2 emissions.</p>
+<p>The URL also includes the date range, format, and source of the data. The user can then tweak the URL as needed, and use it to query the WDI API.</p>
+</section>
+<section id="generate-sql-queries-on-wdi-data-from-a-prompt">
+<h3>Generate SQL queries on WDI data from a prompt<a class="headerlink" href="#generate-sql-queries-on-wdi-data-from-a-prompt" title="Permalink to this heading">#</a></h3>
+<p>While the WDI data can be loaded into a Pandas dataframe, it is not always practical to do so; for example, developing applications that can answer arbitrary data questions.</p>
+<p>The LLM4Data library includes an SQL interface to WDI data, allowing users to query the data using SQL.</p>
+<p>This interface will allow users to query the data using SQL, and return the results as a Pandas dataframe. The interface also allows users to query the data using SQL, and return the results as a JSON object.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">llm4data.prompts.indicators</span> <span class="kn">import</span> <span class="n">templates</span><span class="p">,</span> <span class="n">wdi</span>
+<span class="kn">from</span> <span class="nn">llm4data.llm.indicators</span> <span class="kn">import</span> <span class="n">wdi_sql</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="s2">&quot;What is the GDP and army spending of the Philippines in 2020?&quot;</span>
+
+<span class="n">sql_data</span> <span class="o">=</span> <span class="n">wdi_sql</span><span class="o">.</span><span class="n">WDISQL</span><span class="p">()</span><span class="o">.</span><span class="n">llm2sql_answer</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">sql_data</span><span class="p">)</span>
+<span class="c1"># # {&#39;sql&#39;: &quot;SELECT country, value AS gdp, (SELECT value FROM wdi WHERE country_iso3 = &#39;PHL&#39; AND indicator = &#39;MS.MIL.XPND.GD.ZS&#39; AND year = 2020) AS army_spending FROM wdi WHERE country_iso3 = &#39;PHL&#39; AND indicator = &#39;NY.GDP.MKTP.CD&#39; AND year = 2020 AND value IS NOT NULL&quot;,</span>
+<span class="c1"># #  &#39;params&#39;: {},</span>
+<span class="c1"># #  &#39;data&#39;: {&#39;data&#39;: [{&#39;country&#39;: &#39;Philippines&#39;,</span>
+<span class="c1"># #     &#39;gdp&#39;: 361751116292.541,</span>
+<span class="c1"># #     &#39;army_spending&#39;: 1.01242392260698}],</span>
+<span class="c1"># #   &#39;sample&#39;: [{&#39;country&#39;: &#39;Philippines&#39;,</span>
+<span class="c1"># #     &#39;gdp&#39;: 361751116292.541,</span>
+<span class="c1"># #     &#39;army_spending&#39;: 1.01242392260698}]},</span>
+<span class="c1"># #  &#39;num_samples&#39;: 20}</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-a-narrative-explanation-of-the-sql-query-response">
+<h3>Generate a narrative explanation of the SQL query response<a class="headerlink" href="#generate-a-narrative-explanation-of-the-sql-query-response" title="Permalink to this heading">#</a></h3>
+<p>The LLM4Data library also includes support for generating narrative explanations of SQL query responses. This is useful for generating natural language descriptions of data, which can be used to provide context to users and to explain the results of data queries.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm4data.prompts.indicators</span> <span class="kn">import</span> <span class="n">templates</span>
+<span class="c1"># Send the prompt to the LLM for a narrative explanation of the response.</span>
+<span class="c1"># This is optional and can be skipped.</span>
+<span class="c1"># Note that we pass only a sample in the `context_data`.</span>
+<span class="c1"># This could limit the quality of the response.</span>
+<span class="c1"># This is a limitation of the current version of the LLM which is constrained by the context length and cost.</span>
+
+<span class="n">explainer</span> <span class="o">=</span> <span class="n">templates</span><span class="o">.</span><span class="n">IndicatorPrompt</span><span class="p">()</span>
+<span class="n">description</span> <span class="o">=</span> <span class="n">explainer</span><span class="o">.</span><span class="n">send_prompt</span><span class="p">(</span><span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">,</span> <span class="n">context_data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sql_data</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="s2">&quot;sample&quot;</span><span class="p">]))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">description</span><span class="p">[</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+<span class="c1"># # Based on the data provided, the GDP of the Philippines in 2020 was approximately 362 billion USD. Meanwhile, the country&#39;s army spending in the same year was around 1.01 billion USD. It is worth noting that while army spending is an important aspect of a country&#39;s budget, it is not the only factor that contributes to its economic growth and development. Other factors such as infrastructure, education, and healthcare also play a crucial role in shaping a country&#39;s economy.</span>
+</pre></div>
+</div>
+</section>
+<section id="why-not-use-langchain-for-sql-queries">
+<h3>Why not use Langchain for SQL queries?<a class="headerlink" href="#why-not-use-langchain-for-sql-queries" title="Permalink to this heading">#</a></h3>
+<p>Langchain is a great library and it has a wrapper for SQL databases that allows you to query them using natural language. The wrapper is called <code class="docutils literal notranslate"><span class="pre">SQLDatabaseChain</span></code> and can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain</span> <span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">SQLDatabase</span><span class="p">,</span> <span class="n">SQLDatabaseChain</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">SQLDatabase</span><span class="o">.</span><span class="n">from_uri</span><span class="p">(</span><span class="s2">&quot;sqlite:///../llm4dev/data/sqldb/wdi.db&quot;</span><span class="p">)</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">db_chain</span> <span class="o">=</span> <span class="n">SQLDatabaseChain</span><span class="o">.</span><span class="n">from_llm</span><span class="p">(</span><span class="n">llm</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_intermediate_steps</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">db_chain</span><span class="p">(</span><span class="s2">&quot;What is the GDP and army spending of the Philippines in 2020?&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;<span class="w"> </span>Entering<span class="w"> </span>new<span class="w"> </span>SQLDatabaseChain<span class="w"> </span>chain...
+What<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>GDP<span class="w"> </span>and<span class="w"> </span>army<span class="w"> </span>spending<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Philippines<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2020</span>?
+SQLQuery:SELECT<span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span>FROM<span class="w"> </span>wdi<span class="w"> </span>WHERE<span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;GDP (current US$)&#39;</span><span class="w"> </span>AND<span class="w"> </span><span class="s2">&quot;country_iso3&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;PHL&#39;</span><span class="w"> </span>AND<span class="w"> </span><span class="s2">&quot;year&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2020</span>
+UNION
+SELECT<span class="w"> </span><span class="s2">&quot;value&quot;</span><span class="w"> </span>FROM<span class="w"> </span>wdi<span class="w"> </span>WHERE<span class="w"> </span><span class="s2">&quot;name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Military expenditure (% of GDP)&#39;</span><span class="w"> </span>AND<span class="w"> </span><span class="s2">&quot;country_iso3&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;PHL&#39;</span><span class="w"> </span>AND<span class="w"> </span><span class="s2">&quot;year&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2020</span>
+SQLResult:<span class="w"> </span><span class="o">[(</span><span class="m">1</span>.01242392260698,<span class="o">)</span>,<span class="w"> </span><span class="o">(</span><span class="m">361751116292</span>.541,<span class="o">)]</span>
+Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>Philippines<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2020</span><span class="w"> </span>was<span class="w"> </span><span class="m">1</span>.01242392260698<span class="w"> </span>and<span class="w"> </span>the<span class="w"> </span>military<span class="w"> </span>expenditure<span class="w"> </span><span class="o">(</span>%<span class="w"> </span>of<span class="w"> </span>GDP<span class="o">)</span><span class="w"> </span>was<span class="w"> </span><span class="m">361751116292</span>.541.
+&gt;<span class="w"> </span>Finished<span class="w"> </span>chain.
+</pre></div>
+</div>
+<p>Unfortunately, the answer <code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">GDP</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Philippines</span> <span class="pre">in</span> <span class="pre">2020</span> <span class="pre">was</span> <span class="pre">1.01242392260698</span> <span class="pre">and</span> <span class="pre">the</span> <span class="pre">military</span> <span class="pre">expenditure</span> <span class="pre">(%</span> <span class="pre">of</span> <span class="pre">GDP)</span> <span class="pre">was</span> <span class="pre">361751116292.541.</span></code> is incorrect because the values have been swapped.</p>
+<p>One of the goals of LLM4Data is to develop solutions around the limitations of existing open-source solutions as applied to development data and knowledge discovery.</p>
+</section>
+</section>
+<section id="key-features-and-roadmap">
+<h2>Key Features and Roadmap:<a class="headerlink" href="#key-features-and-roadmap" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Text generation: Utilize LLMs to generate coherent and contextually relevant text around development data, enabling the creation of chatbots and content generation systems.</p></li>
+<li><p>Interactive experiences: Create engaging user experiences by integrating LLMs into applications, allowing users to interact with development data in a more intuitive and conversational manner.</p></li>
+<li><p>Metadata augmentation: Enhance existing metadata with LLMs, enabling the creation of new metadata and the improvement of existing metadata.</p></li>
+<li><p>AI-powered insights: Extract valuable insights from datasets using LLMs, empowering data exploration, trend analysis, and knowledge discovery.</p></li>
+<li><p>Dynamic integration: Through the use of metadata standards and schemas, load and utilize your own Python scripts containing LLM functionality on-the-fly, seamlessly incorporating them into your project through plug-ins.</p></li>
+<li><p>Natural language processing: Leverage LLMs to analyze and process textual data, enabling tasks like sentiment analysis, text classification, and language translation.</p></li>
+</ul>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">#</a></h2>
+<p>Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.</p>
+<p>Please see <span class="xref myst">CONTRIBUTING.md</span> for more information.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this heading">#</a></h2>
+<p>LLM4Data is licensed under the <a class="reference download internal" download="" href="_downloads/9879d6db96fd29134fc802214163b95a/LICENSE"><span class="xref download myst"> World Bank Master Community License Agreement</span></a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+            </article>
+            
+
+            
+            
+            <footer class="bd-footer-article">
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+            
+          </div>
+          
+          
+          
+            <div class="bd-sidebar-secondary bd-toc">
+              
+<div class="toc-item">
+  
+<div class="tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+</div>
+<nav id="bd-toc-nav" class="page-toc">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#installation">
+   Installation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#usage">
+   Usage
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-wdi-api-url-from-a-prompt">
+     Generate WDI API URL from a prompt
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-sql-queries-on-wdi-data-from-a-prompt">
+     Generate SQL queries on WDI data from a prompt
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#generate-a-narrative-explanation-of-the-sql-query-response">
+     Generate a narrative explanation of the SQL query response
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#why-not-use-langchain-for-sql-queries">
+     Why not use Langchain for SQL queries?
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#key-features-and-roadmap">
+   Key Features and Roadmap:
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing">
+   Contributing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#license">
+   License
+  </a>
+ </li>
+</ul>
+
+</nav>
+</div>
+
+            </div>
+          
+          
+        </div>
+        <footer class="bd-footer-content">
+          <div class="bd-footer-content__inner">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By World Bank Development Data Group
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+Last updated on May 29, 2023.<br>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <div>
+    <b>All content (unless otherwise specified) is subject to the <a href="https://raw.githubusercontent.com/worldbank/llm4data/main/LICENSE">World Bank Master Community License Agreement.</a></b>
+</div>
+
+</div>
+  </div>
+  
+</div>
+          </div>
+        </footer>
+        
+
+      </main>
+    </div>
+  </div>
+
+  
+    
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+
+  </body>
+</html>
