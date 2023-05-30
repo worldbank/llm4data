@@ -5,7 +5,6 @@ parts:
   - caption: Setting up the environment
     chapters:
       - file: notebooks/examples/"Setting up the environment.ipynb"
-
   - caption: Indicators
     chapters:
       - file: notebooks/examples/indicators/README
