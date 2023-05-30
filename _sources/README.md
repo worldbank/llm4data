@@ -2,7 +2,9 @@
 
 LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.
 
-Built around existing metadata standards and schemas, users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.
+This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in [future releases](#upcoming-features).
+
+Built around existing [metadata standards and schemas](https://mah0001.github.io/schema-guide/), users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.
 
 ## Installation
 
@@ -14,6 +16,9 @@ pip install llm4data
 
 ## Usage
 
+The following examples demonstrate how to use LLM4Data to generate WDI API URLs and SQL queries from prompts.
+
+Additional examples can be found [here](notebooks/examples/).
 
 ### Generate WDI API URL from a prompt
 
@@ -120,7 +125,7 @@ Unfortunately, the answer `The GDP of the Philippines in 2020 was 1.012423922606
 
 One of the goals of LLM4Data is to develop solutions around the limitations of existing open-source solutions as applied to development data and knowledge discovery.
 
-## Key Features and Roadmap:
+## Key Features and Roadmap
 
 - Text generation: Utilize LLMs to generate coherent and contextually relevant text around development data, enabling the creation of chatbots and content generation systems.
 - Interactive experiences: Create engaging user experiences by integrating LLMs into applications, allowing users to interact with development data in a more intuitive and conversational manner.
@@ -138,3 +143,25 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 ## License
 
 LLM4Data is licensed under the [ World Bank Master Community License Agreement](LICENSE).
+
+
+## Upcoming Features
+
+- [ ] Metadata augmentation with LLM
+- [ ] Document and metadata indexing
+- [ ] Semantic search:
+  - [ ] For indicators
+  - [ ] For documents
+  - [ ] For microdata
+  - [ ] For geospatial data
+  - [ ] For voice and videos
+- [ ] Open-source chat UI
+- [ ] Data use framework
+
+
+## TODO
+
+- [ ] Add contributing guidelines
+- [ ] Add more documentations
+- [ ] Add unit tests
+- [ ] Add CI/CD

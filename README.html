@@ -464,7 +464,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-features-and-roadmap">
-   Key Features and Roadmap:
+   Key Features and Roadmap
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -475,6 +475,16 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#license">
    License
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#upcoming-features">
+   Upcoming Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo">
+   TODO
   </a>
  </li>
 </ul>
@@ -489,7 +499,8 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="llm4data">
 <h1>LLM4Data<a class="headerlink" href="#llm4data" title="Permalink to this heading">#</a></h1>
 <p>LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.</p>
-<p>Built around existing metadata standards and schemas, users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.</p>
+<p>This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in <span class="xref myst">future releases</span>.</p>
+<p>Built around existing <a class="reference external" href="https://mah0001.github.io/schema-guide/">metadata standards and schemas</a>, users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
 <p>Use the package manager <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> to install LLM4Data.</p>
@@ -499,6 +510,8 @@ title="Print to PDF"
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h2>
+<p>The following examples demonstrate how to use LLM4Data to generate WDI API URLs and SQL queries from prompts.</p>
+<p>Additional examples can be found <span class="xref myst">here</span>.</p>
 <section id="generate-wdi-api-url-from-a-prompt">
 <h3>Generate WDI API URL from a prompt<a class="headerlink" href="#generate-wdi-api-url-from-a-prompt" title="Permalink to this heading">#</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm4data.prompts.indicators</span> <span class="kn">import</span> <span class="n">wdi</span>
@@ -594,7 +607,7 @@ Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> 
 </section>
 </section>
 <section id="key-features-and-roadmap">
-<h2>Key Features and Roadmap:<a class="headerlink" href="#key-features-and-roadmap" title="Permalink to this heading">#</a></h2>
+<h2>Key Features and Roadmap<a class="headerlink" href="#key-features-and-roadmap" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Text generation: Utilize LLMs to generate coherent and contextually relevant text around development data, enabling the creation of chatbots and content generation systems.</p></li>
 <li><p>Interactive experiences: Create engaging user experiences by integrating LLMs into applications, allowing users to interact with development data in a more intuitive and conversational manner.</p></li>
@@ -612,6 +625,33 @@ Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> 
 <section id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this heading">#</a></h2>
 <p>LLM4Data is licensed under the <a class="reference download internal" download="" href="_downloads/9879d6db96fd29134fc802214163b95a/LICENSE"><span class="xref download myst"> World Bank Master Community License Agreement</span></a>.</p>
+</section>
+<section id="upcoming-features">
+<h2>Upcoming Features<a class="headerlink" href="#upcoming-features" title="Permalink to this heading">#</a></h2>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Metadata augmentation with LLM</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Document and metadata indexing</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Semantic search:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> For indicators</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> For documents</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> For microdata</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> For geospatial data</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> For voice and videos</p></li>
+</ul>
+</li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Open-source chat UI</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Data use framework</p></li>
+</ul>
+</section>
+<section id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this heading">#</a></h2>
+<ul class="contains-task-list simple">
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add contributing guidelines</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add more documentations</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add unit tests</p></li>
+<li class="task-list-item"><p><input class="task-list-item-checkbox" disabled="disabled" type="checkbox"> Add CI/CD</p></li>
+</ul>
 </section>
 </section>
 
@@ -693,7 +733,7 @@ Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> 
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#key-features-and-roadmap">
-   Key Features and Roadmap:
+   Key Features and Roadmap
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -704,6 +744,16 @@ Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> 
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#license">
    License
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#upcoming-features">
+   Upcoming Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#todo">
+   TODO
   </a>
  </li>
 </ul>
@@ -734,7 +784,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on May 29, 2023.<br>
+Last updated on May 30, 2023.<br>
 </p>
   </div>
   
