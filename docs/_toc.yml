@@ -2,9 +2,9 @@ format: jb-book
 root: README
 
 parts:
-  - caption: Setting up your environment
+  - caption: Setting up the environment
     chapters:
-      - file: notebooks/examples/"Setting up your environment.ipynb"
+      - file: notebooks/examples/"Setting up the environment.ipynb"
 
   - caption: Indicators
     chapters:
