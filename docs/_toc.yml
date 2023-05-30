@@ -1,2 +1,13 @@
 format: jb-book
 root: README
+
+parts:
+  - caption: Setting up your environment
+    chapters:
+      - file: notebooks/examples/"Setting up your environment.ipynb"
+
+  - caption: Indicators
+    chapters:
+      - file: notebooks/examples/indicators/README
+        sections:
+        - file: notebooks/examples/indicators/"Getting started with the WDI.ipynb"
