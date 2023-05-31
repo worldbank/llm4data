@@ -3,9 +3,9 @@ from langchain.vectorstores import Qdrant
 import qdrant_client
 from qdrant_client.http import models
 
-from ..embeddings.docs import docs_embeddings
-from ..embeddings.indicators import indicators_embeddings
-from ..embeddings.microdata import microdata_embeddings
+from ..embeddings.docs import get_docs_embeddings
+from ..embeddings.indicators import get_indicators_embeddings
+from ..embeddings.microdata import get_microdata_embeddings
 
 _CLIENT = None
 
@@ -54,11 +54,12 @@ def get_qdrant_collection(embeddings, path: str = None, recreate: bool = False):
 
 
 def get_qdrant_docs(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(docs_embeddings, path=path, recreate=recreate)
+    return get_qdrant_collection(get_docs_embeddings(), path=path, recreate=recreate)
 
 
 def get_qdrant_indicators(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(indicators_embeddings, path=path, recreate=recreate)
+    return get_qdrant_collection(get_indicators_embeddings(), path=path, recreate=recreate)
+
 
 def get_qdrant_microdata(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(microdata_embeddings, path=path, recreate=recreate)
+    return get_qdrant_collection(get_microdata_embeddings(), path=path, recreate=recreate)
