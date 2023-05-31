@@ -4,7 +4,7 @@ from langchain import embeddings as langchain_embeddings
 from pydantic.main import ModelMetaclass
 from qdrant_client.http import models
 from pydantic.main import ModelMetaclass
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 
 
 # Make the model atomically available
@@ -39,19 +39,7 @@ class EmbeddingModel:
         return f"{self.data_type}_{self.model_name}_{self.collection_name}_{self.distance}_{self.size}_{self.max_tokens}_{self.is_instruct}"
 
     def dict(self):
-        return {
-            "model_name": self.model_name,
-            "distance": self.distance,
-            "embedding_cls": self.embedding_cls,
-            "is_instruct": self.is_instruct,
-            "data_type": self.data_type,
-            "collection_name": self.collection_name,
-            "size": self.size,
-            "max_tokens": self.max_tokens,
-            "kwargs": self.kwargs,
-            "embed_instruction": self.embed_instruction,
-            "query_instruction": self.query_instruction,
-        }
+        return asdict(self)
 
     def __post_init__(self):
         self._common_init()
@@ -75,6 +63,9 @@ class EmbeddingModel:
 
         if self.collection_name is None:
             self.collection_name = f"{self.data_type}_{self.model_name}"
+
+        if self.embeddings is not None:
+            self.max_tokens = self.embeddings.client.max_seq_length
 
     def _instruct_init(self):
         assert isinstance(self.kwargs, dict)
@@ -129,10 +120,11 @@ class EmbeddingModelFactory:
         return model
 
     def _create_model(self, config: EmbeddingModel) -> EmbeddingModel:
-        return config.__class__(
+        kwargs = {
             **config.dict(),
-            embeddings=self._create_embeddings(config),
-        )
+            "embeddings": self._create_embeddings(config),
+        }
+        return config.__class__(**kwargs)
 
     def _create_embeddings(self, config: EmbeddingModel) -> ModelMetaclass:
         embdedding = getattr(langchain_embeddings, config.embedding_cls)
