@@ -62,6 +62,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://worldbank.github.io/llm4data/README.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setting up the environment" href="notebooks/examples/getting-started/setting-up-the-environment.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -134,6 +135,19 @@ const thebe_selector_output = ".output, .cell_output"
     </p>
     <ul id="navbar-main-elements" class="navbar-nav">
         
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">
+                        Setting up the environment
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/indicators/README.html">
+                        Indicators
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -204,6 +218,19 @@ const thebe_selector_output = ".output, .cell_output"
     </p>
     <ul id="navbar-main-elements" class="navbar-nav">
         
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">
+                        Setting up the environment
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/indicators/README.html">
+                        Indicators
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -263,7 +290,18 @@ const thebe_selector_output = ".output, .cell_output"
     </div>
     <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">Setting up the environment</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks/examples/indicators/README.html">Indicators</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/examples/indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
+</ul>
+</li>
+</ul>
+
     </div>
 </nav>
     </div>
@@ -499,7 +537,7 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="llm4data">
 <h1>LLM4Data<a class="headerlink" href="#llm4data" title="Permalink to this heading">#</a></h1>
 <p>LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.</p>
-<p>This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in <span class="xref myst">future releases</span>.</p>
+<p>This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in <a class="reference external" href="https://worldbank.github.io/llm4data/README.html#upcoming-features">future releases</a>.</p>
 <p>Built around existing <a class="reference external" href="https://mah0001.github.io/schema-guide/">metadata standards and schemas</a>, users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h2>
@@ -514,6 +552,10 @@ title="Print to PDF"
 <p>Additional examples can be found <span class="xref myst">here</span>.</p>
 <section id="generate-wdi-api-url-from-a-prompt">
 <h3>Generate WDI API URL from a prompt<a class="headerlink" href="#generate-wdi-api-url-from-a-prompt" title="Permalink to this heading">#</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This example uses the OpenAI API. Before you proceed, make sure to set your API keys in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm4data.prompts.indicators</span> <span class="kn">import</span> <span class="n">wdi</span>
 
 <span class="c1"># Create a WDI API prompt object</span>
@@ -538,6 +580,10 @@ title="Print to PDF"
 </section>
 <section id="generate-sql-queries-on-wdi-data-from-a-prompt">
 <h3>Generate SQL queries on WDI data from a prompt<a class="headerlink" href="#generate-sql-queries-on-wdi-data-from-a-prompt" title="Permalink to this heading">#</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure you have set up your environment first. The example below requires a working database engine, e.g., postgresql. If you want to use SQLite, make sure to update the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file and set the environment variables.</p>
+</div>
 <p>While the WDI data can be loaded into a Pandas dataframe, it is not always practical to do so; for example, developing applications that can answer arbitrary data questions.</p>
 <p>The LLM4Data library includes an SQL interface to WDI data, allowing users to query the data using SQL.</p>
 <p>This interface will allow users to query the data using SQL, and return the results as a Pandas dataframe. The interface also allows users to query the data using SQL, and return the results as a JSON object.</p>
@@ -687,6 +733,13 @@ Answer:The<span class="w"> </span>GDP<span class="w"> </span>of<span class="w"> 
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+  <a class='right-next' id="next-link" href="notebooks/examples/getting-started/setting-up-the-environment.html" title="next page">
+  <div class="prev-next-info">
+      <p class="prev-next-subtitle">next</p>
+      <p class="prev-next-title">Setting up the environment</p>
+  </div>
+  <i class="fa-solid fa-angle-right"></i>
+  </a>
 </div>
             </footer>
             
@@ -788,7 +841,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on May 30, 2023.<br>
+Last updated on May 31, 2023.<br>
 </p>
   </div>
   
