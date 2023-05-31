@@ -41,6 +41,16 @@ class DirsConfig:
 
     def __post_init__(self):
         self.llm4data_dir = self._process_dir(self.llm4data_dir, "LLM4DATA_DIR")
+
+        if not isinstance(self.llm4data_cache_dir, str):
+            raise ValueError("`LLM4DATA_CACHE_DIR` environment variable must be a string.")
+
+        if not isinstance(self.openai_payload_dir, str):
+            raise ValueError("`OPENAI_PAYLOAD_DIR` environment variable must be a string.")
+
+        self.llm4data_cache_dir = self.llm4data_dir / self.llm4data_cache_dir
+        self.openai_payload_dir = self.llm4data_dir / self.openai_payload_dir
+
         self.llm4data_cache_dir = self._process_dir(self.llm4data_cache_dir, "LLM4DATA_CACHE_DIR")
         self.openai_payload_dir = self._process_dir(self.openai_payload_dir, "OPENAI_PAYLOAD_DIR")
 
@@ -48,7 +58,11 @@ class DirsConfig:
         if not dirname:
             raise ValueError(self._exception_template.format(dirvar=dirvar))
 
-        dirname = Path(dirname)
+        dirname = Path(dirname).expanduser().resolve()
+
+        if dirvar != "LLM4DATA_DIR" and self.llm4data_dir == dirname:
+            raise ValueError(f"{dirvar}={dirname} is the same as LLM4DATA_DIR={self.llm4data_dir}")
+
         if not dirname.exists():
             warnings.warn(f"{dirvar}={dirname} does not exist. Creating it now...")
             dirname.mkdir(parents=True)
