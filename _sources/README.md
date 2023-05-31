@@ -23,7 +23,7 @@ Additional examples can be found [here](notebooks/examples/).
 ### Generate WDI API URL from a prompt
 
 ```{warning}
-This example uses the OpenAI API. Before you proceed, make sure to set your API keys in the `.env` file.
+This example uses the OpenAI API. Before you proceed, make sure to set your API keys in the `.env` file. See the [setup instructions](https://worldbank.github.io/llm4data/notebooks/examples/getting-started/openai-api.html) for more details.
 ```
 
 
