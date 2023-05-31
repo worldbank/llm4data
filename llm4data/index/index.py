@@ -1,7 +1,7 @@
-from .qdrant import get_qdrant_docs, get_qdrant_indicators, get_qdrant_microdata
+from .qdrant import get_docs_index, get_indicators_index, get_microdata_index
 
 __all__ = [
-    "get_qdrant_docs",
-    "get_qdrant_indicators",
-    "get_qdrant_microdata",
+    "get_docs_index",
+    "get_indicators_index",
+    "get_microdata_index",
 ]

@@ -11,11 +11,11 @@ _CLIENT = None
 
 
 def collection_exists(collection_name: str) -> bool:
-    colls = get_qdrant_client().get_collections()
+    colls = get_index_client().get_collections()
     return collection_name in [i.name for i in colls.collections]
 
 
-def get_qdrant_client(path: str = None):
+def get_index_client(path: str = None):
     global _CLIENT
     if _CLIENT is None:
         if os.environ.get("QDRANT_URL") is not None:
@@ -32,8 +32,8 @@ def get_qdrant_client(path: str = None):
     return _CLIENT
 
 
-def get_qdrant_collection(embeddings, path: str = None, recreate: bool = False):
-    client = get_qdrant_client(path=path)
+def get_index_collection(embeddings, path: str = None, recreate: bool = False):
+    client = get_index_client(path=path)
 
     if recreate:
         client.recreate_collection(
@@ -53,13 +53,13 @@ def get_qdrant_collection(embeddings, path: str = None, recreate: bool = False):
     )
 
 
-def get_qdrant_docs(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(get_docs_embeddings(), path=path, recreate=recreate)
+def get_docs_index(path: str = None, recreate: bool = False):
+    return get_index_collection(get_docs_embeddings(), path=path, recreate=recreate)
 
 
-def get_qdrant_indicators(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(get_indicators_embeddings(), path=path, recreate=recreate)
+def get_indicators_index(path: str = None, recreate: bool = False):
+    return get_index_collection(get_indicators_embeddings(), path=path, recreate=recreate)
 
 
-def get_qdrant_microdata(path: str = None, recreate: bool = False):
-    return get_qdrant_collection(get_microdata_embeddings(), path=path, recreate=recreate)
+def get_microdata_index(path: str = None, recreate: bool = False):
+    return get_index_collection(get_microdata_embeddings(), path=path, recreate=recreate)
