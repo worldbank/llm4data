@@ -62,7 +62,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="canonical" href="https://worldbank.github.io/llm4data/notebooks/examples/getting-started/setting-up-the-environment.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Indicators" href="../indicators/README.html" />
+    <link rel="next" title="OpenAI API" href="openai-api.html" />
     <link rel="prev" title="LLM4Data" href="../../../README.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
@@ -139,6 +139,13 @@ const thebe_selector_output = ".output, .cell_output"
                     <li class="nav-item current active">
                       <a class="nav-link nav-internal" href="#">
                         Setting up the environment
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="openai-api.html">
+                        OpenAI API
                       </a>
                     </li>
                 
@@ -223,6 +230,13 @@ const thebe_selector_output = ".output, .cell_output"
                 
 
                     <li class="nav-item">
+                      <a class="nav-link nav-internal" href="openai-api.html">
+                        OpenAI API
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
                       <a class="nav-link nav-internal" href="../indicators/README.html">
                         Indicators
                       </a>
@@ -290,6 +304,7 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up the environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openai-api.html">OpenAI API</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Data</span></p>
 <ul class="nav bd-sidenav">
@@ -492,7 +507,9 @@ title="Print to PDF"
 
 
 <span class="c1"># DIRS</span>
-<span class="nv">OPENAI_PAYLOAD_DIR</span><span class="o">=</span><span class="s2">&quot;data/openai/payloads&quot;</span>
+<span class="nv">LLM4DATA_DIR</span><span class="o">=</span>~/.llm4data
+<span class="nv">LLM4DATA_CACHE_DIR</span><span class="o">=</span><span class="nv">$LLM4DATA_DIR</span>/cache
+<span class="nv">OPENAI_PAYLOAD_DIR</span><span class="o">=</span><span class="nv">$LLM4DATA_DIR</span>/openai/payloads
 
 
 <span class="c1"># Task Labels</span>
@@ -502,7 +519,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">example.env</span></code> file is updated with the relevant variables used in the project. The user can copy the file and rename it to <code class="docutils literal notranslate"><span class="pre">.env</span></code> to set the environment variables. The <code class="docutils literal notranslate"><span class="pre">.env</span></code> file is ignored by Git for security reasons so that you can store API keys.</p>
-<p>NEVER commit your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file to Git. It is ignored by default in the <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file, but you should double-check that it is not being tracked by Git.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>NEVER</strong> commit your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file to Git. It is ignored by default in the <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> file, but you should double-check that it is not being tracked by Git.</p>
+</div>
+<p>See the next sections for more details on the environment variables used in the project.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -540,10 +561,10 @@ title="Print to PDF"
           <p class="prev-next-title">LLM4Data</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="../indicators/README.html" title="next page">
+  <a class='right-next' id="next-link" href="openai-api.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Indicators</p>
+      <p class="prev-next-title">OpenAI API</p>
   </div>
   <i class="fa-solid fa-angle-right"></i>
   </a>
