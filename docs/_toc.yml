@@ -2,11 +2,17 @@ format: jb-book
 root: README
 
 parts:
-  - caption: Setting up the environment
+  - caption: Getting started
     chapters:
-      - file: notebooks/examples/"Setting up the environment.ipynb"
-  - caption: Indicators
+      - file: notebooks/examples/getting-started/setting-up-the-environment.ipynb
+      - file: notebooks/examples/getting-started/openai-api.ipynb
+      - file: notebooks/examples/getting-started/setting-up-database.ipynb
+        sections:
+        - file: notebooks/examples/getting-started/setting-up-database-sqlite.ipynb
+        - file: notebooks/examples/getting-started/setting-up-database-postgresql.ipynb
+      - file: notebooks/examples/getting-started/setting-up-vectorstore.ipynb
+  - caption: Development Data
     chapters:
       - file: notebooks/examples/indicators/README
         sections:
-        - file: notebooks/examples/indicators/"Getting started with the WDI.ipynb"
+        - file: notebooks/examples/indicators/wdi/getting-started-with-the-wdi.ipynb

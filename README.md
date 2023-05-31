@@ -2,7 +2,7 @@
 
 LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.
 
-This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in [future releases](#upcoming-features).
+This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in [future releases](https://worldbank.github.io/llm4data/README.html#upcoming-features).
 
 Built around existing [metadata standards and schemas](https://mah0001.github.io/schema-guide/), users and organizations can benefit from LLMs to enhance data-driven applications, enabling natural language processing, text generation, and more with LLM4Data. The library serves as a bridge between LLMs and development data using open-sourced libraries, offering a seamless interface to leverage the capabilities of these powerful language models.
 
@@ -21,6 +21,11 @@ The following examples demonstrate how to use LLM4Data to generate WDI API URLs 
 Additional examples can be found [here](notebooks/examples/).
 
 ### Generate WDI API URL from a prompt
+
+```{warning}
+This example uses the OpenAI API. Before you proceed, make sure to set your API keys in the `.env` file.
+```
+
 
 ```python
 from llm4data.prompts.indicators import wdi
@@ -49,6 +54,10 @@ Notice that the URL generated already includes the country codes and indicators 
 The URL also includes the date range, format, and source of the data. The user can then tweak the URL as needed, and use it to query the WDI API.
 
 ### Generate SQL queries on WDI data from a prompt
+
+```{warning}
+Make sure you have set up your environment first. The example below requires a working database engine, e.g., postgresql. If you want to use SQLite, make sure to update the `.env` file and set the environment variables.
+```
 
 While the WDI data can be loaded into a Pandas dataframe, it is not always practical to do so; for example, developing applications that can answer arbitrary data questions.
 
