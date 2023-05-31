@@ -2,11 +2,7 @@ import os
 import warnings
 from pathlib import Path
 from typing import Union, Optional
-from dotenv import load_dotenv
 from dataclasses import dataclass
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 # Define a data class for the database config

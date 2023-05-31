@@ -1,5 +1,11 @@
-from pathlib import Path
 import json
+import dotenv
+
+from pathlib import Path
+
+# Load environment variables from the .env file.
+# Do this before importing any other modules.
+dotenv.load_dotenv()
 
 __version__ = "0.0.1"
 
