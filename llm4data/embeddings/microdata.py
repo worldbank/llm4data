@@ -1,16 +1,17 @@
-from langchain.embeddings import HuggingFaceInstructEmbeddings
-from qdrant_client.http import models
+from dataclasses import dataclass
+from llm4data.embeddings.base import EmbeddingModel
 
 
-class MicrodataInstructEmbeddings:
-    collection_name = "microdata"
-    distance = models.Distance.COSINE
-    embeddings = HuggingFaceInstructEmbeddings(
-        embed_instruction="Represent the economic development metadata description for retrieval; Input: ",
-        query_instruction="Represent the text for retrieving economic development metadata descriptions; Input: ",
-    )
-    max_tokens = embeddings.client.max_seq_length
-    size = 768
+@dataclass
+class MicrodataEmbedding(EmbeddingModel):
+    data_type: str = "microdata"
 
 
-microdata_embeddings = MicrodataInstructEmbeddings()
+microdata_embeddings = MicrodataEmbedding(
+    model_name="instruct",
+    distance="Cosine",
+    embedding_cls="HuggingFaceInstructEmbeddings",
+    is_instruct=True,
+    embed_instruction="Represent the economic development metadata description for retrieval; Input: ",
+    query_instruction="Represent the text for retrieving economic development metadata descriptions; Input: ",
+)

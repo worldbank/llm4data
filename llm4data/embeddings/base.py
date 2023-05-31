@@ -92,26 +92,6 @@ class EmbeddingModel(BaseEmbeddingModel):
                 "model_name": self.model_name,
             }
 
-    @classmethod
-    def get_embedding_model(cls, config: BaseEmbeddingModel) -> BaseEmbeddingModel:
-        model_id = config.model_id
-        print("model_id", model_id)
-
-        if model_id in LOADED_MODELS:
-            model = LOADED_MODELS[model_id]
-        else:
-            model = cls._create_model(config)
-            LOADED_MODELS[model_id] = model
-
-        return model
-
-    def _create_model(self) -> BaseEmbeddingModel:
-        kwargs = {
-            **self.dict(),
-            "embeddings": self._create_embeddings(),
-        }
-        return self.__class__(**kwargs)
-
     def _create_embeddings(self) -> ModelMetaclass:
         if not isinstance(self.kwargs, dict):
             raise ValueError("`config.kwargs` must be a dict")
@@ -120,18 +100,3 @@ class EmbeddingModel(BaseEmbeddingModel):
 
         if self.max_tokens is None:
             self.max_tokens = self.embeddings.client.max_seq_length
-
-
-@dataclass
-class DocsEmbedding(EmbeddingModel):
-    data_type: str = "docs"
-
-
-@dataclass
-class IndicatorsEmbedding(EmbeddingModel):
-    data_type: str = "indicators"
-
-
-@dataclass
-class MicrodataEmbedding(EmbeddingModel):
-    data_type: str = "microdata"
