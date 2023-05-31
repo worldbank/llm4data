@@ -147,7 +147,7 @@ One of the goals of LLM4Data is to develop solutions around the limitations of e
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
+Please see [CONTRIBUTING.md](.github/CONTRIBUTING.md) for more information.
 
 ## License
 
