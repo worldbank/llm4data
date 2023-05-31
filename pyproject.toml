@@ -17,6 +17,7 @@ psycopg2-binary = "^2.9.6"
 python-dotenv = "^1.0.0"
 tiktoken = "^0.4.0"
 fire = "^0.5.0"
+qdrant-client = {version = "^1.2.0", python = ">=3.10,<3.12"}
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"

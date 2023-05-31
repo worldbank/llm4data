@@ -67,6 +67,52 @@ class TaskLabelsConfig:
             )
 
 
+@dataclass
+class EmbeddingConfig:
+    model_size = {
+        "all-MiniLM-L6-v2": 384,
+        "multi-qa-mpnet-base-dot-v1": 768,
+    }
+
+    data_type: str
+    model_name: str
+    collection_name: str
+    distance: str
+    size: int
+    max_tokens: int
+    embedding_cls: str
+
+    is_instruct: bool
+    embed_instruction: str
+    query_instruction: str
+
+    @property
+    def model_id(self):
+        return f"{self.data_type}_{self.model_name}_{self.collection_name}_{self.distance}_{self.size}_{self.max_tokens}_{self.is_instruct}"
+
+    def __post_init__(self):
+        if self.is_instruct:
+            if not (self.embed_instruction and self.query_instruction):
+                raise ValueError(
+                    "`embed_instruction` and `query_instruction` must be set if `is_instruct` is True."
+                )
+
+
+@dataclass
+class DocsEmbeddingConfig(EmbeddingConfig):
+    data_type: str = "docs"
+
+
+@dataclass
+class IndicatorsEmbeddingConfig(EmbeddingConfig):
+    data_type: str = "indicators"
+
+
+@dataclass
+class MicrodataEmbeddingConfig(EmbeddingConfig):
+    data_type: str = "microdata"
+
+
 # Instantiate the config objects
 wdidb = WDIDBConfig()
 dirs = DirsConfig()  # NOTE: `dirs` is a reserved keyword in Python
