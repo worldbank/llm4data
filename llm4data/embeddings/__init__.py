@@ -1,9 +1,9 @@
-from .docs import docs_embeddings
-from .indicators import indicators_embeddings
-from .microdata import microdata_embeddings
+from .docs import get_docs_embeddings
+from .indicators import get_indicators_embeddings
+from .microdata import get_microdata_embeddings
 
 __all__ = [
-    "docs_embeddings",
-    "indicators_embeddings",
-    "microdata_embeddings",
+    "get_docs_embeddings",
+    "get_indicators_embeddings",
+    "get_microdata_embeddings",
 ]
