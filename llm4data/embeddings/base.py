@@ -10,9 +10,8 @@ from dataclasses import dataclass, asdict
 # Make the model atomically available
 LOADED_MODELS = {}
 
-
 @dataclass
-class EmbeddingModel:
+class BaseEmbeddingModel:
     model_size = {
         "instruct": 768,
         "all-MiniLM-L6-v2": 384,
@@ -41,10 +40,16 @@ class EmbeddingModel:
     def dict(self):
         return asdict(self)
 
+
+@dataclass
+class EmbeddingModel(BaseEmbeddingModel):
+
     def __post_init__(self):
         self._common_init()
         self._instruct_init()
         self._hf_init()
+
+        self._create_embeddings()
 
     def _common_init(self):
         if self.kwargs is None:
@@ -63,9 +68,6 @@ class EmbeddingModel:
 
         if self.collection_name is None:
             self.collection_name = f"{self.data_type}_{self.model_name}"
-
-        if self.embeddings is not None:
-            self.max_tokens = self.embeddings.client.max_seq_length
 
     def _instruct_init(self):
         assert isinstance(self.kwargs, dict)
@@ -90,6 +92,35 @@ class EmbeddingModel:
                 "model_name": self.model_name,
             }
 
+    @classmethod
+    def get_embedding_model(cls, config: BaseEmbeddingModel) -> BaseEmbeddingModel:
+        model_id = config.model_id
+        print("model_id", model_id)
+
+        if model_id in LOADED_MODELS:
+            model = LOADED_MODELS[model_id]
+        else:
+            model = cls._create_model(config)
+            LOADED_MODELS[model_id] = model
+
+        return model
+
+    def _create_model(self) -> BaseEmbeddingModel:
+        kwargs = {
+            **self.dict(),
+            "embeddings": self._create_embeddings(),
+        }
+        return self.__class__(**kwargs)
+
+    def _create_embeddings(self) -> ModelMetaclass:
+        if not isinstance(self.kwargs, dict):
+            raise ValueError("`config.kwargs` must be a dict")
+
+        self.embeddings = getattr(langchain_embeddings, self.embedding_cls)(**self.kwargs)
+
+        if self.max_tokens is None:
+            self.max_tokens = self.embeddings.client.max_seq_length
+
 
 @dataclass
 class DocsEmbedding(EmbeddingModel):
@@ -104,32 +135,3 @@ class IndicatorsEmbedding(EmbeddingModel):
 @dataclass
 class MicrodataEmbedding(EmbeddingModel):
     data_type: str = "microdata"
-
-
-class EmbeddingModelFactory:
-    def get_embedding_model(self, config: EmbeddingModel) -> EmbeddingModel:
-        model_id = config.model_id
-        print("model_id", model_id)
-
-        if model_id in LOADED_MODELS:
-            model = LOADED_MODELS[model_id]
-        else:
-            model = self._create_model(config)
-            LOADED_MODELS[model_id] = model
-
-        return model
-
-    def _create_model(self, config: EmbeddingModel) -> EmbeddingModel:
-        kwargs = {
-            **config.dict(),
-            "embeddings": self._create_embeddings(config),
-        }
-        return config.__class__(**kwargs)
-
-    def _create_embeddings(self, config: EmbeddingModel) -> ModelMetaclass:
-        embdedding = getattr(langchain_embeddings, config.embedding_cls)
-
-        if not isinstance(config.kwargs, dict):
-            raise ValueError("`config.kwargs` must be a dict")
-
-        return embdedding(**config.kwargs)
