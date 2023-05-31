@@ -495,7 +495,7 @@ title="Print to PDF"
 <span class="nv">WDI_DB_ENGINE</span><span class="o">=</span><span class="s2">&quot;postgresql&quot;</span>
 <span class="nv">WDI_DB_HOST</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
 <span class="nv">WDI_DB_USERNAME</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span>
-<span class="nv">WDI_DB_PASSWORD</span><span class="o">=</span><span class="s2">&quot;&lt;your password&gt;&quot;</span>
+<span class="nv">WDI_DB_PASSWORD</span><span class="o">=</span>&lt;your<span class="w"> </span>password&gt;
 <span class="nv">WDI_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 
 <span class="c1">## SQLITE</span>
@@ -508,8 +508,10 @@ title="Print to PDF"
 
 <span class="c1"># DIRS</span>
 <span class="nv">LLM4DATA_DIR</span><span class="o">=</span>~/.llm4data
-<span class="nv">LLM4DATA_CACHE_DIR</span><span class="o">=</span><span class="nv">$LLM4DATA_DIR</span>/cache
-<span class="nv">OPENAI_PAYLOAD_DIR</span><span class="o">=</span><span class="nv">$LLM4DATA_DIR</span>/openai/payloads
+
+<span class="c1">## Relative to LLM4DATA_DIR</span>
+<span class="nv">LLM4DATA_CACHE_DIR</span><span class="o">=</span>cache
+<span class="nv">OPENAI_PAYLOAD_DIR</span><span class="o">=</span>openai/payloads
 
 
 <span class="c1"># Task Labels</span>
