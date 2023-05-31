@@ -1,11 +1,8 @@
 import os
+import warnings
 from pathlib import Path
 from typing import Union, Optional
-from dotenv import load_dotenv
 from dataclasses import dataclass
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 # Define a data class for the database config
@@ -36,15 +33,27 @@ class WDIDBConfig:
 
 @dataclass
 class DirsConfig:
+    llm4data_dir: Union[str, Path] = os.getenv("LLM4DATA_DIR", "")
+    llm4data_cache_dir: Union[str, Path] = os.getenv("LLM4DATA_CACHE_DIR", "")
     openai_payload_dir: Union[str, Path] = os.getenv("OPENAI_PAYLOAD_DIR", "")
 
-    def __post_init__(self):
-        if not self.openai_payload_dir:
-            raise ValueError(
-                "`OPENAI_PAYLOAD_DIR` environment variable is not set. Consider adding it to your .env file."
-            )
+    _exception_template = "`{dirvar}` environment variable is not set. Consider adding it to your .env file."
 
-        self.openai_payload_dir = Path(self.openai_payload_dir)
+    def __post_init__(self):
+        self.llm4data_dir = self._process_dir(self.llm4data_dir, "LLM4DATA_DIR")
+        self.llm4data_cache_dir = self._process_dir(self.llm4data_cache_dir, "LLM4DATA_CACHE_DIR")
+        self.openai_payload_dir = self._process_dir(self.openai_payload_dir, "OPENAI_PAYLOAD_DIR")
+
+    def _process_dir(self, dirname: Union[str, Path], dirvar: str) -> Path:
+        if not dirname:
+            raise ValueError(self._exception_template.format(dirvar=dirvar))
+
+        dirname = Path(dirname)
+        if not dirname.exists():
+            warnings.warn(f"{dirvar}={dirname} does not exist. Creating it now...")
+            dirname.mkdir(parents=True)
+
+        return dirname
 
 
 @dataclass
