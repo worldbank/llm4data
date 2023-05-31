@@ -3,6 +3,7 @@ import warnings
 from pathlib import Path
 from typing import Union, Optional
 from dataclasses import dataclass
+from qdrant_client.http import models
 
 
 # Define a data class for the database config
@@ -41,6 +42,16 @@ class DirsConfig:
 
     def __post_init__(self):
         self.llm4data_dir = self._process_dir(self.llm4data_dir, "LLM4DATA_DIR")
+
+        if not isinstance(self.llm4data_cache_dir, str):
+            raise ValueError("`LLM4DATA_CACHE_DIR` environment variable must be a string.")
+
+        if not isinstance(self.openai_payload_dir, str):
+            raise ValueError("`OPENAI_PAYLOAD_DIR` environment variable must be a string.")
+
+        self.llm4data_cache_dir = self.llm4data_dir / self.llm4data_cache_dir
+        self.openai_payload_dir = self.llm4data_dir / self.openai_payload_dir
+
         self.llm4data_cache_dir = self._process_dir(self.llm4data_cache_dir, "LLM4DATA_CACHE_DIR")
         self.openai_payload_dir = self._process_dir(self.openai_payload_dir, "OPENAI_PAYLOAD_DIR")
 
@@ -48,7 +59,11 @@ class DirsConfig:
         if not dirname:
             raise ValueError(self._exception_template.format(dirvar=dirvar))
 
-        dirname = Path(dirname)
+        dirname = Path(dirname).expanduser().resolve()
+
+        if dirvar != "LLM4DATA_DIR" and self.llm4data_dir == dirname:
+            raise ValueError(f"{dirvar}={dirname} is the same as LLM4DATA_DIR={self.llm4data_dir}")
+
         if not dirname.exists():
             warnings.warn(f"{dirvar}={dirname} does not exist. Creating it now...")
             dirname.mkdir(parents=True)
@@ -73,11 +88,9 @@ class EmbeddingConfig:
         "all-MiniLM-L6-v2": 384,
         "multi-qa-mpnet-base-dot-v1": 768,
     }
-
-    data_type: str
     model_name: str
     collection_name: str
-    distance: str
+    distance: models.Distance
     size: int
     max_tokens: int
     embedding_cls: str
@@ -85,6 +98,8 @@ class EmbeddingConfig:
     is_instruct: bool
     embed_instruction: str
     query_instruction: str
+
+    data_type: str
 
     @property
     def model_id(self):
@@ -96,6 +111,17 @@ class EmbeddingConfig:
                 raise ValueError(
                     "`embed_instruction` and `query_instruction` must be set if `is_instruct` is True."
                 )
+
+        if self.size is None:
+            if self.model_name not in self.model_size:
+                raise ValueError(
+                    f"Model size for `{self.model_name}` is not defined. Please add it to the `model_size` dictionary."
+                )
+
+            self.size = self.model_size[self.model_name]
+
+        if self.collection_name is None:
+            self.collection_name = f"{self.data_type}_{self.model_name}"
 
 
 @dataclass
