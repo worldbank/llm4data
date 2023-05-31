@@ -18,6 +18,8 @@ python-dotenv = "^1.0.0"
 tiktoken = "^0.4.0"
 fire = "^0.5.0"
 qdrant-client = {version = "^1.2.0", python = ">=3.10,<3.12"}
+sentence-transformers = "^2.2.2"
+instructorembedding = "^1.0.1"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"

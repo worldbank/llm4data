@@ -3,7 +3,6 @@ import warnings
 from pathlib import Path
 from typing import Union, Optional
 from dataclasses import dataclass
-from qdrant_client.http import models
 
 
 # Define a data class for the database config
@@ -80,67 +79,6 @@ class TaskLabelsConfig:
             raise ValueError(
                 "`TASK_LABEL_WDI_SQL` environment variable is not set. Consider adding it to your .env file."
             )
-
-
-@dataclass
-class EmbeddingConfig:
-    model_size = {
-        "instruct": 768,
-        "all-MiniLM-L6-v2": 384,
-        "multi-qa-mpnet-base-dot-v1": 768,
-    }
-    model_name: str
-    distance: Union[str, models.Distance]
-    embedding_cls: str
-    is_instruct: bool
-    data_type: str
-
-    collection_name: Optional[str] = None
-    size: Optional[int] = None
-    max_tokens: Optional[int] = None
-
-    embed_instruction: Optional[str] = None
-    query_instruction: Optional[str] = None
-
-    @property
-    def model_id(self):
-        return f"{self.data_type}_{self.model_name}_{self.collection_name}_{self.distance}_{self.size}_{self.max_tokens}_{self.is_instruct}"
-
-    def __post_init__(self):
-        if isinstance(self.distance, str):
-            self.distance = models.Distance(self.distance)
-
-        if self.is_instruct:
-            if not (self.embed_instruction and self.query_instruction):
-                raise ValueError(
-                    "`embed_instruction` and `query_instruction` must be set if `is_instruct` is True."
-                )
-
-        if self.size is None:
-            if self.model_name not in self.model_size:
-                raise ValueError(
-                    f"Model size for `{self.model_name}` is not defined. Please add it to the `model_size` dictionary."
-                )
-
-            self.size = self.model_size[self.model_name]
-
-        if self.collection_name is None:
-            self.collection_name = f"{self.data_type}_{self.model_name}"
-
-
-@dataclass
-class DocsEmbeddingConfig(EmbeddingConfig):
-    data_type: str = "docs"
-
-
-@dataclass
-class IndicatorsEmbeddingConfig(EmbeddingConfig):
-    data_type: str = "indicators"
-
-
-@dataclass
-class MicrodataEmbeddingConfig(EmbeddingConfig):
-    data_type: str = "microdata"
 
 
 # Instantiate the config objects
