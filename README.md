@@ -1,6 +1,6 @@
 # LLM4Data
 
-LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.
+LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for development data and knowledge discovery. It is intended to empower users and organizations to discover and interact with development data in innovative ways through natural language.
 
 This library contains a collection of discovery and data augmentation solutions for various data types including documents, indicators, microdata, geospatial data, and more. The current version of the library includes solutions for the WDI indicators. Additional solutions will be added in [future releases](https://worldbank.github.io/llm4data/README.html#upcoming-features).
 
