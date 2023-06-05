@@ -6,6 +6,7 @@ parts:
     chapters:
       - file: notebooks/examples/getting-started/setting-up-the-environment.ipynb
       - file: notebooks/examples/getting-started/openai-api.ipynb
+      - file: notebooks/examples/getting-started/setting-up-services.ipynb
       - file: notebooks/examples/getting-started/setting-up-database.ipynb
         sections:
         - file: notebooks/examples/getting-started/setting-up-database-sqlite.ipynb
