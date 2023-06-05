@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>OpenAI API &#8212; LLM4Data</title>
+    <title>Setting up services &#8212; LLM4Data</title>
   
   
   
@@ -58,12 +58,12 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/examples/getting-started/openai-api';</script>
-    <link rel="canonical" href="https://worldbank.github.io/llm4data/notebooks/examples/getting-started/openai-api.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/examples/getting-started/setting-up-services';</script>
+    <link rel="canonical" href="https://worldbank.github.io/llm4data/notebooks/examples/getting-started/setting-up-services.html" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Setting up services" href="setting-up-services.html" />
-    <link rel="prev" title="Setting up the environment" href="setting-up-the-environment.html" />
+    <link rel="next" title="Indicators" href="../indicators/README.html" />
+    <link rel="prev" title="OpenAI API" href="openai-api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -143,15 +143,15 @@ const thebe_selector_output = ".output, .cell_output"
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-services.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Setting up services
                       </a>
                     </li>
@@ -240,15 +240,15 @@ const thebe_selector_output = ".output, .cell_output"
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-services.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Setting up services
                       </a>
                     </li>
@@ -322,8 +322,8 @@ const thebe_selector_output = ".output, .cell_output"
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="setting-up-the-environment.html">Setting up the environment</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">OpenAI API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setting-up-services.html">Setting up services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openai-api.html">OpenAI API</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up services</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Data</span></p>
 <ul class="nav bd-sidenav">
@@ -406,7 +406,7 @@ title="Source repository"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2Fnotebooks/examples/getting-started/openai-api.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2Fnotebooks/examples/getting-started/setting-up-services.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -421,7 +421,7 @@ title="Open an issue"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/edit/main/notebooks/examples/getting-started/openai-api.ipynb" target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/edit/main/notebooks/examples/getting-started/setting-up-services.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -446,7 +446,7 @@ title="Edit this page"
     <i class="fas fa-download"></i>
   </button>
   <ul class="dropdown-menu">
-      <li><a href="../../../_sources/notebooks/examples/getting-started/openai-api.ipynb" target="_blank"
+      <li><a href="../../../_sources/notebooks/examples/getting-started/setting-up-services.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -489,7 +489,7 @@ title="Print to PDF"
             
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>OpenAI API</h1>
+    <h1>Setting up services</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -500,13 +500,39 @@ title="Print to PDF"
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-api-key">
-   Getting the API key
+  <a class="reference internal nav-link" href="#database">
+   Database
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#postgresql">
+     PostgreSQL
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adding-the-api-key-to-the-project">
-   Adding the API key to the project
+  <a class="reference internal nav-link" href="#vector-index">
+   Vector Index
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qdrant">
+     Qdrant
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#monitoring-qdrant">
+       Monitoring Qdrant
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
   </a>
  </li>
 </ul>
@@ -518,27 +544,69 @@ title="Print to PDF"
 
             <article class="bd-article" role="main">
               
-  <section class="tex2jax_ignore mathjax_ignore" id="openai-api">
-<h1>OpenAI API<a class="headerlink" href="#openai-api" title="Permalink to this heading">#</a></h1>
-<p>The project currently uses the OpenAI API as its LLM backend. This page contains resources and descriptions on how to set up the OpenAI API.</p>
-<section id="getting-the-api-key">
-<h2>Getting the API key<a class="headerlink" href="#getting-the-api-key" title="Permalink to this heading">#</a></h2>
-<p>To get the API key, go to your OpenAI account’s <a class="reference external" href="https://platform.openai.com/account/api-keys">API keys</a> page. If you don’t have an account, you will be asked to create one.</p>
-<p>Currently, the page looks like this:</p>
-<p><img alt="OpenAI API keys page" src="../../../_images/api-keys-page.png" /></p>
-<p>Click the <code class="docutils literal notranslate"> <span class="pre">+</span> <span class="pre">Create</span> <span class="pre">new</span> <span class="pre">secret</span> <span class="pre">key</span></code> button. You will be asked to name the API key. You can name it anything you want. For example, you can name it “llm4data”.</p>
-</section>
-<section id="adding-the-api-key-to-the-project">
-<h2>Adding the API key to the project<a class="headerlink" href="#adding-the-api-key-to-the-project" title="Permalink to this heading">#</a></h2>
-<p>After creating the API key, you will be shown the key. Copy the key and add it to the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the project’s root directory. Place the key in the <code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code> variable.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OPENAI_API_KEY</span><span class="o">=&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="setting-up-services">
+<h1>Setting up services<a class="headerlink" href="#setting-up-services" title="Permalink to this heading">#</a></h1>
+<p>Some of the functionalities supported by LLM4Data require external services. For example, databases or vector indices.</p>
+<p>In this guide, we will provide you with useful steps to get started with setting up these services so you can get started with applying LLM4Data with your own knowledge sources.</p>
+<section id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this heading">#</a></h2>
+<p>The LLM4Data library allows you to access WDI indicators using natural language by generating SQL queries in real time.</p>
+<p>The library uses SQL engines to store the WDI indicators to your system. You can use the lightweight SQLite library when experimenting, however, it is useful to use a more capable database service for system-critical use cases.</p>
+<p>We leverage the SQLAlchemy ORM to seamlessly interface with the various SQL engines. We use docker images to easily spin-up the services required in this guide.</p>
+<section id="postgresql">
+<h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this heading">#</a></h3>
+<p>Instead of the SQLite database, you can use a PostgreSQL server for storing indicator data, e.g., the WDI.</p>
+<p>Simply run the command below to start a docker container running the official PostgreSQL image. Set the <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code> and make sure to update the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">e</span> <span class="n">POSTGRES_PASSWORD</span><span class="o">=&lt;</span><span class="n">password</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">d</span> <span class="n">postgres</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure you keep the API key secure. Do not commit the API key to the repository. Do not share the API key with anyone.</p>
+<p>Here’s the relevant variables in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file that must be updated. Note the <code class="docutils literal notranslate"><span class="pre">&lt;password&gt;</span></code> must be replaced with the value you set in the <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code> variable when starting the docker container.</p>
+<div class="highlight-## notranslate"><div class="highlight"><pre><span></span>WDI_DB_ENGINE=&quot;postgresql&quot;
+WDI_DB_HOST=&quot;localhost&quot;
+WDI_DB_USERNAME=&quot;postgres&quot;
+WDI_DB_PASSWORD=&lt;password&gt;
+WDI_DB_PORT=5432
+</pre></div>
 </div>
-<p>Now, you’re ready to use the API key in the project! 🎉</p>
+<p>Please check the <a class="reference external" href="https://hub.docker.com/_/postgres">official page</a> for updates.</p>
+</section>
+</section>
+<section id="vector-index">
+<h2>Vector Index<a class="headerlink" href="#vector-index" title="Permalink to this heading">#</a></h2>
+<p>We use vector embeddings to perform semantic search of relevant texts to prompts. The vectors for a collection of texts must be stored for retrieval. In simple applications, the vectors can be in-memory which does not require any external services. However, in more complex applications and also to save time in generating the embeddings for a large collection of texts, we can use a vector index.</p>
+<p>A vector index stores pre-computed vector embeddings for a collection og texts. This saves time by not requiring repeated processing of texts to generate these embeddings. Also, most vector indices implement efficient approximate retrieval algorithms that make searching for millions or billions of vectors fast.</p>
+<section id="qdrant">
+<h3>Qdrant<a class="headerlink" href="#qdrant" title="Permalink to this heading">#</a></h3>
+<p>The LLM4Data implement support for Qdrant for indexing of vector embeddings.</p>
+<p>Qdrant can be easily set up using its official docker image.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">p</span> <span class="mi">6333</span><span class="p">:</span><span class="mi">6333</span> <span class="n">qdrant</span><span class="o">/</span><span class="n">qdrant</span>
+</pre></div>
+</div>
+<p>Please check the <a class="reference external" href="https://hub.docker.com/r/qdrant/qdrant">official page</a> for updates.</p>
+<section id="monitoring-qdrant">
+<h4>Monitoring Qdrant<a class="headerlink" href="#monitoring-qdrant" title="Permalink to this heading">#</a></h4>
+<p>Qdrant has implemented a lightweight interface to show to monitor the status of the Qdrant service. The Qdrant UI is available at the following URL:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://github.com/qdrant/qdrant-web-ui
+</pre></div>
+</div>
+<p>Clone the repo, install serve and vite, and run in development mode.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qdrant/qdrant-web-ui.git
+<span class="nb">cd</span><span class="w"> </span>qdrant-web-ui
+
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>serve
+npm<span class="w"> </span>install<span class="w"> </span>vite
+
+npm<span class="w"> </span>start
+</pre></div>
+</div>
+<p>You will then be able to see stats on the Qdrant service.</p>
+</section>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<p>After following this guide, you should be able to start storing the indicators data into a PostgreSQL database. Should also be able to start inserting vector embeddings into a Qdrant vector index.</p>
+<p>Watch out for future guides to get started with different databases or vector indices as we introduce more features into LLM4Data!</p>
 </section>
 </section>
 
@@ -570,17 +638,17 @@ title="Print to PDF"
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="setting-up-the-environment.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="openai-api.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">Setting up the environment</p>
+          <p class="prev-next-title">OpenAI API</p>
       </div>
   </a>
-  <a class='right-next' id="next-link" href="setting-up-services.html" title="next page">
+  <a class='right-next' id="next-link" href="../indicators/README.html" title="next page">
   <div class="prev-next-info">
       <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Setting up services</p>
+      <p class="prev-next-title">Indicators</p>
   </div>
   <i class="fa-solid fa-angle-right"></i>
   </a>
@@ -601,13 +669,39 @@ title="Print to PDF"
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-api-key">
-   Getting the API key
+  <a class="reference internal nav-link" href="#database">
+   Database
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#postgresql">
+     PostgreSQL
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adding-the-api-key-to-the-project">
-   Adding the API key to the project
+  <a class="reference internal nav-link" href="#vector-index">
+   Vector Index
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#qdrant">
+     Qdrant
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#monitoring-qdrant">
+       Monitoring Qdrant
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
   </a>
  </li>
 </ul>
