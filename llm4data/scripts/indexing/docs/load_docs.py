@@ -6,6 +6,8 @@ import fire
 
 from .docs import add_pdf_document, docs_index
 
+SUPPORTED_EXTENSIONS = ["pdf"]
+
 
 def load_doc_to_index(doc_path: Path, metadata: dict = None, strict: bool = False):
     assert doc_path.exists() and doc_path.is_file(), f"Invalid document path: {doc_path}"
@@ -39,16 +41,34 @@ def load_doc_to_index(doc_path: Path, metadata: dict = None, strict: bool = Fals
 def load_docs_to_index(docs_dir: Path, strict: bool = False):
     # Load the previously indexed documents.
     cname = docs_index.collection_name
-    indexed_docs_path = docs_dir / f"indexed_docs-{cname}.txt"
-    failed_docs_path = docs_dir / f"failed_docs-{cname}.txt"
+    extension = docs_dir.name
+
+    if extension not in SUPPORTED_EXTENSIONS:
+        raise ValueError(f"Invalid extension: {extension}, expected one of {SUPPORTED_EXTENSIONS}")
+
+    indexed_docs_path = docs_dir.parent / f"indexed_docs-{cname}.txt"
+    failed_docs_path = docs_dir.parent / f"failed_docs-{cname}.txt"
+
+    print("Indexed docs path:", indexed_docs_path)
 
     indexed_docs = set()
     if indexed_docs_path.exists():
+        print("Loading indexed docs...")
         with open(indexed_docs_path, "r") as f:
             for line in f:
                 indexed_docs.add(line.strip())
 
-    for doc_path in tqdm(sorted(docs_dir.glob("*.pdf"), reverse=True, key=lambda x: int(x.stem.lstrip("D")))):
+    print("Indexed docs:", len(indexed_docs))
+
+    doc_paths = sorted(
+        docs_dir.glob(f"*.{extension}"),
+        reverse=True,
+        key=lambda x: int(x.stem.lstrip("D"))
+    )
+
+    print("Total docs:", len(doc_paths))
+
+    for doc_path in tqdm(doc_paths):
 
         if str(doc_path) in indexed_docs:
             continue
@@ -63,14 +83,11 @@ def load_docs_to_index(docs_dir: Path, strict: bool = False):
         except KeyboardInterrupt:
             raise KeyboardInterrupt
         except Exception as e:
-            # Log documents that failed to be indexed in a file.
-            # print("Failed:", doc_path)
-
             with open(failed_docs_path, "a+") as f:
-                f.write(f"{doc_path}\n")
+                # Log the file path and the error message.
+                f.write(f"{doc_path}\t{e}\n")
 
             continue
-        # print("Finished:", doc_path)
 
 
 def main(path: str, strict: bool = False):
@@ -78,9 +95,9 @@ def main(path: str, strict: bool = False):
     path = Path(path)
 
     if path.is_file():
-        load_doc_to_index(path)
+        load_doc_to_index(path, strict=strict)
     else:
-        load_docs_to_index(path)
+        load_docs_to_index(path, strict=strict)
 
 
 if __name__ == "__main__":
