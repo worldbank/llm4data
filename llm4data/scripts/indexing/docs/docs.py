@@ -6,7 +6,7 @@ from langchain.text_splitter import NLTKTextSplitter, CharacterTextSplitter, Rec
 
 from llm4data.embeddings.docs import get_docs_embeddings
 from llm4data.index import index
-from llm4data import config
+from llm4data import configs
 
 # Get the docs embeddings
 docs_embeddings = get_docs_embeddings()
@@ -35,7 +35,7 @@ def add_pdf_document(path: Union[str, Path], metadata: Optional[dict] = None):
             documents.append(Document(page_content=metadata["title"], metadata=documents[0].metadata))
 
         for doc in documents:
-            doc.metadata[config.METADATA_KEY] = metadata
+            doc.metadata[configs.METADATA_KEY] = metadata
 
     # Add the document to the collection
     # Load the documens in batches

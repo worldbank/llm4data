@@ -85,3 +85,6 @@ class TaskLabelsConfig:
 wdidb = WDIDBConfig()
 dirs = DirsConfig()  # NOTE: `dirs` is a reserved keyword in Python
 task_labels = TaskLabelsConfig()
+
+# Define the metadata key
+METADATA_KEY = "llm4data"
