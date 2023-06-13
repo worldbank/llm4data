@@ -9,11 +9,11 @@ from dataclasses import dataclass
 @dataclass
 class WDIDBConfig:
     table_name: Optional[str] = os.getenv("WDI_DB_TABLE_NAME")
-    engine: Optional[str] = os.getenv("WDI_DB_ENGINE")
-    host: Optional[str] = os.getenv("WDI_DB_HOST")
-    port: Optional[str] = os.getenv("WDI_DB_PORT")
-    username: Optional[str] = os.getenv("WDI_DB_USERNAME")
-    password: Optional[str] = os.getenv("WDI_DB_PASSWORD")
+    engine: Optional[str] = os.getenv("DB_ENGINE")
+    host: Optional[str] = os.getenv("DB_HOST")
+    port: Optional[str] = os.getenv("DB_PORT")
+    username: Optional[str] = os.getenv("DB_USERNAME")
+    password: Optional[str] = os.getenv("DB_PASSWORD")
 
     @property
     def url(self):
