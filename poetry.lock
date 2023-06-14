@@ -3229,6 +3229,20 @@ files = [
 tests = ["pytest"]
 
 [[package]]
+name = "pycountry"
+version = "22.3.5"
+description = "ISO country, subdivision, language, currency and script definitions and their translations"
+category = "main"
+optional = false
+python-versions = ">=3.6, <4"
+files = [
+    {file = "pycountry-22.3.5.tar.gz", hash = "sha256:b2163a246c585894d808f18783e19137cb70a0c18fb36748dc01fc6f109c1646"},
+]
+
+[package.dependencies]
+setuptools = "*"
+
+[[package]]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
@@ -5027,4 +5041,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "3c87b5fe17149097a519eb60994003eda0f0942fe1b252b3016a51b0f58871f2"
+content-hash = "6acab6a95c9cb341f74387c218e057c4ab801f71f738c599bf64b6469c309bb4"

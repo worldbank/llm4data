@@ -8,7 +8,11 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from urllib.parse import urlparse
 
 import pandas as pd
-from metaschema.doc import DocumentDescription, TitleStatement, Author
+from metaschema.doc import (
+    DocumentDescription, TitleStatement, Author,
+    RefCountryItem,
+    GeographicUnit,
+)
 from tqdm import tqdm
 
 
@@ -26,6 +30,14 @@ class WBDocsToSchema:
         return DocumentDescription(
             title_statement=self.title_statement(),
             authors=self.authors(),
+            date_created=self.date_created(),
+            date_available=self.date_available(),
+            date_published=self.date_published(),
+            type=self.type(),
+            status=self.status(),
+            abstract=self.abstract(),
+            ref_country=self.ref_country(),
+            geographic_units=self.geographic_units(),
         )
 
     def title_statement(self):
@@ -36,6 +48,82 @@ class WBDocsToSchema:
 
     def authors(self):
         return self.get_author(self.metadata)
+
+    def date_created(self):
+        return self.metadata.get("docdt", None)
+
+    def date_available(self):
+        return self.metadata.get("disclosure_date", None)
+
+    def date_published(self):
+        return self.metadata.get("ext_pub_date", None)
+
+    def type(self):
+        majdocty = self.metadata.get("majdocty", None)
+        docty = self.metadata.get("docty", None)
+
+        value = ""
+
+        if majdocty:
+            value = majdocty
+
+        if docty:
+            value = f"{value} :: {docty}"
+
+        return value
+
+    def status(self):
+        return self.metadata.get("disclosure_type", None)
+
+    def abstract(self):
+        return WHITESPACE_RE.sub(" ", self.get_abstract(self.metadata))
+
+    def ref_country(self):
+        countries = self.get_country(self.metadata)
+
+        if countries:
+            countries = [RefCountryItem(name=country, code=None) for country in countries]
+
+        return countries
+
+    def geographic_units(self):
+        regions = self.get_adm_region(self.metadata)
+
+        if regions:
+            regions = [GeographicUnit(
+                name=region, code=None,
+                type="WB Administrative Region",
+            ) for region in regions]
+
+        return None
+
+    ##############################
+    # Helper functions
+    ##############################
+
+    def get_abstract(self, metadata):
+        # "abstracts": {
+        #     "cdata!": "This press release announces the\n            World Bank has approved six loans totaling two hundred\n            twenty-seven million dollars to Congo, India, Sudan,\n            Tunisia, and Zaire."
+        # },
+
+        abstract = ""
+        if "abstracts" in metadata and isinstance(metadata["abstracts"], dict):
+            abstract = metadata["abstracts"].get("cdata!")
+
+        return abstract
+
+    def get_country(self, metadata, delimiter=";"):
+        # "count": "Congo, Republic of,India,Sudan,Tunisia,Congo, Democratic Republic of",
+        p = re.compile("(\S),(\S)")
+        countries = p.sub(f"\\1{delimiter}\\2", metadata.get("count", ""))
+        countries = countries.split(delimiter)
+        countries = countries if countries else None
+
+        return countries
+
+    def get_adm_region(self, metadata):
+        # "admreg": "Africa,Africa,East Asia and Pacific,East Asia and Pacific,Europe and Central Asia,Europe and Central Asia",
+        return self.make_unique_entry(metadata.get("admreg", ""))
 
     def get_title(self, metadata):
         # "display_title": [
@@ -124,6 +212,35 @@ class WBDocsToSchema:
 
         return unique_list
 
+    def normalize_set(self, s):
+        # s = set(['Publications & Research', 'Publications'])
+
+        l = sorted(s)
+        remove_index = set()
+
+        for i in range(len(l) - 1):
+            for j in range(1, len(l)):
+                if l[i] in l[j]:
+                    remove_index.add(i)
+
+        for k in sorted(remove_index, reverse=True):
+            l.pop(k)
+
+        return l
+
+    def make_unique_entry(self, entries):
+        # This will remove duplicate entries in fields: `majdocty` (`majdoctype` : normalized) and `admreg`
+        entries = entries.strip()
+
+        if entries:
+            entries = self.normalize_set(
+                set([i.strip() for i in entries.split(",") if i.strip()]))
+            if len(entries) == 0:
+                entries = None
+        else:
+            entries = None
+
+        return entries
 
 # class WBDocsNormalizer:
 #     def __init__(self, metadata):
