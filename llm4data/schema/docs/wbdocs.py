@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 
 import pandas as pd
 from metaschema.doc import (
+    Model,
     DocumentDescription, TitleStatement, Author,
     RefCountryItem,
     GeographicUnit,
@@ -17,6 +18,7 @@ from metaschema.doc import (
     Topic,
     Theme,
     Discipline,
+    Tag,
 )
 from tqdm import tqdm
 
@@ -32,29 +34,31 @@ class WBDocsToSchema:
         self
 
     def schema(self):
-        return DocumentDescription(
-            title_statement=self.title_statement(),
-            authors=self.authors(),
-            date_created=self.date_created(),
-            date_available=self.date_available(),
-            date_published=self.date_published(),
-            type=self.type(),
-            status=self.status(),
-            abstract=self.abstract(),
-            ref_country=self.ref_country(),
-            geographic_units=self.geographic_units(),
-            languages=self.languages(),
-            volume=self.volume(),
-            number=self.number(),
-            series=self.series(),
-            booktitle=self.booktitle(),
-            url=self.url(),
-            security_classification=self.security_classification(),
-            keywords=self.keywords(),
-            themes=self.themes(),
-            topics=self.topics(),
-            disciplines=self.disciplines(),
-            # tags=self.tags(),
+        return Model(
+            document_description=DocumentDescription(
+                title_statement=self.title_statement(),
+                authors=self.authors(),
+                date_created=self.date_created(),
+                date_available=self.date_available(),
+                date_published=self.date_published(),
+                type=self.type(),
+                status=self.status(),
+                abstract=self.abstract(),
+                ref_country=self.ref_country(),
+                geographic_units=self.geographic_units(),
+                languages=self.languages(),
+                volume=self.volume(),
+                number=self.number(),
+                series=self.series(),
+                booktitle=self.booktitle(),
+                url=self.url(),
+                security_classification=self.security_classification(),
+                keywords=self.keywords(),
+                themes=self.themes(),
+                topics=self.topics(),
+                disciplines=self.disciplines(),
+            ),
+            tags=self.tags(),
         )
 
     def volume(self):
@@ -104,17 +108,17 @@ class WBDocsToSchema:
         topic_keys = ["historic_topic", "subtopic", "topic", "teratopic"]
         topics = []
 
-        topicv3 = self.metadata.get("topicv3", None)
+        topicv3 = WHITESPACE_RE.sub(" ", self.metadata.get("topicv3", ""))
         if topicv3:
             for name, id in TOPICV3_RE.findall(topicv3):
-                topics.append(Topic(id=id, name=name, vocabulary="topicv3"))
+                topics.append(Topic(id=id.strip(), name=name.strip(), vocabulary="topicv3"))
 
         for key in topic_keys:
             topic_list = self.make_unique_entry(
                 self.metadata.get(key, "")) or []
 
             for name in topic_list:
-                topics.append(Topic(name=name, vocabulary=key))
+                topics.append(Topic(name=name.strip(), vocabulary=key))
 
         return None if len(topics) == 0 else topics
 
@@ -135,6 +139,37 @@ class WBDocsToSchema:
         disciplines = disciplines or None
 
         return disciplines
+
+    def tags(self):
+        # projectid (PROJECT ID)
+        tag_tag_group = dict(
+            projectid="PROJECT ID",
+            owner="WB OWNING UNIT",
+            prdln="PRODUCT LINE",
+            loan_no="LOAN NO",
+            lndinstr="LENDING INSTRUMENT",
+            envcat="ENVIRONMENTAL CATEGORY",
+        )
+        tags = []
+
+        for key, tag_group in tag_tag_group.items():
+            # print(key, tag_group)
+            if key not in self.metadata:
+                continue
+
+            if key != "lndinstr":
+                tag_list = self.get_unique_list(
+                    self.comma_separated_list(self.metadata, key))
+            else:
+                tag_list = self.numbered_list(
+                    self.metadata.get(key), key, delimiter=None)
+
+            for tag in tag_list:
+                tags.append(Tag(tag=tag, tag_group=tag_group))
+
+        tags = tags or None
+
+        return tags
 
     def title_statement(self):
         return TitleStatement(
@@ -224,6 +259,7 @@ class WBDocsToSchema:
         repnme = ""
         if "repnme" in metadata and isinstance(metadata["repnme"], dict):
             repnme = metadata["repnme"].get("repnme")
+            repnme = WHITESPACE_RE.sub(" ", repnme)
 
         return repnme
 

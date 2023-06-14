@@ -2106,14 +2106,14 @@ traitlets = "*"
 
 [[package]]
 name = "metaschema"
-version = "0.0.2"
+version = "0.0.3"
 description = "Repository of Pydantic models for metadata schema."
 category = "main"
 optional = false
 python-versions = ">=3.8.1,<4.0.0"
 files = [
-    {file = "metaschema-0.0.2-py3-none-any.whl", hash = "sha256:b6661e3d8855b0c019e7304f2214d21ec8ee9c100103e6144c9d44aa512c0592"},
-    {file = "metaschema-0.0.2.tar.gz", hash = "sha256:335301853571f4d1937126749867074ffd88f3f02e2f348008147f1b01fbf2de"},
+    {file = "metaschema-0.0.3-py3-none-any.whl", hash = "sha256:b69bd78aecee2aa3cb66a8eedc446cd059d69f975b988c330837fa75ea4dadf5"},
+    {file = "metaschema-0.0.3.tar.gz", hash = "sha256:0628336ed1b614d737ef40d3e16b40dbda4aea16bf53985c7a798aa7aff9b38e"},
 ]
 
 [package.dependencies]
@@ -5041,4 +5041,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "6acab6a95c9cb341f74387c218e057c4ab801f71f738c599bf64b6469c309bb4"
+content-hash = "8698644171a82cefac4aad73220d8185b8114cbf31ca7bedb5d132a0bf3e4de6"

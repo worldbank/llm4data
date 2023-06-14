@@ -21,7 +21,7 @@ qdrant-client = {version = "^1.2.0", python = ">=3.10,<3.12"}
 sentence-transformers = "^2.2.2"
 instructorembedding = "^1.0.1"
 pymupdf = "^1.22.3"
-metaschema = "^0.0.2"
+metaschema = "0.0.3"
 pycountry = "^22.3.5"
 
 [tool.poetry.group.test.dependencies]
