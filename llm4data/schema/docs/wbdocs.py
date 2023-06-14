@@ -14,6 +14,9 @@ from metaschema.doc import (
     GeographicUnit,
     Language,
     Keyword,
+    Topic,
+    Theme,
+    Discipline,
 )
 from tqdm import tqdm
 
@@ -50,7 +53,7 @@ class WBDocsToSchema:
             keywords=self.keywords(),
             themes=self.themes(),
             topics=self.topics(),
-            # disciplines=self.disciplines(),
+            disciplines=self.disciplines(),
             # tags=self.tags(),
         )
 
@@ -90,39 +93,48 @@ class WBDocsToSchema:
         themes = None
 
         if majtheme:
-            themes = [Keyword(name=th) for th in majtheme]
+            themes = [Theme(name=th, vocabulary="majtheme") for th in majtheme]
 
         if theme:
-            themes.extend([Keyword(name=th) for th in theme])
+            themes.extend([Theme(name=th, vocabulary="theme") for th in theme])
 
         return themes
 
     def topics(self):
         topic_keys = ["historic_topic", "subtopic", "topic", "teratopic"]
         topics = []
-        topic_names = set()
 
         topicv3 = self.metadata.get("topicv3", None)
         if topicv3:
             for name, id in TOPICV3_RE.findall(topicv3):
-                if name in topic_names:
-                    continue
-
-                topics.append(Keyword(id=id, name=name))
-                topic_names.add(name)
+                topics.append(Topic(id=id, name=name, vocabulary="topicv3"))
 
         for key in topic_keys:
             topic_list = self.make_unique_entry(
                 self.metadata.get(key, "")) or []
 
             for name in topic_list:
-                if name in topic_names:
-                    continue
-
-                topics.append(Keyword(name=name))
-                topic_names.add(name)
+                topics.append(Topic(name=name, vocabulary=key))
 
         return None if len(topics) == 0 else topics
+
+    def disciplines(self):
+        disciplines = []
+        subsc = self.comma_separated_list(self.metadata, "subsc")
+
+        if subsc:
+            for sub in subsc:
+                disciplines.append(Discipline(name=sub, vocabulary="subsc"))
+
+        sectr = self.numbered_list(self.metadata.get("sectr"), "sector", delimiter=None)
+
+        if sectr:
+            for sec in sectr:
+                disciplines.append(Discipline(name=sec, vocabulary="sectr"))
+
+        disciplines = disciplines or None
+
+        return disciplines
 
     def title_statement(self):
         return TitleStatement(
@@ -318,6 +330,15 @@ class WBDocsToSchema:
             )
 
         return authors_list
+
+    def numbered_list(self, values, key, delimiter=";"):
+        if values and isinstance(values, dict):
+            values = self.get_unique_list(
+                [value.get(key) for value in values.values() if value.get(key)])
+            if delimiter:
+                values = delimiter.join(values)
+
+        return values
 
     def get_keywords(self, metadata):
         # "keywd": {
