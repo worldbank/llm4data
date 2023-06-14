@@ -12,13 +12,15 @@ from metaschema.doc import (
     DocumentDescription, TitleStatement, Author,
     RefCountryItem,
     GeographicUnit,
+    Language,
+    Keyword,
 )
 from tqdm import tqdm
 
 
 WHITESPACE_RE = re.compile("\s+")
 AUTHOR_RE = re.compile(r"(.*?),\s*(.*)")
-
+TOPICV3_RE = re.compile(r"(.*?) (m\d+ \d+)(?:,|$)")
 
 class WBDocsToSchema:
 
@@ -38,7 +40,89 @@ class WBDocsToSchema:
             abstract=self.abstract(),
             ref_country=self.ref_country(),
             geographic_units=self.geographic_units(),
+            languages=self.languages(),
+            volume=self.volume(),
+            number=self.number(),
+            series=self.series(),
+            booktitle=self.booktitle(),
+            url=self.url(),
+            security_classification=self.security_classification(),
+            keywords=self.keywords(),
+            themes=self.themes(),
+            topics=self.topics(),
+            # disciplines=self.disciplines(),
+            # tags=self.tags(),
         )
+
+    def volume(self):
+        return self.metadata.get("volnb", None)
+
+    def number(self):
+        return self.metadata.get("repnb", None)
+
+    def series(self):
+        return self.metadata.get("colti", None)
+
+    def booktitle(self):
+        return self.get_repnme(self.metadata)
+
+    def url(self):
+        return (
+            self.metadata.get("pdfurl", None) or
+            self.metadata.get("url", None)
+        )
+
+    def security_classification(self):
+        return self.metadata.get("seccl", None)
+
+    def keywords(self):
+        keywords = self.get_keywords(self.metadata)
+
+        if keywords:
+            keywords = [Keyword(name=keyword) for keyword in keywords]
+
+        return keywords
+
+    def themes(self):
+        majtheme = self.get_majtheme(self.metadata)
+        theme = self.get_theme(self.metadata)
+
+        themes = None
+
+        if majtheme:
+            themes = [Keyword(name=th) for th in majtheme]
+
+        if theme:
+            themes.extend([Keyword(name=th) for th in theme])
+
+        return themes
+
+    def topics(self):
+        topic_keys = ["historic_topic", "subtopic", "topic", "teratopic"]
+        topics = []
+        topic_names = set()
+
+        topicv3 = self.metadata.get("topicv3", None)
+        if topicv3:
+            for name, id in TOPICV3_RE.findall(topicv3):
+                if name in topic_names:
+                    continue
+
+                topics.append(Keyword(id=id, name=name))
+                topic_names.add(name)
+
+        for key in topic_keys:
+            topic_list = self.make_unique_entry(
+                self.metadata.get(key, "")) or []
+
+            for name in topic_list:
+                if name in topic_names:
+                    continue
+
+                topics.append(Keyword(name=name))
+                topic_names.add(name)
+
+        return None if len(topics) == 0 else topics
 
     def title_statement(self):
         return TitleStatement(
@@ -97,6 +181,14 @@ class WBDocsToSchema:
 
         return None
 
+    def languages(self):
+        lang = self.get_language(self.metadata)
+
+        if lang:
+            lang = [Language(name=lang, code=None)]
+
+        return lang
+
     ##############################
     # Helper functions
     ##############################
@@ -112,14 +204,37 @@ class WBDocsToSchema:
 
         return abstract
 
+    def get_repnme(self, metadata):
+        # "repnme": {
+        #     "repnme": "Wage differentials between the public and\n            private sector in India"
+        # },
+
+        repnme = ""
+        if "repnme" in metadata and isinstance(metadata["repnme"], dict):
+            repnme = metadata["repnme"].get("repnme")
+
+        return repnme
+
+    def get_majtheme(self, metadata, delimiter=";"):
+        # "majtheme": "Financial and private sector development,Public sector governance",
+        # return self.get_unique_list(metadata.get("majtheme", "").split(","))
+        return self.comma_separated_list(metadata, "majtheme", delimiter)
+
+    def get_theme(self, metadata, delimiter=";"):
+        # "theme": "Public sector governance,Financial and private sector development",
+        return self.comma_separated_list(metadata, "theme", delimiter)
+
     def get_country(self, metadata, delimiter=";"):
         # "count": "Congo, Republic of,India,Sudan,Tunisia,Congo, Democratic Republic of",
-        p = re.compile("(\S),(\S)")
-        countries = p.sub(f"\\1{delimiter}\\2", metadata.get("count", ""))
-        countries = countries.split(delimiter)
-        countries = countries if countries else None
+        return self.comma_separated_list(metadata, "count", delimiter)
 
-        return countries
+    def comma_separated_list(self, metadata, key, delimiter=";"):
+        p = re.compile("(\S),(\S)")
+        values = p.sub(f"\\1{delimiter}\\2", metadata.get(key, ""))
+        values = values.split(delimiter)
+        values = values if values else None
+
+        return values
 
     def get_adm_region(self, metadata):
         # "admreg": "Africa,Africa,East Asia and Pacific,East Asia and Pacific,Europe and Central Asia,Europe and Central Asia",
@@ -203,6 +318,26 @@ class WBDocsToSchema:
             )
 
         return authors_list
+
+    def get_keywords(self, metadata):
+        # "keywd": {
+        #     "0": {
+        #       "keywd": "plastic waste; catchment; waste handling\n            practices; terrestrial environment; illegal dumping;\n            frequency of rainfall events"
+        #     }
+        # }
+        keywds = metadata.get("keywd")
+
+        keywords = None
+        if keywds and isinstance(keywds, dict):
+            keywds = [kwd.strip() for keywd in keywds.values()
+                      for kwd in WHITESPACE_RE.sub(" ", keywd["keywd"]).split(";")]
+            keywords = self.get_unique_list(keywds)
+
+        return keywords
+
+    def get_language(self, metadata):
+        # "lang": "English",
+        return metadata.get("lang")
 
     def get_unique_list(self, values):
         unique_list = sorted(set([i.strip() for i in values if i.strip()]))
