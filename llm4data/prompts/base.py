@@ -48,3 +48,19 @@ class DatedPrompt(PromptTemplate, ABC):
     @abstractmethod
     def parse_response(self, response: dict, **kwargs: Any) -> Any:
         pass
+
+
+class APIPrompt(DatedPrompt):
+    task_label = "APIPrompt"
+    prompt_type = "zeros"
+    template = "Current date: {now}\n\n"
+
+    @abstractmethod
+    def parse_response(
+        self, response: dict, **kwargs: Any
+    ) -> Any:
+        pass
+
+    @abstractmethod
+    def send_prompt_get_sample(self, prompt: str, n_samples: int = 10, **kwargs: Any) -> dict:
+        pass
