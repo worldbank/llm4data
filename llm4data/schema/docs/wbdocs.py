@@ -99,6 +99,7 @@ class WBDocsToSchema:
             themes = [Theme(name=th, vocabulary="majtheme") for th in majtheme]
 
         if theme:
+            themes = themes or []
             themes.extend([Theme(name=th, vocabulary="theme") for th in theme])
 
         return themes
@@ -286,9 +287,8 @@ class WBDocsToSchema:
 
     def comma_separated_list(self, metadata, key, delimiter=";"):
         p = re.compile("(\S),(\S)")
-        values = p.sub(f"\\1{delimiter}\\2", metadata.get(key, ""))
-        values = values.split(delimiter)
-        values = values if values else None
+        values = p.sub(f"\\1{delimiter}\\2", metadata.get(key, "")).strip()
+        values = values.split(delimiter) if values else []
 
         return values
 
