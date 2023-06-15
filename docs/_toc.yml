@@ -17,3 +17,7 @@ parts:
       - file: notebooks/examples/indicators/README
         sections:
         - file: notebooks/examples/indicators/wdi/getting-started-with-the-wdi.ipynb
+
+  - caption: Indexing documents and data
+    chapters:
+      - file: GUIDE.md
