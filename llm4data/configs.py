@@ -9,11 +9,11 @@ from dataclasses import dataclass
 @dataclass
 class WDIDBConfig:
     table_name: Optional[str] = os.getenv("WDI_DB_TABLE_NAME")
-    engine: Optional[str] = os.getenv("WDI_DB_ENGINE")
-    host: Optional[str] = os.getenv("WDI_DB_HOST")
-    port: Optional[str] = os.getenv("WDI_DB_PORT")
-    username: Optional[str] = os.getenv("WDI_DB_USERNAME")
-    password: Optional[str] = os.getenv("WDI_DB_PASSWORD")
+    engine: Optional[str] = os.getenv("DB_ENGINE")
+    host: Optional[str] = os.getenv("DB_HOST")
+    port: Optional[str] = os.getenv("DB_PORT")
+    username: Optional[str] = os.getenv("DB_USERNAME")
+    password: Optional[str] = os.getenv("DB_PASSWORD")
 
     @property
     def url(self):
@@ -43,16 +43,24 @@ class DirsConfig:
         self.llm4data_dir = self._process_dir(self.llm4data_dir, "LLM4DATA_DIR")
 
         if not isinstance(self.llm4data_cache_dir, str):
-            raise ValueError("`LLM4DATA_CACHE_DIR` environment variable must be a string.")
+            raise ValueError(
+                "`LLM4DATA_CACHE_DIR` environment variable must be a string."
+            )
 
         if not isinstance(self.openai_payload_dir, str):
-            raise ValueError("`OPENAI_PAYLOAD_DIR` environment variable must be a string.")
+            raise ValueError(
+                "`OPENAI_PAYLOAD_DIR` environment variable must be a string."
+            )
 
         self.llm4data_cache_dir = self.llm4data_dir / self.llm4data_cache_dir
         self.openai_payload_dir = self.llm4data_dir / self.openai_payload_dir
 
-        self.llm4data_cache_dir = self._process_dir(self.llm4data_cache_dir, "LLM4DATA_CACHE_DIR")
-        self.openai_payload_dir = self._process_dir(self.openai_payload_dir, "OPENAI_PAYLOAD_DIR")
+        self.llm4data_cache_dir = self._process_dir(
+            self.llm4data_cache_dir, "LLM4DATA_CACHE_DIR"
+        )
+        self.openai_payload_dir = self._process_dir(
+            self.openai_payload_dir, "OPENAI_PAYLOAD_DIR"
+        )
 
     def _process_dir(self, dirname: Union[str, Path], dirvar: str) -> Path:
         if not dirname:
@@ -61,7 +69,9 @@ class DirsConfig:
         dirname = Path(dirname).expanduser().resolve()
 
         if dirvar != "LLM4DATA_DIR" and self.llm4data_dir == dirname:
-            raise ValueError(f"{dirvar}={dirname} is the same as LLM4DATA_DIR={self.llm4data_dir}")
+            raise ValueError(
+                f"{dirvar}={dirname} is the same as LLM4DATA_DIR={self.llm4data_dir}"
+            )
 
         if not dirname.exists():
             warnings.warn(f"{dirvar}={dirname} does not exist. Creating it now...")
@@ -85,3 +95,6 @@ class TaskLabelsConfig:
 wdidb = WDIDBConfig()
 dirs = DirsConfig()  # NOTE: `dirs` is a reserved keyword in Python
 task_labels = TaskLabelsConfig()
+
+# Define the metadata key
+METADATA_KEY = "llm4data"

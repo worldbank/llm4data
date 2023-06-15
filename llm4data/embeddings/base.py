@@ -8,7 +8,8 @@ from dataclasses import dataclass, asdict
 
 
 # Make the model atomically available
-LOADED_MODELS = {}
+LOADED_MODELS: dict = {}
+
 
 @dataclass
 class BaseEmbeddingModel:
@@ -43,7 +44,6 @@ class BaseEmbeddingModel:
 
 @dataclass
 class EmbeddingModel(BaseEmbeddingModel):
-
     def __post_init__(self):
         self._common_init()
         self._instruct_init()
@@ -80,7 +80,7 @@ class EmbeddingModel(BaseEmbeddingModel):
             self.kwargs = {
                 **self.kwargs,
                 "embed_instruction": self.embed_instruction,
-                "query_instruction": self.query_instruction
+                "query_instruction": self.query_instruction,
             }
 
     def _hf_init(self):
@@ -92,11 +92,13 @@ class EmbeddingModel(BaseEmbeddingModel):
                 "model_name": self.model_name,
             }
 
-    def _create_embeddings(self) -> ModelMetaclass:
+    def _create_embeddings(self):
         if not isinstance(self.kwargs, dict):
             raise ValueError("`config.kwargs` must be a dict")
 
-        self.embeddings = getattr(langchain_embeddings, self.embedding_cls)(**self.kwargs)
+        self.embeddings = getattr(langchain_embeddings, self.embedding_cls)(
+            **self.kwargs
+        )
 
-        if self.max_tokens is None:
+        if self.max_tokens is None and self.embeddings:
             self.max_tokens = self.embeddings.client.max_seq_length

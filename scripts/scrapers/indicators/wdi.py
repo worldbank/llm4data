@@ -8,6 +8,7 @@ import backoff
 
 from llm4data import indicator2name
 
+
 class WDIException(BaseException):
     pass
 
@@ -24,7 +25,6 @@ def get_json(url):
 
 
 class IndicatorScraper:
-
     def __init__(self, indicator_id, data_dir):
         self.indicator_id = indicator_id
         self.data_dir = Path(data_dir)
@@ -45,7 +45,9 @@ class IndicatorScraper:
         total = _json[0]["pages"]
         # print(f"Total pages: {total}")
 
-        for page in tqdm(range(2, total + 1), desc=f"Scraping: ({self.indicator_id})", position=1):
+        for page in tqdm(
+            range(2, total + 1), desc=f"Scraping: ({self.indicator_id})", position=1
+        ):
             _data = get_json(self.get_api_url(page))[1]
             data += _data
 
@@ -62,7 +64,6 @@ class IndicatorScraper:
         self.filename.write_text(json.dumps(data, indent=2))
 
     def run(self, force: bool = False):
-
         if not force and self.filename.exists():
             print(f"Skipping: {self.filename}")
             return

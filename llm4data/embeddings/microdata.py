@@ -1,7 +1,8 @@
+from typing import Optional
 from dataclasses import dataclass
 from llm4data.embeddings.base import EmbeddingModel
 
-MICRODATA_EMBEDDINGS: EmbeddingModel = None
+MICRODATA_EMBEDDINGS: Optional[EmbeddingModel] = None
 
 
 @dataclass

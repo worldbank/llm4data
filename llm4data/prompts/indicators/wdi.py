@@ -1,8 +1,10 @@
 import json
+import requests
+import pandas as pd
 from typing import Any
 from urllib.parse import urlparse
 from openai_tools.parser import parse_misparsed
-from llm4data.prompts.base import DatedPrompt
+from llm4data.prompts.base import DatedPrompt, APIPrompt
 
 
 class WDISQLPrompt(DatedPrompt):
@@ -44,7 +46,7 @@ class WDISQLPrompt(DatedPrompt):
         return query_string
 
 
-class WDIAPIPrompt(DatedPrompt):
+class WDIAPIPrompt(APIPrompt):
     """Context for generating a WDI API URL from a prompt.
 
     Example API URL:
@@ -74,6 +76,7 @@ class WDIAPIPrompt(DatedPrompt):
 
         super().__init__(input_variables=input_variables, template=template)
 
+    @staticmethod
     def get_indicator_code_from_url(url):
         """
         Get the indicator code from a WDI API URL.
@@ -98,3 +101,36 @@ class WDIAPIPrompt(DatedPrompt):
             endpoint = endpoint + f"&per_page={per_page}"
 
         return endpoint
+
+    def send_prompt_get_sample(self, prompt: str, n_samples: int = 10, **kwargs: Any) -> dict:
+        default = dict(
+            use_wdi=False,
+            wdi_api=None,
+            series_code=None,
+            data=None,
+        )
+
+        response = self.send_prompt(prompt=prompt)
+        endpoint = self.parse_response(response=response, **kwargs)
+
+        if endpoint is None:
+            return default
+
+        request = requests.get(endpoint)
+
+        if request.status_code != 200:
+            return default
+
+        try:
+            request_json = request.json()
+
+            data = pd.DataFrame(request_json[1]).sort_values("date", ascending=False)
+
+            return dict(
+                use_wdi=True,
+                wdi_api=endpoint,
+                series_code=self.get_indicator_code_from_url(endpoint),
+                sample=data.head(n_samples).to_dict(orient="records"),
+            )
+        except Exception as e:
+            return default
