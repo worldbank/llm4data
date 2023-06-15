@@ -9,7 +9,7 @@ from langchain.text_splitter import (
 )
 
 from llm4data.embeddings.docs import get_docs_embeddings
-from llm4data.index import index
+from llm4data import index
 from llm4data import configs
 
 # Get the docs embeddings
