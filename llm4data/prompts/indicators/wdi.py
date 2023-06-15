@@ -76,6 +76,7 @@ class WDIAPIPrompt(APIPrompt):
 
         super().__init__(input_variables=input_variables, template=template)
 
+    @staticmethod
     def get_indicator_code_from_url(url):
         """
         Get the indicator code from a WDI API URL.
