@@ -32,7 +32,7 @@ text_splitter = RecursiveCharacterTextSplitter.from_huggingface_tokenizer(
 
 def add_pdf_document(path: Union[str, Path], metadata: Optional[dict] = None):
     # Load the document
-    documents = PyMuPDFLoader(path).load_and_split(text_splitter=text_splitter)
+    documents = PyMuPDFLoader(str(path)).load_and_split(text_splitter=text_splitter)
 
     # Add document metadata
     if metadata is not None:

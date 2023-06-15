@@ -8,7 +8,7 @@ from dataclasses import dataclass, asdict
 
 
 # Make the model atomically available
-LOADED_MODELS = {}
+LOADED_MODELS: dict = {}
 
 
 @dataclass
@@ -92,7 +92,7 @@ class EmbeddingModel(BaseEmbeddingModel):
                 "model_name": self.model_name,
             }
 
-    def _create_embeddings(self) -> ModelMetaclass:
+    def _create_embeddings(self):
         if not isinstance(self.kwargs, dict):
             raise ValueError("`config.kwargs` must be a dict")
 
@@ -100,5 +100,5 @@ class EmbeddingModel(BaseEmbeddingModel):
             **self.kwargs
         )
 
-        if self.max_tokens is None:
+        if self.max_tokens is None and self.embeddings:
             self.max_tokens = self.embeddings.client.max_seq_length

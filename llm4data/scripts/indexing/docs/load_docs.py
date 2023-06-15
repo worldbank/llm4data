@@ -1,3 +1,4 @@
+from typing import Optional, Union
 from pathlib import Path
 from tqdm.auto import tqdm
 import json
@@ -8,7 +9,7 @@ from .docs import add_pdf_document, docs_index
 SUPPORTED_EXTENSIONS = ["pdf"]
 
 
-def load_doc_to_index(doc_path: Path, metadata: dict = None, strict: bool = False):
+def load_doc_to_index(doc_path: Path, metadata: Optional[dict] = None, strict: bool = False):
     assert (
         doc_path.exists() and doc_path.is_file()
     ), f"Invalid document path: {doc_path}"
@@ -94,7 +95,7 @@ def load_docs_to_index(docs_dir: Path, strict: bool = False):
             continue
 
 
-def main(path: str, strict: bool = False):
+def main(path: Union[str, Path], strict: bool = False):
     # strict: if True, the script will fail if the document metadata is not found.
     path = Path(path)
 
