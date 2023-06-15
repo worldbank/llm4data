@@ -189,7 +189,6 @@ class WDIIndicatorSQL(WDISQL):
         drop_na=True,
         num_samples=20,
     ):
-
         if params is None:
             params = {}
 

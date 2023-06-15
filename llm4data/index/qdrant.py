@@ -38,18 +38,23 @@ def get_index_collection(embeddings, path: str = None, recreate: bool = False):
     if recreate:
         client.recreate_collection(
             collection_name=embeddings.collection_name,
-            vectors_config=models.VectorParams(size=embeddings.size, distance=embeddings.distance),
+            vectors_config=models.VectorParams(
+                size=embeddings.size, distance=embeddings.distance
+            ),
         )
 
     if not collection_exists(embeddings.collection_name):
         client.create_collection(
             collection_name=embeddings.collection_name,
-            vectors_config=models.VectorParams(size=embeddings.size, distance=embeddings.distance),
+            vectors_config=models.VectorParams(
+                size=embeddings.size, distance=embeddings.distance
+            ),
         )
 
     return Qdrant(
-        client=client, collection_name=embeddings.collection_name,
-        embeddings=embeddings.embeddings
+        client=client,
+        collection_name=embeddings.collection_name,
+        embeddings=embeddings.embeddings,
     )
 
 
@@ -58,8 +63,12 @@ def get_docs_index(path: str = None, recreate: bool = False):
 
 
 def get_indicators_index(path: str = None, recreate: bool = False):
-    return get_index_collection(get_indicators_embeddings(), path=path, recreate=recreate)
+    return get_index_collection(
+        get_indicators_embeddings(), path=path, recreate=recreate
+    )
 
 
 def get_microdata_index(path: str = None, recreate: bool = False):
-    return get_index_collection(get_microdata_embeddings(), path=path, recreate=recreate)
+    return get_index_collection(
+        get_microdata_embeddings(), path=path, recreate=recreate
+    )

@@ -1,4 +1,3 @@
-
 from pathlib import Path
 from tqdm.auto import tqdm
 import json
@@ -10,8 +9,12 @@ SUPPORTED_EXTENSIONS = ["pdf"]
 
 
 def load_doc_to_index(doc_path: Path, metadata: dict = None, strict: bool = False):
-    assert doc_path.exists() and doc_path.is_file(), f"Invalid document path: {doc_path}"
-    assert doc_path.suffix == ".pdf", f"Invalid document extension: {doc_path.suffix}, expected .pdf"
+    assert (
+        doc_path.exists() and doc_path.is_file()
+    ), f"Invalid document path: {doc_path}"
+    assert (
+        doc_path.suffix == ".pdf"
+    ), f"Invalid document extension: {doc_path.suffix}, expected .pdf"
 
     if metadata is None:
         # Try to load the metadata from the file
@@ -44,7 +47,9 @@ def load_docs_to_index(docs_dir: Path, strict: bool = False):
     extension = docs_dir.name
 
     if extension not in SUPPORTED_EXTENSIONS:
-        raise ValueError(f"Invalid extension: {extension}, expected one of {SUPPORTED_EXTENSIONS}")
+        raise ValueError(
+            f"Invalid extension: {extension}, expected one of {SUPPORTED_EXTENSIONS}"
+        )
 
     indexed_docs_path = docs_dir.parent / f"indexed_docs-{cname}.txt"
     failed_docs_path = docs_dir.parent / f"failed_docs-{cname}.txt"
@@ -63,13 +68,12 @@ def load_docs_to_index(docs_dir: Path, strict: bool = False):
     doc_paths = sorted(
         docs_dir.glob(f"*.{extension}"),
         reverse=True,
-        key=lambda x: int(x.stem.lstrip("D"))
+        key=lambda x: int(x.stem.lstrip("D")),
     )
 
     print("Total docs:", len(doc_paths))
 
     for doc_path in tqdm(doc_paths):
-
         if str(doc_path) in indexed_docs:
             continue
 

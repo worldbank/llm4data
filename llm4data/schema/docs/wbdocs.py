@@ -10,7 +10,9 @@ from urllib.parse import urlparse
 import pandas as pd
 from metaschema.doc import (
     Model,
-    DocumentDescription, TitleStatement, Author,
+    DocumentDescription,
+    TitleStatement,
+    Author,
     RefCountryItem,
     GeographicUnit,
     Language,
@@ -27,8 +29,8 @@ WHITESPACE_RE = re.compile("\s+")
 AUTHOR_RE = re.compile(r"(.*?),\s*(.*)")
 TOPICV3_RE = re.compile(r"(.*?) (m\d+ \d+)(?:,|$)")
 
-class WBDocsToSchema:
 
+class WBDocsToSchema:
     def __init__(self, metadata) -> None:
         self.metadata = metadata
         self
@@ -74,10 +76,7 @@ class WBDocsToSchema:
         return self.get_repnme(self.metadata)
 
     def url(self):
-        return (
-            self.metadata.get("pdfurl", None) or
-            self.metadata.get("url", None)
-        )
+        return self.metadata.get("pdfurl", None) or self.metadata.get("url", None)
 
     def security_classification(self):
         return self.metadata.get("seccl", None)
@@ -111,11 +110,12 @@ class WBDocsToSchema:
         topicv3 = WHITESPACE_RE.sub(" ", self.metadata.get("topicv3", ""))
         if topicv3:
             for name, id in TOPICV3_RE.findall(topicv3):
-                topics.append(Topic(id=id.strip(), name=name.strip(), vocabulary="topicv3"))
+                topics.append(
+                    Topic(id=id.strip(), name=name.strip(), vocabulary="topicv3")
+                )
 
         for key in topic_keys:
-            topic_list = self.make_unique_entry(
-                self.metadata.get(key, "")) or []
+            topic_list = self.make_unique_entry(self.metadata.get(key, "")) or []
 
             for name in topic_list:
                 topics.append(Topic(name=name.strip(), vocabulary=key))
@@ -159,10 +159,12 @@ class WBDocsToSchema:
 
             if key != "lndinstr":
                 tag_list = self.get_unique_list(
-                    self.comma_separated_list(self.metadata, key))
+                    self.comma_separated_list(self.metadata, key)
+                )
             else:
                 tag_list = self.numbered_list(
-                    self.metadata.get(key), key, delimiter=None)
+                    self.metadata.get(key), key, delimiter=None
+                )
 
             for tag in tag_list:
                 tags.append(Tag(tag=tag, tag_group=tag_group))
@@ -213,7 +215,9 @@ class WBDocsToSchema:
         countries = self.get_country(self.metadata)
 
         if countries:
-            countries = [RefCountryItem(name=country, code=None) for country in countries]
+            countries = [
+                RefCountryItem(name=country, code=None) for country in countries
+            ]
 
         return countries
 
@@ -221,10 +225,14 @@ class WBDocsToSchema:
         regions = self.get_adm_region(self.metadata)
 
         if regions:
-            regions = [GeographicUnit(
-                name=region, code=None,
-                type="WB Administrative Region",
-            ) for region in regions]
+            regions = [
+                GeographicUnit(
+                    name=region,
+                    code=None,
+                    type="WB Administrative Region",
+                )
+                for region in regions
+            ]
 
         return None
 
@@ -333,7 +341,8 @@ class WBDocsToSchema:
         authors_value = None
         if authors and isinstance(authors, dict):
             authors_value = self.get_unique_list(
-                [author["author"] for author in authors.values()])
+                [author["author"] for author in authors.values()]
+            )
             authors_value = delimiter.join(authors_value)
 
         authors = authors_value
@@ -370,7 +379,8 @@ class WBDocsToSchema:
     def numbered_list(self, values, key, delimiter=";"):
         if values and isinstance(values, dict):
             values = self.get_unique_list(
-                [value.get(key) for value in values.values() if value.get(key)])
+                [value.get(key) for value in values.values() if value.get(key)]
+            )
             if delimiter:
                 values = delimiter.join(values)
 
@@ -386,8 +396,11 @@ class WBDocsToSchema:
 
         keywords = None
         if keywds and isinstance(keywds, dict):
-            keywds = [kwd.strip() for keywd in keywds.values()
-                      for kwd in WHITESPACE_RE.sub(" ", keywd["keywd"]).split(";")]
+            keywds = [
+                kwd.strip()
+                for keywd in keywds.values()
+                for kwd in WHITESPACE_RE.sub(" ", keywd["keywd"]).split(";")
+            ]
             keywords = self.get_unique_list(keywds)
 
         return keywords
@@ -426,13 +439,15 @@ class WBDocsToSchema:
 
         if entries:
             entries = self.normalize_set(
-                set([i.strip() for i in entries.split(",") if i.strip()]))
+                set([i.strip() for i in entries.split(",") if i.strip()])
+            )
             if len(entries) == 0:
                 entries = None
         else:
             entries = None
 
         return entries
+
 
 # class WBDocsNormalizer:
 #     def __init__(self, metadata):
