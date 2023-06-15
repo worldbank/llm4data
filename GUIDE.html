@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>OpenAI API &#8212; LLM4Data</title>
+    <title>Guide for indexing documents and data &#8212; LLM4Data</title>
   
   
   
@@ -16,54 +16,53 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/clipboard.min.js"></script>
-    <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../../_static/design-tabs.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/examples/getting-started/openai-api';</script>
-    <link rel="canonical" href="https://worldbank.github.io/llm4data/notebooks/examples/getting-started/openai-api.html" />
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Setting up services" href="setting-up-services.html" />
-    <link rel="prev" title="Setting up the environment" href="setting-up-the-environment.html" />
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'GUIDE';</script>
+    <link rel="canonical" href="https://worldbank.github.io/llm4data/GUIDE.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting Started with the World Development Indicators (WDI) data" href="notebooks/examples/indicators/wdi/getting-started-with-the-wdi.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -88,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
       
-<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
@@ -107,7 +106,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 
-<a class="navbar-brand logo" href="../../../README.html">
+<a class="navbar-brand logo" href="README.html">
 
   
   
@@ -137,35 +136,35 @@ const thebe_selector_output = ".output, .cell_output"
     <ul id="navbar-main-elements" class="navbar-nav">
         
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-the-environment.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">
                         Setting up the environment
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-services.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-services.html">
                         Setting up services
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../indicators/README.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/indicators/README.html">
                         Indicators
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Guide for indexing documents and data
                       </a>
                     </li>
@@ -241,35 +240,35 @@ const thebe_selector_output = ".output, .cell_output"
     <ul id="navbar-main-elements" class="navbar-nav">
         
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-the-environment.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">
                         Setting up the environment
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-services.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/getting-started/setting-up-services.html">
                         Setting up services
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../indicators/README.html">
+                      <a class="nav-link nav-internal" href="notebooks/examples/indicators/README.html">
                         Indicators
                       </a>
                     </li>
                 
 
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Guide for indexing documents and data
                       </a>
                     </li>
@@ -308,7 +307,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 
-<a class="navbar-brand logo" href="../../../README.html">
+<a class="navbar-brand logo" href="README.html">
 
   
   
@@ -325,7 +324,7 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
     </div>
     <div class="sidebar-start-items__item">
-<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
@@ -334,21 +333,21 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="setting-up-the-environment.html">Setting up the environment</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">OpenAI API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setting-up-services.html">Setting up services</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="notebooks/examples/getting-started/setting-up-the-environment.html">Setting up the environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/examples/getting-started/openai-api.html">OpenAI API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/examples/getting-started/setting-up-services.html">Setting up services</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Data</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../indicators/README.html">Indicators</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="notebooks/examples/indicators/README.html">Indicators</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="notebooks/examples/indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
 </ul>
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Indexing documents and data</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../GUIDE.html">Guide for indexing documents and data</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Guide for indexing documents and data</a></li>
 </ul>
 
     </div>
@@ -424,7 +423,7 @@ title="Source repository"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2Fnotebooks/examples/getting-started/openai-api.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2FGUIDE.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -439,7 +438,7 @@ title="Open an issue"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/edit/main/notebooks/examples/getting-started/openai-api.ipynb" target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/edit/main/GUIDE.md" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -464,7 +463,7 @@ title="Edit this page"
     <i class="fas fa-download"></i>
   </button>
   <ul class="dropdown-menu">
-      <li><a href="../../../_sources/notebooks/examples/getting-started/openai-api.ipynb" target="_blank"
+      <li><a href="_sources/GUIDE.md" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -475,7 +474,7 @@ title="Download source file"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </a>
       
@@ -507,7 +506,7 @@ title="Print to PDF"
             
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>OpenAI API</h1>
+    <h1>Guide for indexing documents and data</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -518,13 +517,18 @@ title="Print to PDF"
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-api-key">
-   Getting the API key
+  <a class="reference internal nav-link" href="#content">
+   Content
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adding-the-api-key-to-the-project">
-   Adding the API key to the project
+  <a class="reference internal nav-link" href="#metadata">
+   Metadata
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#indexing">
+   Indexing
   </a>
  </li>
 </ul>
@@ -536,27 +540,37 @@ title="Print to PDF"
 
             <article class="bd-article" role="main">
               
-  <section class="tex2jax_ignore mathjax_ignore" id="openai-api">
-<h1>OpenAI API<a class="headerlink" href="#openai-api" title="Permalink to this heading">#</a></h1>
-<p>The project currently uses the OpenAI API as its LLM backend. This page contains resources and descriptions on how to set up the OpenAI API.</p>
-<section id="getting-the-api-key">
-<h2>Getting the API key<a class="headerlink" href="#getting-the-api-key" title="Permalink to this heading">#</a></h2>
-<p>To get the API key, go to your OpenAI account’s <a class="reference external" href="https://platform.openai.com/account/api-keys">API keys</a> page. If you don’t have an account, you will be asked to create one.</p>
-<p>Currently, the page looks like this:</p>
-<p><img alt="OpenAI API keys page" src="../../../_images/api-keys-page.png" /></p>
-<p>Click the <code class="docutils literal notranslate"> <span class="pre">+</span> <span class="pre">Create</span> <span class="pre">new</span> <span class="pre">secret</span> <span class="pre">key</span></code> button. You will be asked to name the API key. You can name it anything you want. For example, you can name it “llm4data”.</p>
-</section>
-<section id="adding-the-api-key-to-the-project">
-<h2>Adding the API key to the project<a class="headerlink" href="#adding-the-api-key-to-the-project" title="Permalink to this heading">#</a></h2>
-<p>After creating the API key, you will be shown the key. Copy the key and add it to the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in the project’s root directory. Place the key in the <code class="docutils literal notranslate"><span class="pre">OPENAI_API_KEY</span></code> variable.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OPENAI_API_KEY</span><span class="o">=&lt;</span><span class="n">your</span><span class="o">-</span><span class="n">api</span><span class="o">-</span><span class="n">key</span><span class="o">&gt;</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="guide-for-indexing-documents-and-data">
+<h1>Guide for indexing documents and data<a class="headerlink" href="#guide-for-indexing-documents-and-data" title="Permalink to this heading">#</a></h1>
+<p>Create the following directory structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">/</span><span class="n">sources</span><span class="o">/&lt;</span><span class="n">data_type</span><span class="o">&gt;/&lt;</span><span class="n">collection</span><span class="o">&gt;/</span>
+    <span class="o">-</span> <span class="o">&lt;</span><span class="n">extension</span><span class="o">&gt;/</span>
+    <span class="o">-</span> <span class="n">metadata</span><span class="o">/</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure you keep the API key secure. Do not commit the API key to the repository. Do not share the API key with anyone.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">prwp</span><span class="o">/</span>
+    <span class="o">-</span> <span class="n">pdf</span><span class="o">/</span>
+    <span class="o">-</span> <span class="n">metadata</span><span class="o">/</span>
+</pre></div>
 </div>
-<p>Now, you’re ready to use the API key in the project! 🎉</p>
+<section id="content">
+<h2>Content<a class="headerlink" href="#content" title="Permalink to this heading">#</a></h2>
+<p>Each <code class="docutils literal notranslate"><span class="pre">&lt;extension&gt;</span></code> directory contains the files to be indexed in the format specified by the extension. The files in this directory will be passed to the appropriate LangChain loader.</p>
+</section>
+<section id="metadata">
+<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadata</span></code> directory contains the metadata for the documents to be indexed. The files in this directory will be passed to the stored data in the index together with the vector for the each chunk of the content.</p>
+<p>To maximize the interoperability and reusability of the functionalities in LLM4Data and other related applications built on top of it, we use the <a class="reference external" href="https://mah0001.github.io/schema-guide/">schema guide</a> to define the metadata for the documents and data.</p>
+<p>Using the standardized schema will allow you to easily integrate your own data and documents with applications built on top of LLM4Data such as the Chat4Dev application.</p>
+</section>
+<section id="indexing">
+<h2>Indexing<a class="headerlink" href="#indexing" title="Permalink to this heading">#</a></h2>
+<p>To index the documents and metadata, run the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>llm4data.scripts.indexing.docs.load_docs<span class="w"> </span>--path<span class="o">=</span>data/sources/docs/prwp/pdf<span class="w"> </span>--strict
+</pre></div>
+</div>
+<p>This will process the documents and store the vectors generated to the configured vector index.</p>
 </section>
 </section>
 
@@ -573,7 +587,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             name: "python3",
-            path: "./notebooks/examples/getting-started"
+            path: "./."
         },
         predefinedOutput: true
     }
@@ -588,19 +602,12 @@ title="Print to PDF"
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="setting-up-the-environment.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="notebooks/examples/indicators/wdi/getting-started-with-the-wdi.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">Setting up the environment</p>
+          <p class="prev-next-title">Getting Started with the World Development Indicators (WDI) data</p>
       </div>
-  </a>
-  <a class='right-next' id="next-link" href="setting-up-services.html" title="next page">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Setting up services</p>
-  </div>
-  <i class="fa-solid fa-angle-right"></i>
   </a>
 </div>
             </footer>
@@ -619,13 +626,18 @@ title="Print to PDF"
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-the-api-key">
-   Getting the API key
+  <a class="reference internal nav-link" href="#content">
+   Content
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#adding-the-api-key-to-the-project">
-   Adding the API key to the project
+  <a class="reference internal nav-link" href="#metadata">
+   Metadata
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#indexing">
+   Indexing
   </a>
  </li>
 </ul>
@@ -682,8 +694,8 @@ Last updated on Jun 15, 2023.<br>
   
     
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+  <script src="_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
 
   </body>
 </html>

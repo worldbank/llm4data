@@ -163,6 +163,13 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                        Guide for indexing documents and data
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -260,6 +267,13 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                        Guide for indexing documents and data
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -331,6 +345,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
 </ul>
 </li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Indexing documents and data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../GUIDE.html">Guide for indexing documents and data</a></li>
 </ul>
 
     </div>
@@ -561,11 +579,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>Here’s the relevant variables in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file that must be updated. Note the <code class="docutils literal notranslate"><span class="pre">&lt;password&gt;</span></code> must be replaced with the value you set in the <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code> variable when starting the docker container.</p>
-<div class="highlight-## notranslate"><div class="highlight"><pre><span></span>WDI_DB_ENGINE=&quot;postgresql&quot;
-WDI_DB_HOST=&quot;localhost&quot;
-WDI_DB_USERNAME=&quot;postgres&quot;
-WDI_DB_PASSWORD=&lt;password&gt;
-WDI_DB_PORT=5432
+<div class="highlight-## notranslate"><div class="highlight"><pre><span></span>DB_ENGINE=&quot;postgresql&quot;
+DB_HOST=&quot;localhost&quot;
+DB_USERNAME=&quot;postgres&quot;
+DB_PASSWORD=&lt;password&gt;
+DB_PORT=5432
 </pre></div>
 </div>
 <p>Please check the <a class="reference external" href="https://hub.docker.com/_/postgres">official page</a> for updates.</p>
@@ -583,6 +601,13 @@ WDI_DB_PORT=5432
 </pre></div>
 </div>
 <p>Please check the <a class="reference external" href="https://hub.docker.com/r/qdrant/qdrant">official page</a> for updates.</p>
+<p>Here’s the relevant variables in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file that must be updated.</p>
+<div class="highlight-## notranslate"><div class="highlight"><pre><span></span># VECTOR INDEX
+QDRANT_URL=&quot;localhost&quot;
+QDRANT_PORT=6333
+QDRANT_PATH=
+</pre></div>
+</div>
 <section id="monitoring-qdrant">
 <h4>Monitoring Qdrant<a class="headerlink" href="#monitoring-qdrant" title="Permalink to this heading">#</a></h4>
 <p>Qdrant has implemented a lightweight interface to show to monitor the status of the Qdrant service. The Qdrant UI is available at the following URL:</p>
@@ -732,7 +757,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on Jun 05, 2023.<br>
+Last updated on Jun 15, 2023.<br>
 </p>
   </div>
   

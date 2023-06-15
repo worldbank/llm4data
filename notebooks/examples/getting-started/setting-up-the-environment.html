@@ -163,6 +163,13 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                        Guide for indexing documents and data
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -256,6 +263,13 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                        Guide for indexing documents and data
+                      </a>
+                    </li>
+                
     </ul>
 </nav>
       </div>
@@ -327,6 +341,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l2"><a class="reference internal" href="../indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
 </ul>
 </li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Indexing documents and data</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../GUIDE.html">Guide for indexing documents and data</a></li>
 </ul>
 
     </div>
@@ -507,18 +525,24 @@ title="Print to PDF"
 <span class="nv">WDI_DB_TABLE_NAME</span><span class="o">=</span><span class="s2">&quot;wdi&quot;</span>
 
 <span class="c1">## POSTRESQL</span>
-<span class="nv">WDI_DB_ENGINE</span><span class="o">=</span><span class="s2">&quot;postgresql&quot;</span>
-<span class="nv">WDI_DB_HOST</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
-<span class="nv">WDI_DB_USERNAME</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span>
-<span class="nv">WDI_DB_PASSWORD</span><span class="o">=</span>&lt;your<span class="w"> </span>password&gt;
-<span class="nv">WDI_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
+<span class="nv">DB_ENGINE</span><span class="o">=</span><span class="s2">&quot;postgresql&quot;</span>
+<span class="nv">DB_HOST</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<span class="nv">DB_USERNAME</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span>
+<span class="nv">DB_PASSWORD</span><span class="o">=</span>&lt;your<span class="w"> </span>password&gt;
+<span class="nv">DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 
 <span class="c1">## SQLITE</span>
-<span class="c1"># WDI_DB_ENGINE=&quot;sqlite&quot;</span>
-<span class="c1"># WDI_DB_HOST=</span>
-<span class="c1"># WDI_DB_USERNAME=&quot;/data/sqldb/wdi.db&quot;</span>
-<span class="c1"># WDI_DB_PASSWORD=</span>
-<span class="c1"># WDI_DB_PORT=</span>
+<span class="c1"># DB_ENGINE=&quot;sqlite&quot;</span>
+<span class="c1"># DB_HOST=</span>
+<span class="c1"># DB_USERNAME=&quot;/data/sqldb/wdi.db&quot;</span>
+<span class="c1"># DB_PASSWORD=</span>
+<span class="c1"># DB_PORT=</span>
+
+
+<span class="c1"># VECTOR INDEX</span>
+<span class="nv">QDRANT_URL</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>
+<span class="nv">QDRANT_PORT</span><span class="o">=</span><span class="m">6333</span>
+<span class="nv">QDRANT_PATH</span><span class="o">=</span>
 
 
 <span class="c1"># DIRS</span>
@@ -613,7 +637,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on Jun 05, 2023.<br>
+Last updated on Jun 15, 2023.<br>
 </p>
   </div>
   
