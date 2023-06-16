@@ -3,7 +3,7 @@
 
 def get_doc_title(metadata: dict) -> str:
     """Get the title of the document from the metadata document_description."""
-    return metadata["title_statement"]["title"]
+    return metadata["document_description"]["title_statement"]["title"]
 
 
 def get_doc_authors(metadata: dict) -> list:

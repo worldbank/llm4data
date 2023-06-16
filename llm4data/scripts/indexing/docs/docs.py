@@ -11,6 +11,7 @@ from langchain.text_splitter import (
 from llm4data.embeddings.docs import get_docs_embeddings
 from llm4data import index
 from llm4data import configs
+from llm4data.schema.schema2info import get_doc_title
 
 # Get the docs embeddings
 docs_embeddings = get_docs_embeddings()
@@ -39,7 +40,7 @@ def add_pdf_document(path: Union[str, Path], metadata: Optional[dict] = None):
         if len(documents):
             # Index the title of the document
             documents.append(
-                Document(page_content=metadata["title"], metadata=documents[0].metadata)
+                Document(page_content=get_doc_title(metadata), metadata=documents[0].metadata)
             )
 
         for doc in documents:
