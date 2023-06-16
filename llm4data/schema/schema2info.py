@@ -1,6 +1,12 @@
 """This module contains functions to extract information from the schema."""
 
 
+
+def get_doc_id(metadata: dict) -> str:
+    """Get the id of the document from the metadata document_description."""
+    return metadata["document_description"]["title_statement"]["idno"]
+
+
 def get_doc_title(metadata: dict) -> str:
     """Get the title of the document from the metadata document_description."""
     return metadata["document_description"]["title_statement"]["title"]
