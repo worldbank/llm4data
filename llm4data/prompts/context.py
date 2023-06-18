@@ -2,7 +2,7 @@ import json
 from llm4data.index import get_docs_index, get_indicators_index
 from llm4data import configs
 from hashlib import md5
-from llm4data.schema.schema2info import get_doc_title, get_doc_authors
+from llm4data.schema.schema2info import get_doc_id, get_doc_title, get_doc_authors
 from langchain.docstore.document import Document
 
 indicators = get_indicators_index()
@@ -26,7 +26,7 @@ def get_page(doc: Document, offset=0, default=-1):
 def get_contexts(prompt: str, k_docs: int = 5, k_indicators: int = 10, doc_id: str = None):
     # Search for documents
     if doc_id is not None:
-        docs_result = docs.similarity_search(prompt, k=k_docs, filter={configs.METADATA_KEY: {"id": doc_id}})
+        docs_result = docs.similarity_search(prompt, k=k_docs, filter={configs.METADATA_KEY: {"document_description": {"title_statement": {"idno": doc_id}}}})
     else:
         docs_result = docs.similarity_search(prompt, k=k_docs)
     indicators_result = indicators.similarity_search(prompt, k=k_indicators)
@@ -38,7 +38,7 @@ def get_contexts(prompt: str, k_docs: int = 5, k_indicators: int = 10, doc_id: s
     indicators_context_records = []
 
     for doc in docs_result:
-        doc_id = doc.metadata[configs.METADATA_KEY]["id"]
+        doc_id = get_doc_id(doc.metadata[configs.METADATA_KEY])
         doc_context.append("<h1>Title: " + get_doc_title(doc.metadata[configs.METADATA_KEY]) + "</h1>")
 
         if doc.metadata[configs.METADATA_KEY].get("authors"):
