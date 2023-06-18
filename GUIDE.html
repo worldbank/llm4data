@@ -531,6 +531,16 @@ title="Print to PDF"
    Indexing
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-world-bank-documents-and-reports">
+   The World Bank Documents and Reports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-world-bank-world-development-indicators">
+   The World Bank World Development Indicators
+  </a>
+ </li>
 </ul>
 
             </nav>
@@ -552,6 +562,11 @@ title="Print to PDF"
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">docs</span><span class="o">/</span><span class="n">prwp</span><span class="o">/</span>
     <span class="o">-</span> <span class="n">pdf</span><span class="o">/</span>
     <span class="o">-</span> <span class="n">metadata</span><span class="o">/</span>
+
+
+<span class="n">data</span><span class="o">/</span><span class="n">sources</span><span class="o">/</span><span class="n">indicators</span><span class="o">/</span><span class="n">wdi</span><span class="o">/</span>
+    <span class="o">-</span> <span class="n">text</span><span class="o">/</span>
+    <span class="o">-</span> <span class="n">metadata</span><span class="o">/</span>
 </pre></div>
 </div>
 <section id="content">
@@ -571,6 +586,62 @@ title="Print to PDF"
 </pre></div>
 </div>
 <p>This will process the documents and store the vectors generated to the configured vector index.</p>
+</section>
+<section id="the-world-bank-documents-and-reports">
+<h2>The World Bank Documents and Reports<a class="headerlink" href="#the-world-bank-documents-and-reports" title="Permalink to this heading">#</a></h2>
+<p>The World Bank provides programatic access to open access documents and reports via an API. To index data from the documents and reports, we have to first download the metadata available in the API. Then, we can use the <code class="docutils literal notranslate"><span class="pre">pdfurl</span></code> value in the metadata to scrape the PDFs.</p>
+<p>The metadata from the documents and reports API is not using the metadata standard adopted in this library. However, we have implemented a script to easily migrate the metadata from the documents and reports into the metadata standard the library supports. We show below the steps you can take for this migration.</p>
+<ol class="arabic">
+<li><p>Download the metadata and store them in a directory, e.g., <code class="docutils literal notranslate"><span class="pre">raw_metadata/</span></code>. We follow the convention naming the metadata file as <code class="docutils literal notranslate"><span class="pre">&lt;id&gt;.metadata.json</span></code>.</p></li>
+<li><p>Create the source directory for this data, for example, <code class="docutils literal notranslate"><span class="pre">data/sources/docs/prwp</span></code>.</p></li>
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">pdfurl</span></code> to scrape the PDFs.</p></li>
+<li><p>Store the PDFs in the <code class="docutils literal notranslate"><span class="pre">pdf</span></code> directory under <code class="docutils literal notranslate"><span class="pre">data/sources/docs/prwp</span></code>.</p></li>
+<li><p>Run the following command to migrate the metadata to the standard adopted in this library:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>llm4data.schema.docs.migrate_wbdocs_metadata<span class="w"> </span>--source_dir<span class="o">=</span>raw_metadata/<span class="w"> </span>--source_dir<span class="o">=</span>data/sources/docs/prwp/metadata
+</pre></div>
+</div>
+</li>
+<li><p>Run the following command to index the documents:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>llm4data.scripts.indexing.docs.load_docs<span class="w"> </span>--path<span class="o">=</span>data/sources/docs/prwp/pdf<span class="w"> </span>--strict
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="the-world-bank-world-development-indicators">
+<h2>The World Bank World Development Indicators<a class="headerlink" href="#the-world-bank-world-development-indicators" title="Permalink to this heading">#</a></h2>
+<p>The World Bank provides programatic access to the World Development Indicators via an API. To index data from the World Development Indicators, we have to first download the metadata.</p>
+<p>We use the NADA Dev catalog to download the metadata because it contains metadata for the WDIs that is already in the metadata standard adopted in this library. We have implemented a script to easily download the metadata from the NADA Dev catalog. We show below the steps you can take to download the metadata and index the data.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```bash
+python -m scripts.scrapers.indicators.nada_wdi --nada_headers=secrets/nada_headers.json --metadata_dir=data/sources/indicators/wdi/metadata
+```
+</pre></div>
+</div>
+<p>You will need to create the <code class="docutils literal notranslate"><span class="pre">secrets/nada_headers.json</span></code> file. You can get this from the NADA Dev website. You will need to login to the website and then copy the headers from the browser.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```{warning}
+The `secrets` directory is not tracked by git.
+```
+</pre></div>
+</div>
+<p>Once you have downloaded the metadata, you need to create the <code class="docutils literal notranslate"><span class="pre">text</span></code> directory under <code class="docutils literal notranslate"><span class="pre">data/sources/indicators/wdi</span></code>. This directory will contain the text files for each indicator. We will extract relevant information from the metadata and store it in the text files.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```bash
+python -m llm4data.schema.indicators.create_wdi_text --metadata_dir=data/sources/indicators/wdi/metadata
+```
+</pre></div>
+</div>
+<p>Note that the text is taken from the following fields in the metadata:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>- name
+- definition_long or definition_short
+- relevance
+- statistical_concept
+</pre></div>
+</div>
+<p>After creating the text files, you can index the data using the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>```bash
+python -m llm4data.scripts.indexing.indicators.load_indicators --collection_dir=data/sources/indicators/wdi
+```
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -640,6 +711,16 @@ title="Print to PDF"
    Indexing
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-world-bank-documents-and-reports">
+   The World Bank Documents and Reports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-world-bank-world-development-indicators">
+   The World Bank World Development Indicators
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -668,7 +749,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on Jun 16, 2023.<br>
+Last updated on Jun 18, 2023.<br>
 </p>
   </div>
   
