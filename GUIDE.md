@@ -68,5 +68,30 @@ The metadata from the documents and reports API is not using the metadata standa
 
 ## The World Bank World Development Indicators
 
+The World Bank provides programatic access to the World Development Indicators via an API. To index data from the World Development Indicators, we have to first download the metadata.
 
-https://dev.ihsn.org/wdi/index.php/metadata/export/1/json
+We use the NADA Dev catalog to download the metadata because it contains metadata for the WDIs that is already in the metadata standard adopted in this library. We have implemented a script to easily download the metadata from the NADA Dev catalog. We show below the steps you can take to download the metadata and index the data.
+
+
+```bash
+python -m scripts.scrapers.indicators.nada_wdi --nada_headers=secrets/nada_headers.json --metadata_dir=data/sources/indicators/wdi/metadata
+```
+
+You will need to create the `secrets/nada_headers.json` file. You can get this from the NADA Dev website. You will need to login to the website and then copy the headers from the browser.
+
+```{warning}
+The `secrets` directory is not tracked by git.
+```
+
+Once you have downloaded the metadata, you need to create the `text` directory under `data/sources/indicators/wdi`. This directory will contain the text files for each indicator. We will extract relevant information from the metadata and store it in the text files.
+
+    ```bash
+    python -m llm4data.schema.indicators.create_wdi_text --metadata_dir=data/sources/indicators/wdi/metadata
+    ```
+
+Note that the text is taken from the following fields in the metadata:
+
+    - name
+    - definition_long or definition_short
+    - relevance
+    - statistical_concept
