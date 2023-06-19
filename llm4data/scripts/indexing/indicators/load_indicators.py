@@ -57,6 +57,9 @@ def load_indicators(collection_dir: Path):
                 metadata=s.dict(exclude_none=True),
             )
 
+            with open(indexed_indicators_path, "a+") as f:
+                f.write(f"{indicator_path}\n")
+
         except KeyboardInterrupt:
             raise KeyboardInterrupt
 
