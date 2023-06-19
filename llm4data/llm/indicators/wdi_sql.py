@@ -34,6 +34,10 @@ class WDISQL(WDI):
         Do bulk insert.
         """
 
+        # Drop and recreate the table
+        cls.__table__.drop(engine, checkfirst=True)
+        Base.metadata.create_all(engine)
+
         wdi_jsons_dir = Path(wdi_jsons_dir)
 
         if not wdi_jsons_dir.exists() or not wdi_jsons_dir.is_dir():
@@ -47,6 +51,10 @@ class WDISQL(WDI):
             wdi_objects = cls.from_indicator_json(wdi_json)
             session.bulk_save_objects(wdi_objects)
             session.commit()
+
+        # # Create an index on the indicator column
+        # psql -U postgres -d wdi
+        # CREATE INDEX indicator_index ON wdi USING hash (indicator);
 
     @classmethod
     def run_sql(
