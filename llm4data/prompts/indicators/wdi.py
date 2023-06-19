@@ -5,6 +5,7 @@ from typing import Any
 from urllib.parse import urlparse
 from openai_tools.parser import parse_misparsed
 from llm4data.prompts.base import DatedPrompt, APIPrompt
+from llm4data import configs
 
 
 class WDISQLPrompt(DatedPrompt):
@@ -18,8 +19,10 @@ class WDISQLPrompt(DatedPrompt):
                 "I have a database containing data from the WDI indicators."
                 " Write an SQL query for the prompt: ```{{{{user_content}}}}```\n\n"
                 "table: {table}\n"
-                "fields: {fields}\n\n"
-                "Only the indicator can parameterized and you must fill the rest."
+                "fields: {fields}\n"
+                f"dialect: {configs.WDIDBConfig.engine}\n\n"
+                "Pay attention to the dialect when writing the query.\n\n"
+                "Only the indicator can be parameterized and you must fill the rest."
                 " Use the convention `:indicator` and not `?`."
                 " Use country_iso3 when querying, use country in the result.\n\n"
                 "Use the last 10 years if no year is specified."
