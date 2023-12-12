@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 from typing import Any
 from urllib.parse import urlparse
-from openai_tools.parser import parse_misparsed
+from llm_space.parser import parse_misparsed
 from llm4data.prompts.base import DatedPrompt, APIPrompt
 from llm4data import configs
 
