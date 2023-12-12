@@ -7,7 +7,7 @@ from pathlib import Path
 # Do this before importing any other modules.
 dotenv.load_dotenv()
 
-__version__ = "0.0.5"
+__version__ = "0.0.6"
 
 indicator2name = dict(
     wdi=json.load((Path(__file__).parent / "wdi2name.json").open("r"))

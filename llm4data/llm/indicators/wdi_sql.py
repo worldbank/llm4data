@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 
-from openai_tools.parser import parse_misparsed
+from llm_space.parser import parse_misparsed
 
 from llm4data import configs
 
