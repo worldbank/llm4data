@@ -45,6 +45,10 @@ class DirsConfig:
 
     _exception_template = "`{dirvar}` environment variable is not set. Consider adding it to your .env file."
 
+    def __set_microdata_dirs(self):
+        self.microdata_vars_dir = self.llm4data_dir / "data" / "microdata" / "variables"
+        self.microdata_desc_dir = self.llm4data_dir / "data" / "microdata" / "descriptions"
+
     def __post_init__(self):
         self.llm4data_dir = self._process_dir(self.llm4data_dir, "LLM4DATA_DIR")
 
@@ -67,6 +71,9 @@ class DirsConfig:
         self.openai_payload_dir = self._process_dir(
             self.openai_payload_dir, "OPENAI_PAYLOAD_DIR"
         )
+
+        # Assign the microdata directories
+        self.__set_microdata_dirs()
 
     def _process_dir(self, dirname: Union[str, Path], dirvar: str) -> Path:
         if not dirname:
