@@ -5,8 +5,24 @@ import json
 from typing import Any, Union
 from pathlib import Path
 
+from InstructorEmbedding import INSTRUCTOR
+
 from llm4data.utils.microdata.scraper import fetch_variables
 from llm4data.utils.microdata.paths import get_idno_fpath
+from llm4data.utils.microdata.helpers import get_label_names
+from llm4data.utils.system.cache import memory
+
+
+embedding_model = INSTRUCTOR("hkunlp/instructor-large")
+INSTRUCTION = "Represent the survey variable label for clustering; Input: "
+TOKEN_LIMIT = 500
+
+
+@memory.cache
+def embed_labels(labels):
+    prompt_labels = [[INSTRUCTION, label] for label in labels]
+    embeddings = embedding_model.encode(prompt_labels)
+    return embeddings
 
 
 def store_variables(idno: str, variables: dict) -> None:
@@ -89,6 +105,15 @@ class ThemeLLM(object):
             raise ValueError("The data dictionary must be provided as a path to a JSON file or as a dict.")
 
         if persist: store_variables(self.idno, self.data_dictionary)
+
+    def semantic_enrichment(self):
+        pass
+
+    def semantic_embedding(self):
+        pass
+
+    def clustering(self):
+        pass
 
     def __str__(self):
         return "ThemeLLM(theme_id={}, theme_name={}, theme_description={})".format(
