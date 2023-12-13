@@ -5,6 +5,12 @@ from typing import Union, Optional
 from dataclasses import dataclass
 
 
+# Define a data class for the base URL config
+@dataclass
+class BaseUrlsConfig:
+    catalog_url: str = os.getenv("CATALOG_URL", "https://microdata.worldbank.org/index.php/api/catalog/")
+
+
 # Define a data class for the database config
 @dataclass
 class WDIDBConfig:
@@ -95,6 +101,7 @@ class TaskLabelsConfig:
 wdidb = WDIDBConfig()
 dirs = DirsConfig()  # NOTE: `dirs` is a reserved keyword in Python
 task_labels = TaskLabelsConfig()
+base_urls = BaseUrlsConfig()
 
 # Define the metadata key
 METADATA_KEY = "llm4data"
