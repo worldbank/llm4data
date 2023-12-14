@@ -5,8 +5,10 @@ import json
 import numpy as np
 
 from collections import defaultdict
-from typing import Any, Union
 from pathlib import Path
+from tqdm.auto import tqdm
+from typing import Any, Union
+
 
 from InstructorEmbedding import INSTRUCTOR
 from sklearn.cluster import AgglomerativeClustering
@@ -25,6 +27,26 @@ INSTRUCTION = "Represent the survey variable label for clustering; Input: "
 TOKEN_LIMIT = 500
 SPECIAL_SEP = "!!!!!"
 
+SYSTEM_MESSAGE = """You are an expert in extracting structured information from text. You can quantify the quality of variable labels based on whether they fall into any meaningful economic development category.
+
+You will receive a list of variable labels separated by !!!!! from microdata variables. Some of the variable labels may not be informative and have low quality. Because you can quantify the quality of variable labels, you must ignore them when generating the output.
+
+You must generate a comprehensive set of relevant economic development themes based on the text. The theme name must be clear and precise. For example, use "Access to Education" instead of "Access".
+
+Provide at most two sentences describing each theme. Always give not more than three examples as they appear in the list.
+
+Example output: [{"theme": "Demographics", "description": "Demographics refers to the statistical characteristics of human populations in terms of age, gender, education, income, and other factors that are relevant to economic and social development. It plays a crucial role in understanding the dynamics of economic growth, poverty, inequality, and social welfare. Some examples from the list include: !!!!!age"}, {"theme": "Water and Sanitation", "description": "Water and sanitation refers to access to clean water, proper sanitation facilities, and hygiene education, all of which are crucial for the health and well-being of individuals and communities. Some examples from the list include: !!!!!toilet!!!!!piped water"}]
+
+Always return the result in a valid JSON format. Do not truncate the output and never generate ... in the response. The output should not raise a JSONDecodeError when loaded in Python. Do not explain."""
+
+
+def build_message(message, system_message=SYSTEM_MESSAGE):
+    messages = [
+        dict(role="system", content=system_message),
+        dict(role="user", content=message),
+    ]
+
+    return messages
 
 
 @memory.cache
@@ -143,6 +165,9 @@ class ThemeLLM(object):
 
         if persist: store_variables(self.idno, self.data_dictionary, vars_dir=self.vars_dir)
 
+    def get_encoder(self):
+        return get_tiktoken_model(self.llm_model_id)
+
     def semantic_enrichment(self, max_clusters: int = 20, persist: bool = True, token_limit: int = TOKEN_LIMIT, special_sep: str = SPECIAL_SEP):
         label_names = get_label_names(idno=self.idno, vars_dir=self.vars_dir)
 
@@ -160,8 +185,7 @@ class ThemeLLM(object):
         # the number of tokens by 500.
 
         # Load the tokenizer for the model.
-        encoder = get_tiktoken_model(self.llm_model_id)
-        tokens = encoder.encode(special_sep.join(label_names.keys()))
+        tokens = self.get_encoder().encode(special_sep.join(label_names.keys()))
 
         len_tokens = len(tokens)
 
@@ -210,6 +234,23 @@ class ThemeLLM(object):
         tsvd = TruncatedSVD(n_components=n_components, random_state=random_state)
 
         return aggcl.fit_predict(tsvd.fit_transform(embeddings))
+
+    def generate_prompts(self, force: bool = False, system_message: str = SYSTEM_MESSAGE, max_input_tokens: int = 2500, system_num_tokens: int = 100, special_sep: str = SPECIAL_SEP):
+        """
+        Generate the prompts for the microdata variables.
+        """
+        idno_data = []
+
+        for cluster in tqdm(self.clusters["cluster"].keys()):
+            cluster_labels = self.clusters["cluster"][cluster]
+            prompt = build_message(SPECIAL_SEP + SPECIAL_SEP.join(cluster_labels.keys()), system_message=system_message)
+            data = dict(
+                message=prompt,
+                tokens=sum([len(self.get_encoder().encode(p["content"])) for p in prompt]),
+            )
+            idno_data.append(data)
+
+        return idno_data
 
     def __str__(self):
         return "ThemeLLM(idno='{}')".format(self.idno)
