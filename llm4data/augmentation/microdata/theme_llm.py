@@ -4,6 +4,7 @@ This module implements the automated theme generation from microdata data dictio
 import json
 import numpy as np
 
+from collections import defaultdict
 from typing import Any, Union
 from pathlib import Path
 
@@ -91,6 +92,9 @@ class ThemeLLM(object):
         # Set the LLM model id.
         self.llm_model_id = llm_model_id
 
+        # State variables
+        self.clusters = None
+
         self._load_data_dictionary(force=force, persist=persist)
 
     def clean(self):
@@ -102,6 +106,15 @@ class ThemeLLM(object):
 
         if self.clusters_path.exists():
             self.clusters_path.unlink()
+
+    def persist(self):
+        """
+        Persist the data dictionary and the clusters to disk.
+        """
+        store_variables(self.idno, self.data_dictionary, vars_dir=self.vars_dir)
+
+        if self.clusters is not None:
+            self.clusters_path.write_text(json.dumps(self.clusters, indent=2))
 
     def _load_data_dictionary(self, force: bool = False, persist: bool = True):
         """
@@ -130,8 +143,14 @@ class ThemeLLM(object):
 
         if persist: store_variables(self.idno, self.data_dictionary, vars_dir=self.vars_dir)
 
-    def semantic_enrichment(self, max_clusters: int = 20):
+    def semantic_enrichment(self, max_clusters: int = 20, persist: bool = True, token_limit: int = TOKEN_LIMIT, special_sep: str = SPECIAL_SEP):
         label_names = get_label_names(idno=self.idno, vars_dir=self.vars_dir)
+
+        output = dict(
+            idno=self.idno,
+            token_limit=token_limit,
+            special_sep=special_sep,
+        )
 
         # Only apply clustering strategy if the number of labels is large.
         # We need to quantify what large means. A possible strategy is to
@@ -142,15 +161,19 @@ class ThemeLLM(object):
 
         # Load the tokenizer for the model.
         encoder = get_tiktoken_model(self.llm_model_id)
-        tokens = encoder.encode(SPECIAL_SEP.join(label_names.keys()))
+        tokens = encoder.encode(special_sep.join(label_names.keys()))
 
         len_tokens = len(tokens)
 
-        if len_tokens <= TOKEN_LIMIT:
-            return {"idno": self.idno, "cluster": {"0": label_names}}
+        if len_tokens <= token_limit:
+            output["cluster"] = {"0": label_names}
+            self.clusters = output
+            if persist: self.persist()
+
+            return output
 
         # We need to cluster the labels.
-        n_clusters = min(max_clusters, len_tokens // TOKEN_LIMIT)
+        n_clusters = min(max_clusters, len_tokens // token_limit)
 
         embeddings = self.semantic_embedding(label_names)
 
@@ -158,21 +181,18 @@ class ThemeLLM(object):
         clusters = self.clustering(embeddings, n_clusters=n_clusters)
 
         # Group the labels by cluster.
-        cluster_labels = {}
+        cluster_labels = defaultdict(dict)
         for label, cluster in zip(sorted(label_names.keys()), clusters):
             cluster = str(cluster)
-
-            if cluster not in cluster_labels:
-                cluster_labels[cluster] = {}
-
             cluster_labels[cluster][label] = label_names[label]
 
-        cluster = {"idno": self.idno, "cluster": cluster_labels}
+        output["cluster"] = cluster_labels
+        self.clusters = output
 
         # Save the cluster to disk.
-        self.clusters_path.write_text(json.dumps(cluster, indent=2))
+        if persist: self.persist()
 
-        return cluster
+        return self.clusters
 
     def semantic_embedding(self, label_names: dict[str, list]):
         # Generate the embeddings for the labels.
