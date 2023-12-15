@@ -2007,14 +2007,14 @@ files = [
 
 [[package]]
 name = "llm-space"
-version = "0.0.1"
+version = "0.0.2"
 description = "A Python wrapper for managing OpenAI API and other LLM models."
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "llm_space-0.0.1-py3-none-any.whl", hash = "sha256:241869456042921af89e0d3b6be84320a5abad5d642cffa3906aca40e6682656"},
-    {file = "llm_space-0.0.1.tar.gz", hash = "sha256:7a3921b25d6eaa1a779668f1ae105a63813d93b3b74693655fae6a75c0cb71ba"},
+    {file = "llm_space-0.0.2-py3-none-any.whl", hash = "sha256:6f51b000ae713d4edeee7d0d4472c0bdb0114f4571d0c5e13fe7896b8d452a93"},
+    {file = "llm_space-0.0.2.tar.gz", hash = "sha256:eafb42d126e3170473473e9bfc7ccda0bad26c77b16e1686aabd9278e776ea51"},
 ]
 
 [package.dependencies]
@@ -5059,4 +5059,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b2a094a3dde72614dbfb5c8bf34833e6224036f4a2c65f69d2eb10efeb355080"
+content-hash = "8156530d8011703a06c03cf0ef56695dd659bc483ae51a7d626c4972ad0dcb01"

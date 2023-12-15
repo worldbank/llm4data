@@ -21,7 +21,7 @@ instructorembedding = "^1.0.1"
 pymupdf = "^1.22.3"
 metaschema = "0.0.3"
 pycountry = "^22.3.5"
-llm-space = "^0.0.1"
+llm-space = "^0.0.2"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.3.1"
