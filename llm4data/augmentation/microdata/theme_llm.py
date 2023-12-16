@@ -11,19 +11,24 @@ from typing import Any, Union
 
 
 from InstructorEmbedding import INSTRUCTOR
+
+from langchain.output_parsers.json import SimpleJsonOutputParser
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.decomposition import TruncatedSVD
 
 from llm_space.utils import get_tiktoken_model
+from llm_space.openai.prompt import PromptZeros
 
 from llm4data.utils.microdata.scraper import fetch_variables
 from llm4data.utils.microdata.paths import get_idno_fpath
 from llm4data.utils.microdata.helpers import get_label_names
 from llm4data.utils.system.cache import memory
-
+from llm4data.configs import dirs
 
 embedding_model = INSTRUCTOR("hkunlp/instructor-large")
 INSTRUCTION = "Represent the survey variable label for clustering; Input: "
+JSON_PARSER = SimpleJsonOutputParser()
+
 TOKEN_LIMIT = 500
 SPECIAL_SEP = "!!!!!"
 
@@ -39,6 +44,15 @@ Example output: [{"theme": "Demographics", "description": "Demographics refers t
 
 Always return the result in a valid JSON format. Do not truncate the output and never generate ... in the response. The output should not raise a JSONDecodeError when loaded in Python. Do not explain."""
 
+
+THEME_LLM_API_KWARGS: dict = dict(
+    temperature=0,
+    top_p=0,
+    n=1,
+    stream=False,
+    frequency_penalty=0,
+    presence_penalty=0,
+)
 
 def build_message(message, system_message=SYSTEM_MESSAGE):
     messages = [
@@ -116,6 +130,8 @@ class ThemeLLM(object):
 
         # State variables
         self.clusters = None
+        self.raw_themes = None
+        self.themes = None
 
         self._load_data_dictionary(force=force, persist=persist)
 
@@ -239,18 +255,65 @@ class ThemeLLM(object):
         """
         Generate the prompts for the microdata variables.
         """
+
+        if self.clusters is None:
+            self.semantic_enrichment()
+
         idno_data = []
 
         for cluster in tqdm(self.clusters["cluster"].keys()):
             cluster_labels = self.clusters["cluster"][cluster]
-            prompt = build_message(SPECIAL_SEP + SPECIAL_SEP.join(cluster_labels.keys()), system_message=system_message)
+            prompt = PromptZeros.build_message(
+                user_content=SPECIAL_SEP + SPECIAL_SEP.join(cluster_labels.keys()),
+                system_content=system_message)
+
             data = dict(
-                message=prompt,
-                tokens=sum([len(self.get_encoder().encode(p["content"])) for p in prompt]),
+                message=prompt["message"],
+                message_hash=prompt["message_hash"],
+                tokens=sum([len(self.get_encoder().encode(p["content"])) for p in prompt["message"]]),
             )
             idno_data.append(data)
 
         return idno_data
+
+    def get_themes(self):
+        """
+        Load the prompts and send them to the LLM model.
+        """
+
+        # Load the prompts.
+        prompts = self.generate_prompts()
+        prompts = sorted(prompts, key=lambda x: x["tokens"], reverse=True)
+
+        # Send the prompts to the LLM model.
+        llm = PromptZeros(
+            payloads_dir=dirs.openai_payload_dir,
+            task_label="theme_llm",
+            model=self.llm_model_id,
+        )
+
+        for prompt in tqdm(prompts):
+            prompt["response"] = llm.send_prompt(message=prompt["message"], return_data=True)
+
+        self.raw_themes = prompts
+
+        return prompts
+
+    def get_processed_themes(self, force: bool = False):
+        if self.themes is not None and not force:
+            return self.themes
+
+        if self.raw_themes is None:
+            self.get_themes()
+
+        themes = []
+
+        for theme in self.raw_themes:
+            themes.extend(JSON_PARSER.parse(theme["response"]["content"]))
+
+        self.themes = themes
+
+        return themes
 
     def __str__(self):
         return "ThemeLLM(idno='{}')".format(self.idno)
