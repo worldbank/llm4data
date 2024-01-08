@@ -170,6 +170,21 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../llm4data/augmentation/Augmentation.html">
+                        Metadata Augmentation
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
     </ul>
 </nav>
       </div>
@@ -270,6 +285,21 @@ const thebe_selector_output = ".output, .cell_output"
                       </a>
                     </li>
                 
+            <div class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    More
+                </button>
+                <div class="dropdown-menu">
+                    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../../llm4data/augmentation/Augmentation.html">
+                        Metadata Augmentation
+                      </a>
+                    </li>
+                
+                </div>
+            </div>
+            
     </ul>
 </nav>
       </div>
@@ -345,6 +375,10 @@ const thebe_selector_output = ".output, .cell_output"
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Indexing documents and data</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../../GUIDE.html">Guide for indexing documents and data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Metadata augmentation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../llm4data/augmentation/Augmentation.html">Metadata Augmentation</a></li>
 </ul>
 
     </div>
@@ -557,6 +591,11 @@ title="Print to PDF"
 <span class="c1">## Specify the label in the payload directory</span>
 <span class="c1">## for this prompt set.</span>
 <span class="nv">TASK_LABEL_WDI_SQL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;prompt2wdiSQL&quot;</span>
+
+
+<span class="c1"># Microdata Catalog URL</span>
+<span class="c1">## This URL is the default catalog URL for accessing microdata metadata.</span>
+<span class="nv">CATALOG_URL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://microdata.worldbank.org/index.php/api/catalog/&quot;</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">example.env</span></code> file is updated with the relevant variables used in the project. The user can copy the file and rename it to <code class="docutils literal notranslate"><span class="pre">.env</span></code> to set the environment variables. The <code class="docutils literal notranslate"><span class="pre">.env</span></code> file is ignored by Git for security reasons so that you can store API keys.</p>
@@ -637,7 +676,7 @@ By World Bank Development Data Group
   
   <div class="footer-item">
     <p class="last-updated">
-Last updated on Dec 12, 2023.<br>
+Last updated on Jan 08, 2024.<br>
 </p>
   </div>
   

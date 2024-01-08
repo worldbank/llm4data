@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Setting up services &#8212; LLM4Data</title>
+    <title>Metadata Augmentation &#8212; LLM4Data</title>
   
   
   
@@ -16,54 +16,53 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-<link href="../../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link href="../../_static/styles/theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/bootstrap.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=796348d33e8b1d947c94" rel="stylesheet">
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=796348d33e8b1d947c94" rel="stylesheet">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=4ec06e9971c5264fbd345897d5258098f11cc577" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94">
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94">
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/underscore.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/clipboard.min.js"></script>
-    <script src="../../../_static/copybutton.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=8bf782fb4ee92b3d3646425e50f299c4e1fd152d"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../../_static/togglebutton.js"></script>
+    <script src="../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../../../_static/design-tabs.js"></script>
+    <script src="../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'notebooks/examples/getting-started/setting-up-services';</script>
-    <link rel="canonical" href="https://worldbank.github.io/llm4data/notebooks/examples/getting-started/setting-up-services.html" />
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Indicators" href="../indicators/README.html" />
-    <link rel="prev" title="OpenAI API" href="openai-api.html" />
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'llm4data/augmentation/Augmentation';</script>
+    <link rel="canonical" href="https://worldbank.github.io/llm4data/llm4data/augmentation/Augmentation.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Guide for indexing documents and data" href="../../GUIDE.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="docsearch:language" content="en">
   </head>
@@ -88,7 +87,7 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="search-button__overlay"></div>
     <div class="search-button__search-container">
       
-<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
@@ -107,7 +106,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 
-<a class="navbar-brand logo" href="../../../README.html">
+<a class="navbar-brand logo" href="../../README.html">
 
   
   
@@ -137,35 +136,35 @@ const thebe_selector_output = ".output, .cell_output"
     <ul id="navbar-main-elements" class="navbar-nav">
         
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-the-environment.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/setting-up-the-environment.html">
                         Setting up the environment
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="openai-api.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/setting-up-services.html">
                         Setting up services
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../indicators/README.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/indicators/README.html">
                         Indicators
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                      <a class="nav-link nav-internal" href="../../GUIDE.html">
                         Guide for indexing documents and data
                       </a>
                     </li>
@@ -176,8 +175,8 @@ const thebe_selector_output = ".output, .cell_output"
                 </button>
                 <div class="dropdown-menu">
                     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../llm4data/augmentation/Augmentation.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Metadata Augmentation
                       </a>
                     </li>
@@ -256,35 +255,35 @@ const thebe_selector_output = ".output, .cell_output"
     <ul id="navbar-main-elements" class="navbar-nav">
         
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="setting-up-the-environment.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/setting-up-the-environment.html">
                         Setting up the environment
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="openai-api.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/openai-api.html">
                         OpenAI API
                       </a>
                     </li>
                 
 
-                    <li class="nav-item current active">
-                      <a class="nav-link nav-internal" href="#">
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/getting-started/setting-up-services.html">
                         Setting up services
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../indicators/README.html">
+                      <a class="nav-link nav-internal" href="../../notebooks/examples/indicators/README.html">
                         Indicators
                       </a>
                     </li>
                 
 
                     <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../GUIDE.html">
+                      <a class="nav-link nav-internal" href="../../GUIDE.html">
                         Guide for indexing documents and data
                       </a>
                     </li>
@@ -295,8 +294,8 @@ const thebe_selector_output = ".output, .cell_output"
                 </button>
                 <div class="dropdown-menu">
                     
-                    <li class="nav-item">
-                      <a class="nav-link nav-internal" href="../../../llm4data/augmentation/Augmentation.html">
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="#">
                         Metadata Augmentation
                       </a>
                     </li>
@@ -338,7 +337,7 @@ const thebe_selector_output = ".output, .cell_output"
   
 
 
-<a class="navbar-brand logo" href="../../../README.html">
+<a class="navbar-brand logo" href="../../README.html">
 
   
   
@@ -355,7 +354,7 @@ const thebe_selector_output = ".output, .cell_output"
 </a>
     </div>
     <div class="sidebar-start-items__item">
-<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
   <i class="fa-solid fa-magnifying-glass"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
@@ -364,25 +363,25 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-start-items__item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Getting started</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="setting-up-the-environment.html">Setting up the environment</a></li>
-<li class="toctree-l1"><a class="reference internal" href="openai-api.html">OpenAI API</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Setting up services</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/examples/getting-started/setting-up-the-environment.html">Setting up the environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/examples/getting-started/openai-api.html">OpenAI API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../notebooks/examples/getting-started/setting-up-services.html">Setting up services</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Development Data</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../indicators/README.html">Indicators</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../notebooks/examples/indicators/README.html">Indicators</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../notebooks/examples/indicators/wdi/getting-started-with-the-wdi.html">Getting Started with the World Development Indicators (WDI) data</a></li>
 </ul>
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Indexing documents and data</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../GUIDE.html">Guide for indexing documents and data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GUIDE.html">Guide for indexing documents and data</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Metadata augmentation</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../../../llm4data/augmentation/Augmentation.html">Metadata Augmentation</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Metadata Augmentation</a></li>
 </ul>
 
     </div>
@@ -458,7 +457,7 @@ title="Source repository"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2Fnotebooks/examples/getting-started/setting-up-services.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/issues/new?title=Issue%20on%20page%20%2Fllm4data/augmentation/Augmentation.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -473,7 +472,7 @@ title="Open an issue"
 </a>
 </a>
       
-      <li><a href="https://github.com/worldbank/llm4data/edit/main/notebooks/examples/getting-started/setting-up-services.ipynb" target="_blank"
+      <li><a href="https://github.com/worldbank/llm4data/edit/main/llm4data/augmentation/Augmentation.md" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -498,7 +497,7 @@ title="Edit this page"
     <i class="fas fa-download"></i>
   </button>
   <ul class="dropdown-menu">
-      <li><a href="../../../_sources/notebooks/examples/getting-started/setting-up-services.ipynb" target="_blank"
+      <li><a href="../../_sources/llm4data/augmentation/Augmentation.md" target="_blank"
    class="btn btn-sm dropdown-item"
    data-toggle="tooltip"
 data-placement="left"
@@ -509,7 +508,7 @@ title="Download source file"
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="btn__text-container">.md</span>
 </a>
 </a>
       
@@ -541,7 +540,7 @@ title="Print to PDF"
             
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Setting up services</h1>
+    <h1>Metadata Augmentation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -552,40 +551,28 @@ title="Print to PDF"
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#database">
-   Database
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#postgresql">
-     PostgreSQL
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vector-index">
-   Vector Index
+  <a class="reference internal nav-link" href="#methods">
+   Methods
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#qdrant">
-     Qdrant
+    <a class="reference internal nav-link" href="#metadata-augmentation-for-microdata">
+     1. Metadata Augmentation for Microdata
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#monitoring-qdrant">
-       Monitoring Qdrant
+      <a class="reference internal nav-link" href="#automated-theme-generation">
+       1.1. Automated theme generation
       </a>
      </li>
     </ul>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
  </li>
 </ul>
 
@@ -596,76 +583,44 @@ title="Print to PDF"
 
             <article class="bd-article" role="main">
               
-  <section class="tex2jax_ignore mathjax_ignore" id="setting-up-services">
-<h1>Setting up services<a class="headerlink" href="#setting-up-services" title="Permalink to this heading">#</a></h1>
-<p>Some of the functionalities supported by LLM4Data require external services. For example, databases or vector indices.</p>
-<p>In this guide, we will provide you with useful steps to get started with setting up these services so you can get started with applying LLM4Data with your own knowledge sources.</p>
-<section id="database">
-<h2>Database<a class="headerlink" href="#database" title="Permalink to this heading">#</a></h2>
-<p>The LLM4Data library allows you to access WDI indicators using natural language by generating SQL queries in real time.</p>
-<p>The library uses SQL engines to store the WDI indicators to your system. You can use the lightweight SQLite library when experimenting, however, it is useful to use a more capable database service for system-critical use cases.</p>
-<p>We leverage the SQLAlchemy ORM to seamlessly interface with the various SQL engines. We use docker images to easily spin-up the services required in this guide.</p>
-<section id="postgresql">
-<h3>PostgreSQL<a class="headerlink" href="#postgresql" title="Permalink to this heading">#</a></h3>
-<p>Instead of the SQLite database, you can use a PostgreSQL server for storing indicator data, e.g., the WDI.</p>
-<p>Simply run the command below to start a docker container running the official PostgreSQL image. Set the <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code> and make sure to update the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">name</span> <span class="n">postgres</span> <span class="o">-</span><span class="n">e</span> <span class="n">POSTGRES_PASSWORD</span><span class="o">=&lt;</span><span class="n">password</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">d</span> <span class="n">postgres</span>
-</pre></div>
-</div>
-<p>Here’s the relevant variables in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file that must be updated. Note the <code class="docutils literal notranslate"><span class="pre">&lt;password&gt;</span></code> must be replaced with the value you set in the <code class="docutils literal notranslate"><span class="pre">POSTGRES_PASSWORD</span></code> variable when starting the docker container.</p>
-<div class="highlight-## notranslate"><div class="highlight"><pre><span></span>DB_ENGINE=&quot;postgresql&quot;
-DB_HOST=&quot;localhost&quot;
-DB_USERNAME=&quot;postgres&quot;
-DB_PASSWORD=&lt;password&gt;
-DB_PORT=5432
-</pre></div>
-</div>
-<p>Please check the <a class="reference external" href="https://hub.docker.com/_/postgres">official page</a> for updates.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="metadata-augmentation">
+<h1>Metadata Augmentation<a class="headerlink" href="#metadata-augmentation" title="Permalink to this heading">#</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
+<p>Metadata augmentation is a process of adding metadata to the original metadata that comes with the data. The original metadata may have varying levels of metadata completeness. The set of augmentation methods implemented in this module aims to improve the metadata completeness of the original metadata.</p>
+<p>We use automated methods to augment the metadata. The methods rely on AI and NLP techniques. The techniques currently include: language models (LLMs), vector embedding, clustering, and self-consistent prompting.</p>
 </section>
-</section>
-<section id="vector-index">
-<h2>Vector Index<a class="headerlink" href="#vector-index" title="Permalink to this heading">#</a></h2>
-<p>We use vector embeddings to perform semantic search of relevant texts to prompts. The vectors for a collection of texts must be stored for retrieval. In simple applications, the vectors can be in-memory which does not require any external services. However, in more complex applications and also to save time in generating the embeddings for a large collection of texts, we can use a vector index.</p>
-<p>A vector index stores pre-computed vector embeddings for a collection og texts. This saves time by not requiring repeated processing of texts to generate these embeddings. Also, most vector indices implement efficient approximate retrieval algorithms that make searching for millions or billions of vectors fast.</p>
-<section id="qdrant">
-<h3>Qdrant<a class="headerlink" href="#qdrant" title="Permalink to this heading">#</a></h3>
-<p>The LLM4Data implement support for Qdrant for indexing of vector embeddings.</p>
-<p>Qdrant can be easily set up using its official docker image.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">p</span> <span class="mi">6333</span><span class="p">:</span><span class="mi">6333</span> <span class="n">qdrant</span><span class="o">/</span><span class="n">qdrant</span>
-</pre></div>
-</div>
-<p>Please check the <a class="reference external" href="https://hub.docker.com/r/qdrant/qdrant">official page</a> for updates.</p>
-<p>Here’s the relevant variables in the <code class="docutils literal notranslate"><span class="pre">.env</span></code> file that must be updated.</p>
-<div class="highlight-## notranslate"><div class="highlight"><pre><span></span># VECTOR INDEX
-QDRANT_URL=&quot;localhost&quot;
-QDRANT_PORT=6333
-QDRANT_PATH=
-</pre></div>
-</div>
-<section id="monitoring-qdrant">
-<h4>Monitoring Qdrant<a class="headerlink" href="#monitoring-qdrant" title="Permalink to this heading">#</a></h4>
-<p>Qdrant has implemented a lightweight interface to show to monitor the status of the Qdrant service. The Qdrant UI is available at the following URL:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>https://github.com/qdrant/qdrant-web-ui
-</pre></div>
-</div>
-<p>Clone the repo, install serve and vite, and run in development mode.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/qdrant/qdrant-web-ui.git
-<span class="nb">cd</span><span class="w"> </span>qdrant-web-ui
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">#</a></h2>
+<section id="metadata-augmentation-for-microdata">
+<h3>1. Metadata Augmentation for Microdata<a class="headerlink" href="#metadata-augmentation-for-microdata" title="Permalink to this heading">#</a></h3>
+<section id="automated-theme-generation">
+<h4>1.1. Automated theme generation<a class="headerlink" href="#automated-theme-generation" title="Permalink to this heading">#</a></h4>
+<p>We implement an LLM-powered theme generation method to generate themes for microdata. The method is based on the assumption that variable labels and descriptions that accompany the microdata can be used to generate themes for the microdata. The method is implemented in the <code class="docutils literal notranslate"><span class="pre">llm4data.augmentation.microdata.theme_llm</span></code> module.</p>
+<p>The method is based on the following steps:</p>
+<ul class="simple">
+<li><p>Extract variable labels and descriptions from the microdata.</p></li>
+<li><p>Cluster the variable labels and descriptions using an embedding model and a clustering model.</p></li>
+<li><p>For each cluster, generate theme(s) using the LLM model.</p></li>
+<li><p>Utilize self-consistent prompting and LLM-agent QA to automate the process of reducing the likelihood of generating themes that are not relevant to the microdata.</p></li>
+<li><p>The generated themes can then be validated by human experts before the final themes are selected for the microdata.</p></li>
+</ul>
+<p><strong>Example</strong></p>
+<p>For a given idno from the microdata library, the method can be used as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">llm4data.augmentation.microdata.theme_llm</span> <span class="kn">import</span> <span class="n">ThemeLLM</span>
 
-npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>serve
-npm<span class="w"> </span>install<span class="w"> </span>vite
+<span class="n">theme_llm</span> <span class="o">=</span> <span class="n">ThemeLLM</span><span class="p">(</span>
+    <span class="n">idno</span><span class="o">=</span><span class="n">idno</span><span class="p">,</span>
+    <span class="n">llm_model_id</span><span class="o">=&lt;</span><span class="n">llm_model_id</span><span class="o">&gt;</span><span class="p">,</span>  <span class="c1"># Defaults to gpt-3.5-turbo</span>
+    <span class="n">catalog_url</span><span class="o">=&lt;</span><span class="n">catalog_url</span><span class="o">&gt;</span><span class="p">,</span>  <span class="c1"># Defaults to https://microdata.worldbank.org/index.php/api/catalog/</span>
+<span class="p">)</span>
 
-npm<span class="w"> </span>start
+<span class="c1"># Generate themes</span>
+<span class="n">microdata_themes</span> <span class="o">=</span> <span class="n">theme_llm</span><span class="o">.</span><span class="n">get_processed_themes</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>You will then be able to see stats on the Qdrant service.</p>
 </section>
 </section>
-</section>
-<section id="summary">
-<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
-<p>After following this guide, you should be able to start storing the indicators data into a PostgreSQL database. Should also be able to start inserting vector embeddings into a Qdrant vector index.</p>
-<p>Watch out for future guides to get started with different databases or vector indices as we introduce more features into LLM4Data!</p>
 </section>
 </section>
 
@@ -682,7 +637,7 @@ npm<span class="w"> </span>start
         },
         kernelOptions: {
             name: "python3",
-            path: "./notebooks/examples/getting-started"
+            path: "./llm4data/augmentation"
         },
         predefinedOutput: true
     }
@@ -697,19 +652,12 @@ npm<span class="w"> </span>start
             <footer class="bd-footer-article">
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-  <a class='left-prev' id="prev-link" href="openai-api.html" title="previous page">
+  <a class='left-prev' id="prev-link" href="../../GUIDE.html" title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
           <p class="prev-next-subtitle">previous</p>
-          <p class="prev-next-title">OpenAI API</p>
+          <p class="prev-next-title">Guide for indexing documents and data</p>
       </div>
-  </a>
-  <a class='right-next' id="next-link" href="../indicators/README.html" title="next page">
-  <div class="prev-next-info">
-      <p class="prev-next-subtitle">next</p>
-      <p class="prev-next-title">Indicators</p>
-  </div>
-  <i class="fa-solid fa-angle-right"></i>
   </a>
 </div>
             </footer>
@@ -728,40 +676,28 @@ npm<span class="w"> </span>start
 <nav id="bd-toc-nav" class="page-toc">
     <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#database">
-   Database
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#postgresql">
-     PostgreSQL
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vector-index">
-   Vector Index
+  <a class="reference internal nav-link" href="#methods">
+   Methods
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#qdrant">
-     Qdrant
+    <a class="reference internal nav-link" href="#metadata-augmentation-for-microdata">
+     1. Metadata Augmentation for Microdata
     </a>
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#monitoring-qdrant">
-       Monitoring Qdrant
+      <a class="reference internal nav-link" href="#automated-theme-generation">
+       1.1. Automated theme generation
       </a>
      </li>
     </ul>
    </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#summary">
-   Summary
-  </a>
  </li>
 </ul>
 
@@ -817,8 +753,8 @@ Last updated on Jan 08, 2024.<br>
   
     
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
+  <script src="../../_static/scripts/bootstrap.js?digest=796348d33e8b1d947c94"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=796348d33e8b1d947c94"></script>
 
   </body>
 </html>
