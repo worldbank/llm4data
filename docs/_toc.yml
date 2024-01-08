@@ -12,6 +12,7 @@ parts:
         - file: notebooks/examples/getting-started/setting-up-database-sqlite.ipynb
         - file: notebooks/examples/getting-started/setting-up-database-postgresql.ipynb
       - file: notebooks/examples/getting-started/setting-up-vectorstore.ipynb
+
   - caption: Development Data
     chapters:
       - file: notebooks/examples/indicators/README
@@ -21,3 +22,7 @@ parts:
   - caption: Indexing documents and data
     chapters:
       - file: GUIDE.md
+
+  - caption: Metadata augmentation
+    chapters:
+      - file: llm4data/augmentation/Augmentation
