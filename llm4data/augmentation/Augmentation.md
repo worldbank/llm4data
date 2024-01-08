@@ -21,3 +21,20 @@ The method is based on the following steps:
 - For each cluster, generate theme(s) using the LLM model.
 - Utilize self-consistent prompting and LLM-agent QA to automate the process of reducing the likelihood of generating themes that are not relevant to the microdata.
 - The generated themes can then be validated by human experts before the final themes are selected for the microdata.
+
+**Example**
+
+For a given idno from the microdata library, the method can be used as follows:
+
+```python
+from llm4data.augmentation.microdata.theme_llm import ThemeLLM
+
+theme_llm = ThemeLLM(
+    idno=idno,
+    llm_model_id=<llm_model_id>,  # Defaults to gpt-3.5-turbo
+    catalog_url=<catalog_url>,  # Defaults to https://microdata.worldbank.org/index.php/api/catalog/
+)
+
+# Generate themes
+microdata_themes = theme_llm.get_processed_themes()
+```
