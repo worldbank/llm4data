@@ -6,6 +6,10 @@ Metadata augmentation is a process of adding metadata to the original metadata t
 
 We use automated methods to augment the metadata. The methods rely on AI and NLP techniques. The techniques currently include: language models (LLMs), vector embedding, clustering, and self-consistent prompting.
 
+Below is a diagram of the theme generation process:
+
+![Theme generation](https://raw.githubusercontent.com/worldbank/llm4data/main/img/Theme%20Generation%20Framework%20-%20Full%20Crop.png)
+
 
 ## Methods
 
