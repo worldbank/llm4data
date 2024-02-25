@@ -1,6 +1,6 @@
 """Base classes for embedding models."""
 from typing import Union, Optional
-from langchain import embeddings as langchain_embeddings
+from langchain_community import embeddings as langchain_embeddings
 from pydantic.main import ModelMetaclass
 from qdrant_client.http import models
 from pydantic.main import ModelMetaclass
