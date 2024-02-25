@@ -1,4 +1,4 @@
-from llm_space.prompt import PromptZeros
+from llm_space.openai.prompt import PromptZeros
 from llm4data import configs
 
 

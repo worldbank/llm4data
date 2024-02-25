@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "llm4data"
-version = "0.0.6"
+version = "0.0.7"
 description = "LLM4Data is a Python library designed to facilitate the application of large language models (LLMs) and artificial intelligence for development data and knowledge discovery."
 authors = ["Aivin V. Solatorio <avsolatorio@gmail.com>"]
 readme = "README.md"
