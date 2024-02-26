@@ -1,7 +1,7 @@
 from typing import Optional, Union
 from pathlib import Path
 from langchain.docstore.document import Document
-from langchain.document_loaders import PyMuPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import (
     NLTKTextSplitter,
     CharacterTextSplitter,

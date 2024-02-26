@@ -5,10 +5,20 @@ from pydantic.main import ModelMetaclass
 from qdrant_client.http import models
 from pydantic.main import ModelMetaclass
 from dataclasses import dataclass, asdict
-
+import torch
 
 # Make the model atomically available
 LOADED_MODELS: dict = {}
+
+
+def get_device():
+    device = "cpu"
+    if torch.cuda.device_count() > 0:
+        device = "cuda:0"
+    elif torch.backends.mps.is_available():
+        device = "mps:0"
+
+    return device
 
 
 @dataclass
@@ -101,7 +111,7 @@ class EmbeddingModel(BaseEmbeddingModel):
             raise ValueError("`config.kwargs` must be a dict")
 
         self.embeddings = getattr(langchain_embeddings, self.embedding_cls)(
-            **self.kwargs
+            **{"model_kwargs": {"device": get_device()}, **self.kwargs}
         )
 
         if self.max_tokens is None and self.embeddings:

@@ -106,5 +106,5 @@ def main(path: Union[str, Path], strict: bool = False):
 
 
 if __name__ == "__main__":
-    # python -m llm4data.scripts.indexing.docs.load_docs --path=data/knowledge/docs/prwp/pdf --strict
+    # python -m llm4data.scripts.indexing.docs.load_docs --path=data/sources/docs/prwp/pdf --strict
     fire.Fire(main)
