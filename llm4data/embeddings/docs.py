@@ -15,7 +15,7 @@ def get_docs_embeddings():
 
     if DOCS_EMBEDDINGS is None:
         DOCS_EMBEDDINGS = DocsEmbedding(
-            model_name="all-MiniLM-L6-v2",
+            model_name="avsolatorio/GIST-small-Embedding-v0",
             distance="Cosine",
             embedding_cls="HuggingFaceEmbeddings",
             is_instruct=False,

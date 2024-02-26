@@ -1,6 +1,6 @@
 import os
 from typing import Optional, Union
-from langchain.vectorstores import Qdrant
+from langchain_community.vectorstores import Qdrant
 import qdrant_client
 from qdrant_client.http import models
 
