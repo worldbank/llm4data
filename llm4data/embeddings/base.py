@@ -71,7 +71,7 @@ class EmbeddingModel(BaseEmbeddingModel):
             self.size = self.model_size[self.model_name]
 
         if self.collection_name is None:
-            self.collection_name = f"{self.data_type}_{self.model_name}"
+            self.collection_name = f"{self.data_type}_{self.model_name.replace('/', '_')}"
 
     def _instruct_init(self):
         assert isinstance(self.kwargs, dict)
