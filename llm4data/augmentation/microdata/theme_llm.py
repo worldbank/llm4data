@@ -87,7 +87,7 @@ class ThemeLLM(object):
     - an idno of a study in the form of a string. The data dictionary will be retrieved from a specified NADA catalog.
     """
 
-    def __init__(self, idno: str, llm_model_id: str = "gpt-3.5-turbo", data_dictionary: Union[str, Path, dict] = None, catalog_url: str = None, vars_dir: Union[str, Path] = None, desc_dir: Union[str, Path] = None, force: bool = False, persist: bool = True):
+    def __init__(self, idno: str, llm_model_id: str = "gpt-3.5-turbo", data_dictionary: Union[str, Path, dict] = None, catalog_url: str = None, vars_dir: Union[str, Path] = None, desc_dir: Union[str, Path] = None, force: bool = False, persist: bool = True, system_message: str = SYSTEM_MESSAGE):
         """
         Initialize the ThemeLLM object.
 
@@ -127,6 +127,7 @@ class ThemeLLM(object):
 
         # Set the LLM model id.
         self.llm_model_id = llm_model_id
+        self.system_message = system_message
 
         # State variables
         self.clusters = None
@@ -251,7 +252,7 @@ class ThemeLLM(object):
 
         return aggcl.fit_predict(tsvd.fit_transform(embeddings))
 
-    def generate_prompts(self, force: bool = False, system_message: str = SYSTEM_MESSAGE, max_input_tokens: int = 2500, system_num_tokens: int = 100, special_sep: str = SPECIAL_SEP):
+    def generate_prompts(self, force: bool = False, system_message: str = None, max_input_tokens: int = 2500, system_num_tokens: int = 100, special_sep: str = SPECIAL_SEP):
         """
         Generate the prompts for the microdata variables.
         """
@@ -260,6 +261,9 @@ class ThemeLLM(object):
             self.semantic_enrichment()
 
         idno_data = []
+
+        # Set the system message.
+        system_message = system_message or self.system_message
 
         for cluster in tqdm(self.clusters["cluster"].keys()):
             cluster_labels = self.clusters["cluster"][cluster]
